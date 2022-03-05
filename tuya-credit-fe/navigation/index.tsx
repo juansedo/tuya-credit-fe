@@ -61,6 +61,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="HomeTab"
       screenOptions={{
+        headerTitle: '',
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#fff',
         tabBarStyle: {
@@ -75,6 +76,10 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<'HomeTab'>) => ({
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerStyle: {
+            backgroundColor: AppColors.redColor
+          },
+          headerTintColor: '#fff',
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -84,7 +89,7 @@ function BottomTabNavigator() {
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color='#fff'
                 style={{ marginRight: 15 }}
               />
             </Pressable>
@@ -97,6 +102,10 @@ function BottomTabNavigator() {
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerStyle: {
+            backgroundColor: AppColors.redColor
+          },
+          headerTintColor: '#fff',
         }}
       />
       <BottomTab.Screen
@@ -105,6 +114,10 @@ function BottomTabNavigator() {
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerStyle: {
+            backgroundColor: AppColors.redColor
+          },
+          headerTintColor: '#fff',
         }}
       />
     </BottomTab.Navigator>
