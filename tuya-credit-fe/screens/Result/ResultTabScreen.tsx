@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
+import AmortizationTable from '../../components/results/amortizationTable/AmortizationTable';
+import CostSummary from '../../components/results/costSummary/CostSummary';
+
 
 export default function ResultTabScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Three</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/SimulationTabScreen.tsx" />
+      <CostSummary totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} />
+      <AmortizationTable totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} />
     </View>
   );
 }
