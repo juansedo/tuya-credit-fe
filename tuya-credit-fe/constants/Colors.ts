@@ -1,6 +1,7 @@
 export const AppColors = {
   redColor: '#ED1C29',  
-  redWineColor: '#B81621'
+  redWineColor: '#B81621',
+  orangeColor: '#FF8C00',
 }
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
