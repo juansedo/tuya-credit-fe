@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import AmortizationTable from '../../components/results/amortizationTable/AmortizationTable';
 import CostSummary from '../../components/results/costSummary/CostSummary';
@@ -6,16 +6,19 @@ import CostSummary from '../../components/results/costSummary/CostSummary';
 
 export default function ResultTabScreen() {
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
       <CostSummary totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} />
       <AmortizationTable totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} />
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  contentContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },

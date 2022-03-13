@@ -3,6 +3,7 @@ import React from 'react'
 import { Table, TableWrapper, Rows, Row } from 'react-native-table-component'
 import TableRow from './tableRow'
 import { useState } from 'react';
+import { AppColors } from '../../../constants/Colors'
 
 
 
@@ -33,6 +34,7 @@ const AmortizationTable = ({ totalAmount, feesNumber, handlingFee, interestRate 
                 index={index + 1}
                 date={buyMonth.toLocaleDateString('es_ES')}
                 fee={fee}
+                key={index}
                 amortizationFee={amortizationFee}
                 totalAmount={totalAmount}
             />
@@ -40,23 +42,23 @@ const AmortizationTable = ({ totalAmount, feesNumber, handlingFee, interestRate 
     })
 
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <Text style={styles.title} onPress={() => setCollapsed(!collapsed)}>Detalles</Text>
-            <View style={display}>
+            <View style={[display, styles.container]}>
                 <Table borderStyle={{ borderWidth: 0, borderColor: '#c8e1ff' }}>
                     <Row style={styles.head} textStyle={styles.text} data={['#', 'Fecha', 'Cuota', 'Acciones']} flexArr={[1, 2, 2, 2]}></Row>
                     {tableRows}
                 </Table>
             </View>
-        </ScrollView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     show: { display: 'flex' },
-    hide: { height: 0 },
+    hide: { display: 'flex' },
     container: { flex: 1, backgroundColor: '#fff', width: '100%', marginBottom: 20 },
-    head: { height: 40, backgroundColor: '#ED1C29' },
+    head: { height: 40, backgroundColor: AppColors.redColor },
     text: { margin: 6, textAlign: 'center', color: 'black' },
     title: { margin: 6, textAlign: 'center', color: 'black' }
 });
