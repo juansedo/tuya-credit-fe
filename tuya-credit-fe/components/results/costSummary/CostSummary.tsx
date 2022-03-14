@@ -13,7 +13,7 @@ type Props = {
 const CostSummary = ({ totalAmount, feesNumber, handlingFee, interestRate }: Props) => {
     return (
         <View>
-            <Text>Con tu tarjeta MasterCard</Text>
+            <Text style={styles.title}>Con tu tarjeta MasterCard...</Text>
             <View style={styles.inputDataContainer}>
                 <View style={[styles.fees, styles.inputContainer]}>
                     <Text style={styles.inputText} >Cuotas </Text>
@@ -28,23 +28,27 @@ const CostSummary = ({ totalAmount, feesNumber, handlingFee, interestRate }: Pro
                     </View>
                 </View>
             </View>
-            <Text>¡Edita las cuotas o el interés si lo deseas probar!</Text>
-            <View>
-                <Text style={styles.redText}>Paga {feesNumber} cuotas mensuales de...</Text>
-                <Text style={styles.redText}>175.973,53</Text>
-                <View style={styles.feeDetailsContainer}>
-                    <View>
-                        <Text>Detalle</Text>
-                        <Text>Cuota Mensual</Text>
-                        <Text>Cuota de manejo</Text>
-                    </View>
-                    <View>
-                        <Text>Costo</Text>
-                        <Text> 162000</Text>
-                        <Text> 13000</Text>
+            <Text style={styles.topText}>¡Edita las cuotas o el interés si lo deseas probar!</Text>
+            <View style={styles.summary}>
+                <View style={styles.creditCard}></View>
+                <View>
+                    <Text style={styles.redText}>Paga {feesNumber} cuotas mensuales de...</Text>
+                    <Text style={[styles.redText, styles.feeValue]}>175.973,53</Text>
+                    <View style={styles.feeDetailsContainer}>
+                        <View>
+                            <Text style={styles.bold}>Detalle</Text>
+                            <Text>Cuota Mensual</Text>
+                            <Text>Cuota de manejo</Text>
+                        </View>
+                        <View>
+                            <Text style={styles.bold}>Costo</Text>
+                            <Text> 162000</Text>
+                            <Text> 13000</Text>
+                        </View>
                     </View>
                 </View>
             </View>
+
         </View>
     )
 }
@@ -59,8 +63,14 @@ const styles = StyleSheet.create({
     inputValueContainer: { backgroundColor: '#fff', color: '#fff', width: 90, marginVertical: 2 },
     redText: { color: AppColors.redColor },
     orangeText: { color: AppColors.orangeColor },
-    inputValueText: { fontSize: 17, textAlign: 'center' },
-    feeDetailsContainer: { flexDirection: 'row', justifyContent: 'space-around' }
+    inputValueText: { fontSize: 17, textAlign: 'center', fontWeight: '700' },
+    feeDetailsContainer: { flexDirection: 'row', justifyContent: 'space-around' },
+    creditCard: { width: '30%', backgroundColor: 'red', marginRight: 15 },
+    summary: { flexDirection: 'row' },
+    feeValue: { fontSize: 20, textAlign: 'right', fontWeight: 'bold' },
+    topText: { textAlign: 'center', marginBottom: 20 },
+    title: { fontSize: 20, fontWeight: 'bold', marginVertical: 10 },
+    bold: { fontWeight: 'bold' }
 });
 
 export default CostSummary
