@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
-import AmortizationTable from '../../components/results/amortizationTable/AmortizationTable';
+import AmortizationTable from '../../components/results/amortizationTable/';
 import CostSummary from '../../components/results/costSummary/CostSummary';
 
 

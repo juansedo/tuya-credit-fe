@@ -1,32 +1,21 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
-import { TableWrapper, Cell } from 'react-native-table-component';
+import { TableWrapper, Cell } from 'react-native-table-component'
 import { AppColors } from '../../../../constants/Colors'
+import { fee } from '../../../../types'
 
-type TableRowProps = {
-    index: number,
-    date: string,
-    fee: number,
-    amortizationFee: number,
-    totalAmount: number
-}
-
-function currencyFormat(num: Number) {
-    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-}
-
-const Details = ({ index, date, fee, amortizationFee, totalAmount }: TableRowProps) => (
+const Details = (fee: fee) => (
 
     <TouchableOpacity
         onPress={() => Alert.alert(
             "Detalles de la cuota",
             `
-Numero de cuota: ${index}\n
-Fecha de pago: ${date}\n
-Valor base: ${currencyFormat(amortizationFee)}\n
-intereses: ${currencyFormat(fee - amortizationFee)}\n
-Valor total: ${currencyFormat(fee)}\n
-saldo pendiente: ${currencyFormat(totalAmount - amortizationFee * index)}
+Numero de cuota: ${fee.number}\n
+Fecha de pago: ${fee.date}\n
+Valor base: ${fee.amortizationValue}\n
+intereses: ${fee.interestValue}\n
+Valor total: ${fee.value}\n
+saldo pendiente: ${fee.balance}
             `,
             [
                 { text: "cerrar", onPress: () => console.log("OK Pressed") }
@@ -36,14 +25,14 @@ saldo pendiente: ${currencyFormat(totalAmount - amortizationFee * index)}
     </TouchableOpacity>
 );
 
-const TableRow = ({ index, date, fee, amortizationFee, totalAmount }: TableRowProps) => {
+const TableRow = ({ fee }: { fee: fee }) => {
 
     return (
-        <TableWrapper key={index} style={styles.row}>
-            <Cell key={0} data={index} textStyle={styles.text} flex={1} />
-            <Cell key={1} data={date} textStyle={styles.text} flex={2} />
-            <Cell key={2} data={currencyFormat(fee)} textStyle={styles.text} flex={2} />
-            <Cell key={3} data={Details({ index, date, fee, amortizationFee, totalAmount })} textStyle={styles.text} flex={2} />
+        <TableWrapper key={fee.number} style={styles.row}>
+            <Cell key={0} data={fee.number} textStyle={styles.text} flex={1} />
+            <Cell key={1} data={fee.date} textStyle={styles.text} flex={2} />
+            <Cell key={2} data={fee.value} textStyle={styles.text} flex={2} />
+            <Cell key={3} data={Details(fee)} textStyle={styles.text} flex={2} />
         </TableWrapper>
     )
 }
