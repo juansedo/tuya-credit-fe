@@ -15,7 +15,7 @@ export const getDecreasingFees = (feesNumber:number, interestRate:number, totalA
     const buyMonth: Date = new Date();
 
     const buyFee: fee = {
-        date: buyMonth.toDateString(),
+        date: buyMonth.toLocaleDateString('es_ES'),
         value: '0',
         amortizationValue: '0',
         balance: currencyFormat(totalAmount),
@@ -26,7 +26,7 @@ export const getDecreasingFees = (feesNumber:number, interestRate:number, totalA
     buyMonth.setMonth(buyMonth.getMonth() + 1);
 
     const firstMonth: fee = {
-        date: buyMonth.toDateString(),
+        date: buyMonth.toLocaleDateString('es_ES'),
         value: currencyFormat(amortizationFee),
         amortizationValue: currencyFormat(amortizationFee),
         interestValue: currencyFormat(0),
@@ -37,11 +37,11 @@ export const getDecreasingFees = (feesNumber:number, interestRate:number, totalA
 
     const fees: Array<fee> = [buyFee, firstMonth]
 
-    for (let i = 2; i < feesNumber; i++) {
+    for (let i = 2; i <= feesNumber; i++) {
         buyMonth.setMonth(buyMonth.getMonth() + 1);
         let feeValue = amortizationFee + (totalAmount - amortizationFee * i) * interestRate;
         fees.push({
-            date: buyMonth.toDateString(),
+            date: buyMonth.toLocaleDateString('es_ES'),
             value: currencyFormat(feeValue),
             amortizationValue: currencyFormat(amortizationFee),
             interestValue: currencyFormat(feeValue - amortizationFee),
