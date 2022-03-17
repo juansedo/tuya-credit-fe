@@ -19,14 +19,14 @@ export const getAnnuityFees = (feesNumber:number, interestRate:number, totalAmou
 
     const fees: Array<fee> = [buyFee]
 
-    for (let i = 2; i <= feesNumber; i++) {
+    for (let i = 1; i <= feesNumber; i++) {
         buyMonth.setMonth(buyMonth.getMonth() + 1);
         fees.push({
             date: buyMonth.toLocaleDateString('es_ES'),
             value: currencyFormat(annuity),
             amortizationValue: currencyFormat(annuity),
             interestValue: currencyFormat(0),
-            balance: currencyFormat( annuity * (  (Math.pow((1 + interestRate), feesNumber-i+1) - 1) / (Math.pow((1 + interestRate), feesNumber-i+1) * interestRate))),
+            balance: currencyFormat( annuity * (  (Math.pow((1 + interestRate), feesNumber-i) - 1) / (Math.pow((1 + interestRate), feesNumber-i) * interestRate))),
             number: i,
             handlingFeeValue: currencyFormat(handlingFee)
         });
@@ -61,17 +61,28 @@ export const getDecreasingFees = (feesNumber:number, interestRate:number, totalA
         handlingFeeValue: currencyFormat(handlingFee)
     }
 
-    const fees: Array<fee> = [buyFee, firstMonth]
+    const secondMonthValue = amortizationFee + totalAmount * interestRate + (totalAmount - amortizationFee) * interestRate;
+    const secondMonth: fee = {
+        date: buyMonth.toLocaleDateString('es_ES'),
+        value: currencyFormat(secondMonthValue),
+        amortizationValue: currencyFormat(amortizationFee),
+        interestValue: currencyFormat(secondMonthValue - amortizationFee),
+        balance: currencyFormat(totalAmount - amortizationFee*2),
+        number : 2,
+        handlingFeeValue: currencyFormat(handlingFee)
+    }
 
-    for (let i = 2; i <= feesNumber; i++) {
+    const fees: Array<fee> = [buyFee, firstMonth, secondMonth]
+
+    for (let i = 3; i <= feesNumber; i++) {
         buyMonth.setMonth(buyMonth.getMonth() + 1);
-        let feeValue = amortizationFee + (totalAmount - amortizationFee * i) * interestRate;
+        let feeValue = amortizationFee + (totalAmount - amortizationFee * (i-1)) * interestRate;
         fees.push({
             date: buyMonth.toLocaleDateString('es_ES'),
             value: currencyFormat(feeValue),
             amortizationValue: currencyFormat(amortizationFee),
             interestValue: currencyFormat(feeValue - amortizationFee),
-            balance: currencyFormat(totalAmount - (amortizationFee * (i - 1))),
+            balance: currencyFormat(totalAmount - (amortizationFee * (i))),
             number: i,
             handlingFeeValue: currencyFormat(handlingFee)
         
