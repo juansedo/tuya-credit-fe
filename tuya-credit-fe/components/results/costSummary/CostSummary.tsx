@@ -1,16 +1,38 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ToastAndroid } from 'react-native'
 import React from 'react'
 import { AppColors } from '../../../constants/Colors'
 import App from '../../../App'
+import { getAnnuityValue, getDecreasingValues } from '../../../utils/helpers';
 
 type Props = {
     totalAmount: number,
     feesNumber: number,
     handlingFee: number,
-    interestRate: number
+    interestRate: number,
+    cardType: string
 }
 
-const CostSummary = ({ totalAmount, feesNumber, handlingFee, interestRate }: Props) => {
+const CostSummary = ({ totalAmount, feesNumber, handlingFee, interestRate, cardType }: Props) => {
+
+    let feesData: JSX.Element;
+    let feesDataText: string;
+
+    if (cardType === "mastercard") {
+        let feeValues = getDecreasingValues(feesNumber, interestRate, totalAmount);
+        feesData = <View>
+            <Text style={[styles.redText, styles.feeValue]}> <Text style={styles.small}>Max. </Text> {feeValues[0]}</Text>
+            <Text style={[styles.redText, styles.feeValue]}> <Text style={styles.small}>Min. </Text>{feeValues[1]}</Text>
+        </View>;
+
+        feesDataText = feeValues[0] + " - " + feeValues[1];
+    }
+    else {
+        let feeValue = getAnnuityValue(feesNumber, interestRate, totalAmount);
+        feesData = <Text style={[styles.redText, styles.feeValue]}>{feeValue}</Text>;
+
+        feesDataText = feeValue
+    }
+
     return (
         <View>
             <Text style={styles.title}>Con tu tarjeta MasterCard...</Text>
@@ -33,17 +55,17 @@ const CostSummary = ({ totalAmount, feesNumber, handlingFee, interestRate }: Pro
                 <View style={styles.creditCard}></View>
                 <View>
                     <Text style={styles.redText}>Paga {feesNumber} cuotas mensuales de...</Text>
-                    <Text style={[styles.redText, styles.feeValue]}>175.973,53</Text>
+                    {feesData}
                     <View style={styles.feeDetailsContainer}>
                         <View>
                             <Text style={styles.bold}>Detalle</Text>
-                            <Text>Cuota Mensual</Text>
-                            <Text>Cuota de manejo</Text>
+                            <Text style={styles.small}>Cuota Mensual</Text>
+                            <Text style={styles.small}>Cuota de manejo</Text>
                         </View>
                         <View>
                             <Text style={styles.bold}>Costo</Text>
-                            <Text> 162000</Text>
-                            <Text> 13000</Text>
+                            <Text style={styles.small}>{feesDataText}</Text>
+                            <Text style={styles.small}> {handlingFee}</Text>
                         </View>
                     </View>
                 </View>
@@ -70,7 +92,8 @@ const styles = StyleSheet.create({
     feeValue: { fontSize: 20, textAlign: 'right', fontWeight: 'bold' },
     topText: { textAlign: 'center', marginBottom: 20 },
     title: { fontSize: 20, fontWeight: 'bold', marginVertical: 10 },
-    bold: { fontWeight: 'bold' }
+    bold: { fontWeight: 'bold' },
+    small: { fontSize: 12 }
 });
 
 export default CostSummary

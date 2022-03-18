@@ -7,7 +7,7 @@ import CostSummary from '../../components/results/costSummary/CostSummary';
 export default function ResultTabScreen() {
   return (
     <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
-      <CostSummary totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} />
+      <CostSummary totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} cardType={"mastercard"} />
       <AmortizationTable totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} />
     </ScrollView>
   );
