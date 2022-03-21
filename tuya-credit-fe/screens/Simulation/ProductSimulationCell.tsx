@@ -4,21 +4,26 @@ import { Text, View } from '../../components/Themed';
 import {AppColors} from '../../constants/Colors'
 import XIcon from '../../assets/images/svg/XIcon';
 import ProductModel from '../../models/ProductModel';
+import { valueToNode } from '@babel/types';
 
 interface ProductSimulationCellProps {
     data: ProductModel,
+    setIdToDelete: React.Dispatch<React.SetStateAction<number>>
 }
 
 export default function ProductSimulationCell(props: ProductSimulationCellProps) {
+    let Image_Http_URL = {uri: props.data.item.image_url};
+    console.log(props);
     return (
         <View style={styles.mainView}>
             <View style={[styles.customView, styles.row]}> 
                 <Image
                     style={styles.image}
-                    source={require('../../assets/images/favicon.png')}/>
-                <ProductTitle/>
+                    source={Image_Http_URL}/>
+                <ProductTitle productInfo={props.data.item} setIdToDelete={props.setIdToDelete}/>
                 <TouchableOpacity
                     activeOpacity={0.5}
+                    onPress={() => props.setIdToDelete(props.data.item.id)}
                     style={{
                         top: 10,
                         width: 20,
@@ -26,13 +31,17 @@ export default function ProductSimulationCell(props: ProductSimulationCellProps)
                         right: 20,
                     }}>
                         <XIcon/>
-            </TouchableOpacity>
+                </TouchableOpacity>
             </View>
         </View>
     )
 }
 
-function ProductTitle() {
+function ProductTitle(props: {
+    productInfo: ProductModel,
+    setIdToDelete: React.Dispatch<React.SetStateAction<number>>,
+}) {
+    const [totalItems, setTotalItems] = useState(1)
     return (
         <View style={{
             flex: 1,
@@ -41,49 +50,54 @@ function ProductTitle() {
         }}>
             <View style={styles.row}>
                 <Text style={styles.boldText}>Red:</Text>
-                <Text>22343432323344</Text>
+                <Text>{props.productInfo.id}</Text>
             </View>
             <Text style={{
                 flexWrap: 'wrap'
             }}>
-                Xiaomi Mi 11 Lite (128 GB, 6 GB) 6.55 pulgadas 90 Hz AMOLED
+                {props.productInfo.description}
             </Text>
             <View style={styles.subtotalContainer}>
-                <SubtotalView/>
+                <SubtotalView totalItems={totalItems} value={props.productInfo.value}/>
                 <View style={{
                         flexDirection: 'row-reverse',
                         marginLeft: 20,
                     }}>
-                    <SubtotalButtons/>
+                    <SubtotalButtons totalItems={totalItems} setTotalItems={setTotalItems} id={props.productInfo.id} setIdToDelete={props.setIdToDelete}/>
                 </View>
             </View>
         </View>
     )
 }
  
-function SubtotalView() {
+function SubtotalView(props: {value: number ,totalItems: number}) {
     return (
         <View style={styles.subtotalView}>
             <Text style={styles.whiteColor}>
                 Subtotal:
             </Text>
             <Text style={[styles.boldText, styles.whiteColor]}>
-                1’200.000,00 COP
+                {props.value * props.totalItems} COP
             </Text>
         </View>
     )
 }
 
-function SubtotalButtons() {
-    const [totalItems, setTotalItems] = useState(1)
-
+function SubtotalButtons(props: {
+    totalItems: number, 
+    setTotalItems: React.Dispatch<React.SetStateAction<number>>,
+    setIdToDelete: React.Dispatch<React.SetStateAction<number>>,
+    id: number
+}) {
     const sumItem = () => {
-        setTotalItems(totalItems+1)
+        props.setTotalItems(props.totalItems+1)
     }
 
     const lestItem = () => {
-        if (totalItems > 1) {
-            setTotalItems(totalItems-1)
+        if (props.totalItems > 1) {
+            props.setTotalItems(props.totalItems-1)
+        } else {
+            props.setIdToDelete(props.id)
         }
     }
 
@@ -100,7 +114,7 @@ function SubtotalButtons() {
                     style={[styles.cuantityView, styles.cuantityButtons]}>
                     <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>-</Text>
                 </TouchableOpacity>
-                <Text style={styles.totalItemsText}>{totalItems}</Text>
+                <Text style={styles.totalItemsText}>{props.totalItems}</Text>
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => sumItem()}
@@ -119,7 +133,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     customView: {
-       flex: 1,
+        flex: 1,
     },
     boldText: {
         fontWeight: 'bold'
@@ -131,6 +145,7 @@ const styles = StyleSheet.create({
     image: {
         aspectRatio: 1,
         height: '100%',
+        resizeMode: 'contain'
     },
     cuantityButtons: {
         backgroundColor: AppColors.redWineColor,
