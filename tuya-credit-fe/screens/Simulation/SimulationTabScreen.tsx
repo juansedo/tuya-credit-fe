@@ -2,31 +2,40 @@ import { StyleSheet, FlatList,  } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
+import ProductModel from '../../models/ProductModel';
 import ProductSimulationCell from './ProductSimulationCell';
 
-type DATA = {
-  id: number;
-}
-
 interface SimulationTabScreenProps {
-  data: [DATA]
+  data: [ProductModel]
 }
 
 export default function SimulationTabScreen(props: SimulationTabScreenProps) {
-  const DAT = [
+  let data = [
     {
-      id: 1, 
-      name: "Camilo"
-    }, 
+      id: 1,
+      ref: "ref",
+      image_url: "url",
+      description: "description",
+      value: 1000,
+      discount_percent: 0.1,
+      special_discount_percent: 0.2,
+      warehouse: "warehouse",
+    },
     {
       id: 2,
-      name: "Laura"
+      ref: "re2",
+      image_url: "ur2",
+      description: "description2",
+      value: 2000,
+      discount_percent: 0.2,
+      special_discount_percent: 0.4,
+      warehouse: "warehouse2",
     }
   ]
   return (
     <View style={styles.container}>
       <FlatList
-        data={DAT}
+        data={data}
         style={styles.list}
         renderItem={ProductSimulationCell}/>
     </View>

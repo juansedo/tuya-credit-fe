@@ -1,10 +1,12 @@
 import { StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import { Text, View } from '../../components/Themed';
 import {AppColors} from '../../constants/Colors'
+import XIcon from '../../assets/images/svg/XIcon';
+import ProductModel from '../../models/ProductModel';
 
 interface ProductSimulationCellProps {
-
+    data: ProductModel,
 }
 
 export default function ProductSimulationCell(props: ProductSimulationCellProps) {
@@ -23,12 +25,7 @@ export default function ProductSimulationCell(props: ProductSimulationCellProps)
                         position: 'absolute',
                         right: 20,
                     }}>
-                    <Image
-                        style={[{
-                            width: 20,
-                            height: 20,
-                        }]}
-                        source={require('../../assets/images/X-2.png')}/>
+                        <XIcon/>
             </TouchableOpacity>
             </View>
         </View>
@@ -78,6 +75,18 @@ function SubtotalView() {
 }
 
 function SubtotalButtons() {
+    const [totalItems, setTotalItems] = useState(1)
+
+    const sumItem = () => {
+        setTotalItems(totalItems+1)
+    }
+
+    const lestItem = () => {
+        if (totalItems > 1) {
+            setTotalItems(totalItems-1)
+        }
+    }
+
     return (
         <View style={styles.cuantityView}>
             <View style={{
@@ -87,12 +96,14 @@ function SubtotalButtons() {
             }}>
                 <TouchableOpacity
                     activeOpacity={0.5}
+                    onPress={() => lestItem()}
                     style={[styles.cuantityView, styles.cuantityButtons]}>
                     <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>-</Text>
                 </TouchableOpacity>
-                <Text style={styles.totalItemsText}>2</Text>
+                <Text style={styles.totalItemsText}>{totalItems}</Text>
                 <TouchableOpacity
                     activeOpacity={0.5}
+                    onPress={() => sumItem()}
                     style={[styles.cuantityView, styles.cuantityButtons]}>
                     <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>+</Text>
                 </TouchableOpacity>
