@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName, Pressable, Image } from 'react-native';
 
 import Colors, {AppColors} from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -19,7 +19,8 @@ import SimulationTabScreen from '../screens/Simulation/SimulationTabScreen';
 import ResultTabScreen from '../screens/Result/ResultTabScreen'
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-
+import HomeIcon from '../assets/images/svg/HomeIcon';
+import SimulationIcon from '../assets/images/svg/SimulationIcon';
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
@@ -75,7 +76,7 @@ function BottomTabNavigator() {
         component={HomeTabScreen}
         options={({ navigation }: RootTabScreenProps<'HomeTab'>) => ({
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <HomeIcon/>,
           headerStyle: {
             backgroundColor: AppColors.redColor
           },
@@ -100,8 +101,8 @@ function BottomTabNavigator() {
         name="SimulationTab"
         component={SimulationTabScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Simulación',
+          tabBarIcon: ({ color }) => <SimulationIcon/>,
           headerStyle: {
             backgroundColor: AppColors.redColor
           },
@@ -112,8 +113,8 @@ function BottomTabNavigator() {
         name="ResultTab"
         component={ResultTabScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Resultado',
+          tabBarIcon: ({ color }) => <Image style={{height: 25, width: 20}} source={require('../assets/images/resultIcon.png')}/>,
           headerStyle: {
             backgroundColor: AppColors.redColor
           },
