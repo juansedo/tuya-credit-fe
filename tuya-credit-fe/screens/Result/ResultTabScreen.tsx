@@ -1,14 +1,14 @@
 import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import AmortizationTable from '../../components/results/amortizationTable/';
-import CostSummary from '../../components/results/costSummary/CostSummary';
+import CostSummary from '../../components/results/costSummary';
 
 
 export default function ResultTabScreen() {
   return (
     <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
-      <CostSummary totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} />
-      <AmortizationTable totalAmount={1200000} feesNumber={12} handlingFee={0} interestRate={0.02055} cardType={'mastercard'} />
+      <CostSummary totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} cardType={"visa"} />
+      <AmortizationTable totalAmount={1200000} feesNumber={12} handlingFee={0} interestRate={0.02055} cardType={'visa'} />
     </ScrollView>
   );
 }
