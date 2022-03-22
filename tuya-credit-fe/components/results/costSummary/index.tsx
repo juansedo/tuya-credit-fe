@@ -76,7 +76,7 @@ const CostSummary = ({ totalAmount, feesNumber, handlingFee, interestRate, cardT
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff', width: '100%', marginBottom: 20 },
+    container: { backgroundColor: '#fff', width: '100%', marginBottom: 20 },
     fees: { backgroundColor: AppColors.redColor, flex: 2, color: "#fff" },
     interest: { backgroundColor: AppColors.orangeColor, flex: 3 },
     inputContainer: { paddingHorizontal: 10, paddingVertical: 2, flexDirection: 'row', alignItems: 'center' },
