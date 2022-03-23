@@ -1,7 +1,7 @@
 import { StyleSheet, Image, TouchableOpacity, ProgressViewIOSComponent } from 'react-native'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Text, View } from '../../components/Themed';
-import {AppColors} from '../../constants/Colors'
+import { AppColors } from '../../constants/Colors'
 import XIcon from '../../assets/images/svg/XIcon';
 import ProductModel from '../../models/ProductModel';
 import Dialog from "react-native-dialog";
@@ -13,15 +13,15 @@ interface ProductSimulationCellProps {
 
 export default function ProductSimulationCell(props: ProductSimulationCellProps) {
     const [Visible, setVisible] = useState(false)
-    let Image_Http_URL = {uri: props.data.item.image_url};
+    let Image_Http_URL = { uri: props.data.item.image_url };
     console.log(props);
     return (
         <View style={styles.mainView}>
-            <View style={[styles.customView, styles.row]}> 
+            <View style={[styles.customView, styles.row]}>
                 <Image
                     style={styles.image}
-                    source={Image_Http_URL}/>
-                <ProductTitle productInfo={props.data.item} setIdToDelete={props.setIdToDelete} showAlert={setVisible}/>
+                    source={Image_Http_URL} />
+                <ProductTitle productInfo={props.data.item} setIdToDelete={props.setIdToDelete} showAlert={setVisible} />
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => setVisible(true)}
@@ -31,10 +31,10 @@ export default function ProductSimulationCell(props: ProductSimulationCellProps)
                         position: 'absolute',
                         right: 20,
                     }}>
-                        <XIcon/>
+                    <XIcon />
                 </TouchableOpacity>
                 {
-                    Visible && <AlertDelete id={props.data.item.id} setIdToDelete={props.setIdToDelete} showAlert={setVisible} visible={Visible}/>
+                    Visible && <AlertDelete id={props.data.item.id} setIdToDelete={props.setIdToDelete} showAlert={setVisible} visible={Visible} />
                 }
             </View>
         </View>
@@ -63,19 +63,19 @@ function ProductTitle(props: {
                 {props.productInfo.description}
             </Text>
             <View style={styles.subtotalContainer}>
-                <SubtotalView totalItems={totalItems} value={props.productInfo.value}/>
+                <SubtotalView totalItems={totalItems} value={props.productInfo.value} />
                 <View style={{
-                        flexDirection: 'row-reverse',
-                        marginLeft: 20,
-                    }}>
-                    <SubtotalButtons totalItems={totalItems} setTotalItems={setTotalItems} showAlert={props.showAlert}/>
+                    flexDirection: 'row-reverse',
+                    marginLeft: 20,
+                }}>
+                    <SubtotalButtons totalItems={totalItems} setTotalItems={setTotalItems} showAlert={props.showAlert} />
                 </View>
             </View>
         </View>
     )
 }
 
-function SubtotalView(props: {value: number ,totalItems: number}) {
+function SubtotalView(props: { value: number, totalItems: number }) {
     return (
         <View style={styles.subtotalView}>
             <Text style={styles.whiteColor}>
@@ -89,18 +89,18 @@ function SubtotalView(props: {value: number ,totalItems: number}) {
 }
 
 function SubtotalButtons(props: {
-    totalItems: number, 
+    totalItems: number,
     setTotalItems: React.Dispatch<React.SetStateAction<number>>,
     showAlert: React.Dispatch<React.SetStateAction<boolean>>,
 }) {
-    
+
     const sumItem = () => {
-        props.setTotalItems(props.totalItems+1)
+        props.setTotalItems(props.totalItems + 1)
     }
 
     const lestItem = () => {
         if (props.totalItems > 1) {
-            props.setTotalItems(props.totalItems-1)
+            props.setTotalItems(props.totalItems - 1)
         } else {
             props.showAlert(true)
         }
@@ -131,7 +131,7 @@ function SubtotalButtons(props: {
     )
 }
 
-const AlertDelete = (props: {    
+const AlertDelete = (props: {
     setIdToDelete: React.Dispatch<React.SetStateAction<number>>,
     showAlert: React.Dispatch<React.SetStateAction<boolean>>,
     id: number,
@@ -140,7 +140,7 @@ const AlertDelete = (props: {
     const handleCancel = () => {
         props.showAlert(false);
     };
-    
+
     const handleDelete = () => {
         props.setIdToDelete(props.id)
         props.showAlert(false);
@@ -150,7 +150,7 @@ const AlertDelete = (props: {
         <Dialog.Container visible={props.visible}>
             <Dialog.Title>Eliminar producto</Dialog.Title>
             <Dialog.Description>
-                Estas seguro que quieres eliminar este 
+                Estas seguro que quieres eliminar este
             </Dialog.Description>
             <Dialog.Button label="Cancel" onPress={handleCancel} />
             <Dialog.Button label="Delete" onPress={handleDelete} />
@@ -161,7 +161,7 @@ const AlertDelete = (props: {
 
 const styles = StyleSheet.create({
     mainView: {
-        flex:  1,
+        flex: 1,
         height: 130,
         width: '100%',
     },
