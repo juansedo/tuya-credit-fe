@@ -10,7 +10,7 @@ let data = [
         ref: "ref",
         image_url: "https://olimpica.vtexassets.com/arquivos/ids/474490/Televisor-LED-FHD-OLIMPO-Smartv-101CM-40--40D3200S.jpg?v=637497819260800000",
         description: "description",
-        value: 1000,
+        value: 1200000,
         discount_percent: 0.1,
         special_discount_percent: 0.2,
         warehouse: "warehouse",
@@ -20,7 +20,7 @@ let data = [
         ref: "re2",
         image_url: "https://www.lg.com/co/images/televisores/md07504651/gallery/Des-01.jpg",
         description: "description2",
-        value: 2000,
+        value: 1100000,
         discount_percent: 0.2,
         special_discount_percent: 0.4,
         warehouse: "warehouse2",
@@ -62,8 +62,7 @@ const reducer = (state, action) => {
             }
             return { ...state }
         case "SIMULATE":
-            return { ...state, cardItems: [] }
-
+            return { ...state, simulationItems: state.cartItems }
         default:
             return state
     }

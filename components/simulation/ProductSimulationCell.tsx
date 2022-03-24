@@ -55,12 +55,13 @@ function ProductTitle(props: {
             marginTop: 20,
         }}>
             <View style={styles.row}>
-                <Text style={styles.boldText}>Red:</Text>
-                <Text>{props.productInfo.id}</Text>
+                <Text numberOfLines={1} style={styles.boldText}>props.productInfo.ref</Text>
             </View>
-            <Text style={{
-                flexWrap: 'wrap'
-            }}>
+            <Text
+                numberOfLines={1}
+                style={{
+                    flexWrap: 'wrap'
+                }}>
                 {props.productInfo.description}
             </Text>
             <View style={styles.subtotalContainer}>
@@ -115,14 +116,14 @@ function SubtotalButtons(props: {
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => lestItem()}
-                    style={[styles.cuantityView, styles.cuantityButtons]}>
+                    style={[styles.cuantityButtons]}>
                     <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>-</Text>
                 </TouchableOpacity>
                 <Text style={styles.totalItemsText}>{props.totalItems}</Text>
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => sumItem()}
-                    style={[styles.cuantityView, styles.cuantityButtons]}>
+                    style={[styles.cuantityButtons]}>
                     <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>+</Text>
                 </TouchableOpacity>
             </View>
@@ -180,15 +181,19 @@ const styles = StyleSheet.create({
     },
     cuantityButtons: {
         backgroundColor: AppColors.redWineColor,
+        paddingHorizontal: 15,
+        height: 25,
+        lineHeight: 0,
+        margin: 0
     },
     cuantityButtonsTitle: {
-        fontSize: 30,
-        height: 35,
-        alignSelf: 'center',
+        fontSize: 15,
+
+
     },
     cuantityView: {
         width: '50%',
-        height: 40,
+        height: 25,
         flexDirection: 'row',
         borderWidth: 1,
         borderColor: AppColors.redWineColor,

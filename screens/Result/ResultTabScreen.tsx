@@ -8,13 +8,15 @@ import { CartContext } from '../../utils/cart-context';
 
 export default function ResultTabScreen() {
   const { state } = useContext(CartContext);
-
+  let total = 0
+  state.simulationItems.forEach(item => {
+    total += item.amount * item.product.value
+  });
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
-      <Text>{state.cartItems[0].amount}</Text>
-      <CostSummary totalAmount={1200000} feesNumber={32} handlingFee={9000} interestRate={0.02055} cardType={"visa"} />
-      <AmortizationTable totalAmount={1200000} feesNumber={12} handlingFee={0} interestRate={0.02055} cardType={'visa'} />
+      <CostSummary totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={"visa"} />
+      <AmortizationTable totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={'visa'} />
     </ScrollView>
   );
 }

@@ -49,12 +49,13 @@ function ProductTitle(props: {
             marginTop: 20,
         }}>
             <View style={styles.row}>
-                <Text style={styles.boldText}>Red:</Text>
-                <Text>{props.productInfo.id}</Text>
+                <Text style={styles.boldText} numberOfLines={1}>{props.productInfo.ref}</Text>
             </View>
-            <Text style={{
-                flexWrap: 'wrap'
-            }}>
+            <Text
+                numberOfLines={1}
+                style={{
+                    flexWrap: 'wrap'
+                }}>
                 {props.productInfo.description}
             </Text>
             <View style={styles.subtotalContainer}>
@@ -100,13 +101,13 @@ const styles = StyleSheet.create({
         backgroundColor: AppColors.redWineColor,
     },
     cuantityButtonsTitle: {
-        fontSize: 20,
-        height: 35,
+        fontSize: 15,
+        height: 20,
         alignSelf: 'center',
     },
     cuantityView: {
         width: '50%',
-        height: 40,
+        height: 25,
         flexDirection: 'row',
         borderWidth: 1,
         borderColor: AppColors.redWineColor,
