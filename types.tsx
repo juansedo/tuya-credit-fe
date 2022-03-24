@@ -17,6 +17,7 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
+  Search: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -44,3 +45,20 @@ export type fee = {
   number: number,
   handlingFeeValue?: string
 };
+
+export type ProductDTO = {
+  id: number,
+  ref: string,
+  image_url: string,
+  description: string,
+  value: number,
+  discount_percent: number,
+  special_discount_percent: number,
+  warehouse: string,
+};
+
+export type ProductItem = {
+  product: ProductDTO,
+  amount: number
+}
+

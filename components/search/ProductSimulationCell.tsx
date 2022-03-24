@@ -1,27 +1,28 @@
 import { StyleSheet, Image, TouchableOpacity, ProgressViewIOSComponent } from 'react-native'
-import React, { useState } from 'react'
-import { Text, View } from '../../components/Themed';
+import React, { useContext, useState } from 'react'
+import { Text, View } from '../Themed';
 import { AppColors } from '../../constants/Colors'
 import XIcon from '../../assets/images/svg/XIcon';
-import ProductModel from '../../models/ProductModel';
+import { ProductDTO } from '../../types';
 import Dialog from "react-native-dialog";
+import { CartContext } from '../../utils/cart-context';
 
 interface ProductSimulationCellProps {
-    data: ProductModel,
-    setIdToDelete: React.Dispatch<React.SetStateAction<number>>
+    data: ProductDTO,
 }
 
+
 export default function ProductSimulationCell(props: ProductSimulationCellProps) {
+
     const [Visible, setVisible] = useState(false)
-    let Image_Http_URL = { uri: props.data.item.image_url };
-    console.log(props);
+    let Image_Http_URL = { uri: props.data.item.product.image_url };
     return (
-        <View style={styles.mainView}>
+        <View style={styles.mainView} >
             <View style={[styles.customView, styles.row]}>
                 <Image
                     style={styles.image}
                     source={Image_Http_URL} />
-                <ProductTitle productInfo={props.data.item} setIdToDelete={props.setIdToDelete} showAlert={setVisible} />
+                <ProductTitle productInfo={props.data.item.product} showAlert={setVisible} totalItems={props.data.item.amount} />
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => setVisible(true)}
@@ -34,19 +35,19 @@ export default function ProductSimulationCell(props: ProductSimulationCellProps)
                     <XIcon />
                 </TouchableOpacity>
                 {
-                    Visible && <AlertDelete id={props.data.item.id} setIdToDelete={props.setIdToDelete} showAlert={setVisible} visible={Visible} />
+                    Visible && <AlertDelete id={props.data.item.product.id} showAlert={setVisible} visible={Visible} />
                 }
             </View>
-        </View>
+        </View >
     )
 }
 
 function ProductTitle(props: {
-    productInfo: ProductModel,
-    setIdToDelete: React.Dispatch<React.SetStateAction<number>>,
+    productInfo: ProductDTO,
     showAlert: React.Dispatch<React.SetStateAction<boolean>>,
+    totalItems: number
 }) {
-    const [totalItems, setTotalItems] = useState(1)
+    const { productInfo, showAlert, totalItems } = props;
     return (
         <View style={{
             flex: 1,
@@ -68,7 +69,7 @@ function ProductTitle(props: {
                     flexDirection: 'row-reverse',
                     marginLeft: 20,
                 }}>
-                    <SubtotalButtons totalItems={totalItems} setTotalItems={setTotalItems} showAlert={props.showAlert} />
+                    <SubtotalButtons totalItems={totalItems} showAlert={props.showAlert} productId={productInfo.id} />
                 </View>
             </View>
         </View>
@@ -90,20 +91,18 @@ function SubtotalView(props: { value: number, totalItems: number }) {
 
 function SubtotalButtons(props: {
     totalItems: number,
-    setTotalItems: React.Dispatch<React.SetStateAction<number>>,
     showAlert: React.Dispatch<React.SetStateAction<boolean>>,
+    productId: number
 }) {
 
+    const { dispatch } = useContext(CartContext);
+
     const sumItem = () => {
-        props.setTotalItems(props.totalItems + 1)
+        dispatch({ type: 'INCREASE_AMOUNT', payload: { id: props.productId } });
     }
 
     const lestItem = () => {
-        if (props.totalItems > 1) {
-            props.setTotalItems(props.totalItems - 1)
-        } else {
-            props.showAlert(true)
-        }
+        dispatch({ type: 'DECREASE_AMOUNT', payload: { id: props.productId } });
     }
 
     return (
@@ -132,18 +131,17 @@ function SubtotalButtons(props: {
 }
 
 const AlertDelete = (props: {
-    setIdToDelete: React.Dispatch<React.SetStateAction<number>>,
     showAlert: React.Dispatch<React.SetStateAction<boolean>>,
     id: number,
     visible: boolean
 }) => {
+    const { dispatch } = useContext(CartContext);
     const handleCancel = () => {
         props.showAlert(false);
     };
 
     const handleDelete = () => {
-        props.setIdToDelete(props.id)
-        props.showAlert(false);
+        dispatch({ type: 'DELETE_PRODUCT', payload: { id: props.id } });
     };
 
     return (
@@ -189,8 +187,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     cuantityView: {
-        width: '40%',
-        height: 20,
+        width: '50%',
+        height: 40,
         flexDirection: 'row',
         borderWidth: 1,
         borderColor: AppColors.redWineColor,

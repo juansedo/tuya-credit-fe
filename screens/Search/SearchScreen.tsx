@@ -6,6 +6,8 @@ type Props = {
 }
 
 const SearchScreen = (props: Props) => {
+
+
     return (
         <View>
             <View>

@@ -10,9 +10,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable, Image } from 'react-native';
 
-import Colors, {AppColors} from '../constants/Colors';
+import Colors, { AppColors } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
+import SearchScreen from '../screens/Search/SearchScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import HomeTabScreen from '../screens/Home/HomeTabScreen';
 import SimulationTabScreen from '../screens/Simulation/SimulationTabScreen';
@@ -45,6 +46,7 @@ function RootNavigator() {
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
+      <Stack.Screen name="Search" component={SearchScreen} />
     </Stack.Navigator>
   );
 }
@@ -70,13 +72,13 @@ function BottomTabNavigator() {
         },
         tabBarInactiveBackgroundColor: AppColors.redColor
       }}
-      >
+    >
       <BottomTab.Screen
         name="HomeTab"
         component={HomeTabScreen}
         options={({ navigation }: RootTabScreenProps<'HomeTab'>) => ({
           title: 'Home',
-          tabBarIcon: ({ color }) => <HomeIcon/>,
+          tabBarIcon: ({ color }) => <HomeIcon />,
           headerStyle: {
             backgroundColor: AppColors.redColor
           },
@@ -102,7 +104,7 @@ function BottomTabNavigator() {
         component={SimulationTabScreen}
         options={{
           title: 'Simulación',
-          tabBarIcon: ({ color }) => <SimulationIcon/>,
+          tabBarIcon: ({ color }) => <SimulationIcon />,
           headerStyle: {
             backgroundColor: AppColors.redColor
           },
@@ -114,7 +116,7 @@ function BottomTabNavigator() {
         component={ResultTabScreen}
         options={{
           title: 'Resultado',
-          tabBarIcon: ({ color }) => <Image style={{height: 25, width: 20}} source={require('../assets/images/resultIcon.png')}/>,
+          tabBarIcon: ({ color }) => <Image style={{ height: 25, width: 20 }} source={require('../assets/images/resultIcon.png')} />,
           headerStyle: {
             backgroundColor: AppColors.redColor
           },
