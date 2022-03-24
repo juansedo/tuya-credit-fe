@@ -4,6 +4,7 @@ import ProductSimulationCell from '../../components/simulation/ProductSimulation
 import React, { useState, useEffect, useContext } from 'react'
 import { CartContext } from '../../utils/cart-context';
 import { ProductDTO } from '../../types';
+import { AppColors } from '../../constants/Colors'
 
 
 interface SimulationTabScreenProps {
@@ -22,8 +23,9 @@ export default function SimulationTabScreen(props: SimulationTabScreenProps) {
         renderItem={(item) => <ProductSimulationCell data={item} />}
       />
       <Button
-        title="Search"
+        title="Buscar"
         onPress={() => props.navigation.navigate('Search')}
+        color={AppColors.redColor}
       />
     </View>
   );
@@ -45,5 +47,5 @@ const styles = StyleSheet.create({
   },
   list: {
     width: '100%'
-  }
+  },
 });
