@@ -44,8 +44,11 @@ const initialState: { cartItems: Array<ProductItem>, simulationItems: Array<Prod
 const reducer = (state, action) => {
     switch (action.type) {
         case "ADD_PRODUCT":
-            let item = action.payload;
-            return { ...state, cartItems: [...state.cartItems, { product: item.product, amount: item.amount }] }
+            console.log(state.cartItems.some(item => item.product.id === action.payload.product.id))
+            if (!state.cartItems.some(item => item.product.id === action.payload.product.id)) {
+                return { ...state, cartItems: [...state.cartItems, { product: action.payload.product, amount: 1 }] }
+            }
+            return { ...state }
         case "DELETE_PRODUCT":
             return { ...state, cartItems: state.cartItems.filter((item: ProductItem) => item.product.id !== action.payload.id) }
         case "INCREASE_AMOUNT":
@@ -60,6 +63,9 @@ const reducer = (state, action) => {
             return { ...state }
         case "SIMULATE":
             return { ...state, cardItems: [] }
+
+        default:
+            return state
     }
 }
 
