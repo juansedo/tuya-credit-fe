@@ -27,10 +27,10 @@ export default function ProductSimulationCell(props: ProductSimulationCellProps)
                     activeOpacity={0.5}
                     onPress={() => setVisible(true)}
                     style={{
-                        top: 10,
+                        top: 7,
                         width: 20,
                         position: 'absolute',
-                        right: 20,
+                        right: 15,
                     }}>
                     <XIcon />
                 </TouchableOpacity>
@@ -55,7 +55,7 @@ function ProductTitle(props: {
             marginTop: 20,
         }}>
             <View style={styles.row}>
-                <Text numberOfLines={1} style={styles.boldText}>props.productInfo.ref</Text>
+                <Text numberOfLines={1} style={styles.boldText}>{props.productInfo.ref}</Text>
             </View>
             <Text
                 numberOfLines={1}
@@ -143,16 +143,17 @@ const AlertDelete = (props: {
 
     const handleDelete = () => {
         dispatch({ type: 'DELETE_PRODUCT', payload: { id: props.id } });
+        props.showAlert(false);
     };
 
     return (
         <Dialog.Container visible={props.visible}>
             <Dialog.Title>Eliminar producto</Dialog.Title>
             <Dialog.Description>
-                Estas seguro que quieres eliminar este
+                ¿Estas seguro que quieres eliminar este producto?
             </Dialog.Description>
-            <Dialog.Button label="Cancel" onPress={handleCancel} />
-            <Dialog.Button label="Delete" onPress={handleDelete} />
+            <Dialog.Button label="Cancelar" onPress={handleCancel} />
+            <Dialog.Button label="Eliminar" onPress={handleDelete} />
         </Dialog.Container>
     );
 }

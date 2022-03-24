@@ -15,8 +15,8 @@ export default function ResultTabScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
-      <CostSummary totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={"visa"} />
-      <AmortizationTable totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={'visa'} />
+      <CostSummary totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={"Visa"} />
+      <AmortizationTable totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={'Visa'} />
     </ScrollView>
   );
 }

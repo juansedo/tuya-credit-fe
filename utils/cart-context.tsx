@@ -7,9 +7,9 @@ export const CartContext = createContext({});
 let data = [
     {
         id: 1,
-        ref: "ref",
+        ref: "TV LG 55 pulgadas",
         image_url: "https://olimpica.vtexassets.com/arquivos/ids/474490/Televisor-LED-FHD-OLIMPO-Smartv-101CM-40--40D3200S.jpg?v=637497819260800000",
-        description: "description",
+        description: "Televisor de 55 pulgadas marca LG",
         value: 1200000,
         discount_percent: 0.1,
         special_discount_percent: 0.2,
@@ -17,9 +17,9 @@ let data = [
     },
     {
         id: 2,
-        ref: "re2",
+        ref: "LG OLED 40 pulgadas 4k",
         image_url: "https://www.lg.com/co/images/televisores/md07504651/gallery/Des-01.jpg",
-        description: "description2",
+        description: "Televisor de 40 pulgadas marca LG",
         value: 1100000,
         discount_percent: 0.2,
         special_discount_percent: 0.4,
