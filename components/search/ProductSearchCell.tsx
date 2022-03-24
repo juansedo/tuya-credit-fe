@@ -23,7 +23,7 @@ export default function ProductSearch(props: ProductSearchProps) {
                 <Image
                     style={styles.image}
                     source={Image_Http_URL} />
-                <ProductTitle productInfo={props.data.item} showAlert={setVisible} totalItems={props.data.item.amount} />
+                <ProductTitle productInfo={props.data.item} showAlert={setVisible} navigation={props.navigation} totalItems={props.data.item.amount} />
             </View>
         </View >
     )
@@ -31,13 +31,15 @@ export default function ProductSearch(props: ProductSearchProps) {
 
 function ProductTitle(props: {
     productInfo: ProductDTO,
-    totalItems: number
+    totalItems: number,
+    navigation: any
 }) {
     const { productInfo, totalItems } = props;
     const { dispatch } = useContext(CartContext);
 
     const addItem = () => {
         dispatch({ type: 'ADD_PRODUCT', payload: { product: productInfo } });
+        props.navigation.navigate('SimulationTab')
     }
 
     return (

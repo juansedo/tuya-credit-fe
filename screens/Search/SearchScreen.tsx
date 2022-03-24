@@ -48,7 +48,7 @@ export default function SimulationTabScreen(props: SearchScreen) {
             <FlatList
                 data={products}
                 style={styles.list}
-                renderItem={(item) => <ProductSearchCell data={item} />}
+                renderItem={(item) => <ProductSearchCell data={item} navigation={props.navigation} />}
             />
         </View>
     );
