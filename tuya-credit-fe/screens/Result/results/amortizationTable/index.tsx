@@ -2,9 +2,9 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { Table, Row } from 'react-native-table-component'
 import TableRow from './tableRow'
-import { AppColors } from '../../../constants/Colors'
-import { getDecreasingFees, getAnnuityFees } from '../../../utils/helpers'
-import { fee } from '../../../types'
+import { AppColors } from '../../../../constants/Colors'
+import { getDecreasingFees, getAnnuityFees } from '../../../../utils/helpers'
+import { fee } from '../../../../types'
 
 type Props = {
     totalAmount: number,

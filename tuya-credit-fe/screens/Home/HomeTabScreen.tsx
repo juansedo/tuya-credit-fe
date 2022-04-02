@@ -1,16 +1,39 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import { RootTabScreenProps } from '../../types';
 
 export default function HomeTabScreen({ navigation }: RootTabScreenProps<'HomeTab'>) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/HomeTabScreen.tsx" />
+      <View style={styles.center}>
+        <Text style={styles.title}>¡Bienvenido, </Text> 
+        <Text style={styles.title}>Juan!</Text>
+        <Text>
+          <Text>
+            Este es tu simulador de pagos con tarjetas de crédito. Prueba a 
+          </Text>
+          <Text style={{fontWeight: "bold"}}> Simular una compra</Text>
+          <Text>para que analices los costos.</Text>
+        </Text>
+        <View style={{
+          flexDirection: 'row',
+        }}>
+          <TouchableOpacity 
+            activeOpacity={0.5}
+            style={styles.buttonContainer}>
+            <Image source={require('../../assets/images/hand.png')}/>
+            <Text style={styles.fontRed}>Simula tu compra</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonContainer}>
+            <Image source={require('../../assets/images/result-red.png')}/>
+            <Text style={styles.fontRed}>Última simulación</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      
     </View>
+
   );
 }
 
@@ -18,10 +41,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+  },
+  center: {
+    alignItems: 'center',
     justifyContent: 'center',
   },
+  fontRed: {
+    color: 'red',
+    fontWeight: 'bold'
+  },
+  buttonContainer: {
+    width: 130,
+    height: 120,
+    backgroundColor: '#FFFFFF',
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOpacity: 0.8,
+    elevation: 6,
+    shadowRadius: 15 ,
+    shadowOffset : { width: 1, height: 13},
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
-    fontSize: 20,
+    fontSize: 40,
     fontWeight: 'bold',
   },
   separator: {

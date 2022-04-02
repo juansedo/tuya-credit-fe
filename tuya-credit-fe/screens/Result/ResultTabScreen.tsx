@@ -1,7 +1,6 @@
 import { StyleSheet, ScrollView } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import AmortizationTable from '../../components/results/amortizationTable/';
-import CostSummary from '../../components/results/costSummary';
+import AmortizationTable from './results/amortizationTable';
+import CostSummary from './results/costSummary';
 
 
 export default function ResultTabScreen() {

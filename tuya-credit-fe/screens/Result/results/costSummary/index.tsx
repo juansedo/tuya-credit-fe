@@ -1,8 +1,7 @@
 import { View, Text, StyleSheet, ToastAndroid } from 'react-native'
 import React from 'react'
-import { AppColors } from '../../../constants/Colors'
-import App from '../../../App'
-import { getAnnuityValue, getDecreasingValues } from '../../../utils/helpers';
+import { AppColors } from '../../../../constants/Colors'
+import { getAnnuityValue, getDecreasingValues } from '../../../../utils/helpers';
 
 type Props = {
     totalAmount: number,

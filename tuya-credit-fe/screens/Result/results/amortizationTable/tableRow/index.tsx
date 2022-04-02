@@ -1,8 +1,8 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import { TableWrapper, Cell } from 'react-native-table-component'
-import { AppColors } from '../../../../constants/Colors'
-import { fee } from '../../../../types'
+import { AppColors } from '../../../../../constants/Colors'
+import { fee } from '../../../../../types'
 
 const Details = (fee: fee) => (
 
@@ -21,7 +21,7 @@ saldo pendiente: ${fee.balance}
                 { text: "cerrar", onPress: () => console.log("OK Pressed") }
             ]
         )}>
-        <Image style={styles.img} source={require('../../../../assets/images/document.png')} />
+        <Image style={styles.img} source={require('../../../../../assets/images/document.png')} />
     </TouchableOpacity>
 );
 
