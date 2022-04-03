@@ -7,17 +7,18 @@ export default function HomeTabScreen({ navigation }: RootTabScreenProps<'HomeTa
   return (
     <View style={styles.container}>
       <View style={styles.center}>
-        <Text style={styles.title}>¡Bienvenido, </Text> 
+        <Text style={[styles.title, {paddingTop: 20}]}>¡Bienvenido, </Text> 
         <Text style={styles.title}>Juan!</Text>
-        <Text>
+        <Text style={{paddingVertical: 40}}>
           <Text>
             Este es tu simulador de pagos con tarjetas de crédito. Prueba a 
           </Text>
           <Text style={{fontWeight: "bold"}}> Simular una compra</Text>
-          <Text>para que analices los costos.</Text>
+          <Text> para que analices los costos.</Text>
         </Text>
         <View style={{
           flexDirection: 'row',
+          justifyContent: 'space-between',
         }}>
           <TouchableOpacity 
             activeOpacity={0.5}
@@ -30,8 +31,13 @@ export default function HomeTabScreen({ navigation }: RootTabScreenProps<'HomeTa
             <Text style={styles.fontRed}>Última simulación</Text>
           </TouchableOpacity>
         </View>
+        <View style={{
+          flexDirection: 'row',
+          marginTop: 50,
+        }}>
+          <Text>Las cuentas son tuyas</Text>
+        </View>
       </View>
-      
     </View>
 
   );
@@ -48,19 +54,21 @@ const styles = StyleSheet.create({
   },
   fontRed: {
     color: 'red',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    paddingTop: 5,
   },
   buttonContainer: {
     width: 130,
     height: 120,
     backgroundColor: '#FFFFFF',
-    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowColor: 'rgba(0, 0, 0, 0.3)',
     shadowOpacity: 0.8,
     elevation: 6,
     shadowRadius: 15 ,
     shadowOffset : { width: 1, height: 13},
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 10,
   },
   title: {
     fontSize: 40,
