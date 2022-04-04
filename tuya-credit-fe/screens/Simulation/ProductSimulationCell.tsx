@@ -1,5 +1,5 @@
-import { StyleSheet, Image, TouchableOpacity, ProgressViewIOSComponent } from 'react-native'
-import React, {useState} from 'react'
+import { StyleSheet, Image, TouchableOpacity } from 'react-native'
+import React, {useEffect, useState} from 'react'
 import { Text, View } from '../../components/Themed';
 import {AppColors} from '../../constants/Colors'
 import XIcon from '../../assets/images/svg/XIcon';
@@ -9,19 +9,26 @@ import Dialog from "react-native-dialog";
 interface ProductSimulationCellProps {
     data: ProductModel,
     setIdToDelete: React.Dispatch<React.SetStateAction<number>>
+    setIdTotalItem: React.Dispatch<React.SetStateAction<{}>>
+    IdTotalItem: {}
 }
 
 export default function ProductSimulationCell(props: ProductSimulationCellProps) {
     const [Visible, setVisible] = useState(false)
     let Image_Http_URL = {uri: props.data.item.image_url};
-    console.log(props);
     return (
         <View style={styles.mainView}>
             <View style={[styles.customView, styles.row]}> 
                 <Image
                     style={styles.image}
                     source={Image_Http_URL}/>
-                <ProductTitle productInfo={props.data.item} setIdToDelete={props.setIdToDelete} showAlert={setVisible}/>
+                <ProductTitle 
+                    productInfo={props.data.item} 
+                    setIdToDelete={props.setIdToDelete} 
+                    setIdTotalItem={props.setIdTotalItem}
+                    IdTotalItem={props.IdTotalItem}
+                    showAlert={setVisible}
+                    itemId={props.data.item.id}/>
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => setVisible(true)}
@@ -44,9 +51,22 @@ export default function ProductSimulationCell(props: ProductSimulationCellProps)
 function ProductTitle(props: {
     productInfo: ProductModel,
     setIdToDelete: React.Dispatch<React.SetStateAction<number>>,
+    setIdTotalItem: React.Dispatch<React.SetStateAction<{}>>
     showAlert: React.Dispatch<React.SetStateAction<boolean>>,
+    IdTotalItem: {},
+    itemId: number
 }) {
     const [totalItems, setTotalItems] = useState(1)
+
+    useEffect(() => {
+        console.log(props.IdTotalItem);
+        props.setIdTotalItem({
+            ...props.IdTotalItem,
+            [props.itemId] : totalItems
+        })
+    }, [totalItems])
+    
+
     return (
         <View style={{
             flex: 1,
@@ -68,7 +88,13 @@ function ProductTitle(props: {
                         flexDirection: 'row-reverse',
                         marginLeft: 20,
                     }}>
-                    <SubtotalButtons totalItems={totalItems} setTotalItems={setTotalItems} showAlert={props.showAlert}/>
+                    <SubtotalButtons 
+                        totalItems={totalItems} 
+                        setTotalItems={setTotalItems} 
+                        showAlert={props.showAlert} 
+                        setIdTotalItem={props.setIdTotalItem}
+                        itemId={props.itemId}
+                        />
                 </View>
             </View>
         </View>

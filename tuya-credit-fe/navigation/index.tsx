@@ -88,7 +88,7 @@ function BottomTabNavigator() {
                 opacity: pressed ? 0.5 : 1,
               })}>
               <FontAwesome
-                name="info-circle"
+                name="close"
                 size={25}
                 color='#fff'
                 style={{ marginRight: 15 }}
@@ -107,8 +107,23 @@ function BottomTabNavigator() {
             backgroundColor: AppColors.redColor
           },
           headerTintColor: '#fff',
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Modal')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name="close"
+                size={25}
+                color='#fff'
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
         }}
       />
+      
       <BottomTab.Screen
         name="ResultTab"
         component={ResultTabScreen}
@@ -119,6 +134,20 @@ function BottomTabNavigator() {
             backgroundColor: AppColors.redColor
           },
           headerTintColor: '#fff',
+          headerRight: () => (
+            <Pressable
+              onPress={() => navigation.navigate('Modal')}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}>
+              <FontAwesome
+                name="close"
+                size={25}
+                color='#fff'
+                style={{ marginRight: 15 }}
+              />
+            </Pressable>
+          ),
         }}
       />
     </BottomTab.Navigator>

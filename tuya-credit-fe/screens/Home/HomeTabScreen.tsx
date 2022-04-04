@@ -9,7 +9,10 @@ export default function HomeTabScreen({ navigation }: RootTabScreenProps<'HomeTa
       <View style={styles.center}>
         <Text style={[styles.title, {paddingTop: 20}]}>¡Bienvenido, </Text> 
         <Text style={styles.title}>Juan!</Text>
-        <Text style={{paddingVertical: 40}}>
+        <Text style={{
+            paddingVertical: 40,
+            paddingHorizontal: 20,
+          }}>
           <Text>
             Este es tu simulador de pagos con tarjetas de crédito. Prueba a 
           </Text>
@@ -22,11 +25,15 @@ export default function HomeTabScreen({ navigation }: RootTabScreenProps<'HomeTa
         }}>
           <TouchableOpacity 
             activeOpacity={0.5}
+            onPress={() => navigation.navigate('SimulationTab')}
             style={styles.buttonContainer}>
             <Image source={require('../../assets/images/hand.png')}/>
             <Text style={styles.fontRed}>Simula tu compra</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer}>
+          <TouchableOpacity 
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate('ResultTab')}
+            style={styles.buttonContainer}>
             <Image source={require('../../assets/images/result-red.png')}/>
             <Text style={styles.fontRed}>Última simulación</Text>
           </TouchableOpacity>
