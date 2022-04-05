@@ -3,7 +3,7 @@ import React from 'react'
 import { Table, Row } from 'react-native-table-component'
 import TableRow from './tableRow'
 import { AppColors } from '../../../constants/Colors'
-import { getDecreasingFees, getAnnuityFees } from '../../../utils/helpers'
+import { getDecreasingFees, getAnnuityFees, getDecreasingTotal, getAnnuityTotal } from '../../../utils/helpers'
 import { fee } from '../../../types'
 
 type Props = {
