@@ -157,9 +157,9 @@ export const getAnnuityTotal = (
         ((Math.pow(1 + interestRate, feesNumber) * interestRate) /
             (Math.pow(1 + interestRate, feesNumber) - 1));
 
-    const totalPrice = annuity * feesNumber + handlingFee * feesNumber;
+    const total = annuity * feesNumber + handlingFee * feesNumber;
 
-    return totalPrice;
+    return currencyFormat(total);
 }
 
 export const getDecreasingTotal = (
@@ -171,7 +171,7 @@ export const getDecreasingTotal = (
     const amortizationFee: number = totalAmount / feesNumber;
     let total = amortizationFee;
 
-    if (feesNumber < 2) return total;
+    if (feesNumber < 2) return currencyFormat(total);
 
     total += amortizationFee +
         totalAmount * interestRate +
@@ -185,5 +185,5 @@ export const getDecreasingTotal = (
         total += feeValue;
     }
 
-    return total;
+    return currencyFormat(total);
 }
