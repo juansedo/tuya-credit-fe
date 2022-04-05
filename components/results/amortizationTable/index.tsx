@@ -42,7 +42,7 @@ const AmortizationTable = ({ totalAmount, feesNumber, handlingFee, interestRate,
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#fff', width: '100%', marginBottom: 20 },
     head: { height: 40, backgroundColor: AppColors.redColor },
-    text: { margin: 6, textAlign: 'center', color: 'black' },
+    text: { margin: 6, textAlign: 'center', color: 'white' },
     title: { margin: 6, textAlign: 'center', color: 'black' }
 });
 

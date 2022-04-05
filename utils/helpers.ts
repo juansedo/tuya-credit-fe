@@ -146,3 +146,18 @@ export const getDecreasingValues = (
 
     return [currencyFormat(minium), currencyFormat(maxium)];
 }
+
+export const getAnnuityTotals = (
+    feesNumber: number,
+    interestRate: number,
+    totalAmount: number,
+    handlingFee: number
+) => {
+    const annuity = totalAmount *
+        ((Math.pow(1 + interestRate, feesNumber) * interestRate) /
+            (Math.pow(1 + interestRate, feesNumber) - 1));
+
+    const totalPrice = annuity * feesNumber + handlingFee * feesNumber;
+
+    return totalPrice;
+}
