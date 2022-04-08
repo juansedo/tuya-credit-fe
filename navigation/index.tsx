@@ -14,6 +14,7 @@ import Colors, { AppColors } from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
+import ScannerScreen from '../screens/Scanner/ScannerScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import HomeTabScreen from '../screens/Home/HomeTabScreen';
 import SimulationTabScreen from '../screens/Simulation/SimulationTabScreen';
@@ -47,6 +48,7 @@ function RootNavigator() {
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
       <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="Scanner" component={ScannerScreen} />
     </Stack.Navigator>
   );
 }

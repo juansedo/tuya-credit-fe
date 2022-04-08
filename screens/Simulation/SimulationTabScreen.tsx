@@ -30,7 +30,7 @@ export default function SimulationTabScreen(props: SimulationTabScreenProps) {
       <View style={styles.buttonContainer}>
         <Button
           title="Buscar"
-          onPress={() => props.navigation.navigate('Search')}
+          onPress={() => props.navigation.navigate('Scanner')}
           color={AppColors.redColor}
         />
         <Button
