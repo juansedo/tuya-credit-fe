@@ -4,6 +4,8 @@ import ProductModel from '../../models/ProductModel';
 import ProductSimulationCell from './ProductSimulationCell';
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { AppColors } from '../../constants/Colors';
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 interface SimulationTabScreenProps {
   data: [ProductModel]
@@ -82,6 +84,14 @@ export default function SimulationTabScreen(props: SimulationTabScreenProps) {
             <Text style={styles.financeText}>Fináncialo!</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.searchButton}>
+            <View style={{
+                flexDirection: 'row', 
+                backgroundColor: 'transparent',
+                justifyContent: 'center'
+              }}>
+              <FontAwesome name="search" size={24} color="white" />
+              <AntDesign name="qrcode" size={24} color="white" />
+            </View>
             <Text style={styles.searchText}>Buscar</Text>
           </TouchableOpacity>
         </View>

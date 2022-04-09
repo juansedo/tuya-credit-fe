@@ -10,7 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable, Image } from 'react-native';
 
-import Colors, {AppColors} from '../constants/Colors';
+import {AppColors} from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -21,6 +21,8 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import HomeIcon from '../assets/images/svg/HomeIcon';
 import SimulationIcon from '../assets/images/svg/SimulationIcon';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
@@ -87,12 +89,7 @@ function BottomTabNavigator() {
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
-              <FontAwesome
-                name="close"
-                size={25}
-                color='#fff'
-                style={{ marginRight: 15 }}
-              />
+            <MaterialCommunityIcons name="exit-to-app" size={24} color="white" style={{paddingRight: 20}}/>
             </Pressable>
           ),
         })}
@@ -113,12 +110,7 @@ function BottomTabNavigator() {
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
-              <FontAwesome
-                name="close"
-                size={25}
-                color='#fff'
-                style={{ marginRight: 15 }}
-              />
+            <MaterialCommunityIcons name="exit-to-app" size={24} color="white" style={{paddingRight: 20}}/>
             </Pressable>
           ),
         }}
@@ -140,12 +132,7 @@ function BottomTabNavigator() {
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
-              <FontAwesome
-                name="close"
-                size={25}
-                color='#fff'
-                style={{ marginRight: 15 }}
-              />
+            <MaterialCommunityIcons name="exit-to-app" size={24} color="white" style={{paddingRight: 20}}/>
             </Pressable>
           ),
         }}
