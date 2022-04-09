@@ -42,7 +42,13 @@ export default function HomeTabScreen({ navigation }: RootTabScreenProps<'HomeTa
           flexDirection: 'row',
           marginTop: 50,
         }}>
-          <Text>Las cuentas son tuyas</Text>
+          <View style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Text style={{paddingRight: 8}}>Las cuentas son</Text>
+            <Image source={require('../../assets/images/tuyas-logo.png')} style={{height: 40, width: 60}}/>
+          </View>
         </View>
       </View>
     </View>
