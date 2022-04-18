@@ -13,7 +13,7 @@ const Details = (fee: fee) => (
 Numero de cuota: ${fee.number}\n
 Fecha de pago: ${fee.date}\n
 Valor base: ${fee.amortizationValue}\n
-intereses: ${fee.interestValue}\n
+intereses: ${fee.interestValue ?? '$0.00'}\n
 Valor total: ${fee.value}\n
 saldo pendiente: ${fee.balance}
             `,

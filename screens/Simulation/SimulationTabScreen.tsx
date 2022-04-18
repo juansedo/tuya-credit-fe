@@ -4,11 +4,11 @@ import ProductSimulationCell from '../../components/simulation/ProductSimulation
 import React, { useState, useEffect, useContext } from 'react'
 import { CartContext } from '../../utils/cart-context';
 import { ProductDTO } from '../../types';
-import { AppColors } from '../../constants/Colors'
+import { AppColors } from '../../constants/Colors';
 
 
 interface SimulationTabScreenProps {
-
+  navigation: any
 }
 
 export default function SimulationTabScreen(props: SimulationTabScreenProps) {
@@ -29,8 +29,13 @@ export default function SimulationTabScreen(props: SimulationTabScreenProps) {
       />
       <View style={styles.buttonContainer}>
         <Button
-          title="Buscar"
+          title=" Busqueda QR"
           onPress={() => props.navigation.navigate('Scanner')}
+          color={AppColors.redColor}
+        />
+        <Button
+          title="Buscar"
+          onPress={() => props.navigation.navigate('Search')}
           color={AppColors.redColor}
         />
         <Button

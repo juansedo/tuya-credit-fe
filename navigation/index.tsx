@@ -48,7 +48,13 @@ function RootNavigator() {
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
       <Stack.Screen name="Search" component={SearchScreen} />
-      <Stack.Screen options={{ title: 'Lectura de QR' }} name="Scanner" component={ScannerScreen} />
+      <Stack.Screen options={{
+        title: 'Lectura de QR',
+        headerStyle: {
+          backgroundColor: AppColors.redColor,
+        },
+        headerTintColor: "#fff"
+      }} name="Scanner" component={ScannerScreen} />
     </Stack.Navigator>
   );
 }

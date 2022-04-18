@@ -13,10 +13,12 @@ export default function ResultTabScreen() {
     total += item.amount * item.product.value
   });
 
+  let cardType = "mastercard";
+
   return (
     <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
-      <CostSummary totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={"Visa"} />
-      <AmortizationTable totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={'Visa'} />
+      <CostSummary totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={cardType} />
+      <AmortizationTable totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={cardType} />
     </ScrollView>
   );
 }

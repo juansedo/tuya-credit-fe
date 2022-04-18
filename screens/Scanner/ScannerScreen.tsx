@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { AppColors } from '../../constants/Colors';
 
 export default function ScannerScreen() {
     const [hasPermission, setHasPermission] = useState(null);
@@ -31,7 +32,7 @@ export default function ScannerScreen() {
                 onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
                 style={StyleSheet.absoluteFillObject}
             />
-            {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+            {scanned && <Button title={'Tap to Scan Again'} color={AppColors.redColor} onPress={() => setScanned(false)} />}
         </View>
     );
 }
@@ -41,5 +42,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
+        backgroundColor: '#000',
     },
 });
