@@ -15,6 +15,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import SearchScreen from '../screens/Search/SearchScreen';
 import ScannerScreen from '../screens/Scanner/ScannerScreen';
+import LoginScreen from '../screens/Login/LoginScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import HomeTabScreen from '../screens/Home/HomeTabScreen';
 import SimulationTabScreen from '../screens/Simulation/SimulationTabScreen';
@@ -55,6 +56,10 @@ function RootNavigator() {
         },
         headerTintColor: "#fff"
       }} name="Scanner" component={ScannerScreen} />
+      <Stack.Screen options={{
+        headerShown: false,
+      }}
+        name="Login" component={LoginScreen} />
     </Stack.Navigator>
   );
 }
@@ -93,7 +98,7 @@ function BottomTabNavigator() {
           headerTintColor: '#fff',
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => navigation.navigate('Login')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
