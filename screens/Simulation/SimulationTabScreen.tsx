@@ -26,6 +26,7 @@ export default function SimulationTabScreen(props: SimulationTabScreenProps) {
         data={state.cartItems}
         style={styles.list}
         renderItem={(item) => <ProductSimulationCell data={item} />}
+        keyExtractor={(item, index) => index.toString()}
       />
       <View style={styles.buttonContainer}>
         <Button
