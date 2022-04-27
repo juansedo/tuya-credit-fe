@@ -1,79 +1,35 @@
-import { StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList, Button, TouchableOpacity } from 'react-native';
 import { View, Text } from '../../components/Themed';
-import ProductModel from '../../models/ProductModel';
-import ProductSimulationCell from './ProductSimulationCell';
-import React, { useState, useEffect, useLayoutEffect } from 'react'
-import { AppColors } from '../../constants/Colors';
+import ProductSimulationCell from '../../components/simulation/ProductSimulationCell';
+import React, { useState, useEffect, useContext } from 'react'
+import { CartContext } from '../../utils/cart-context';
+import { ProductDTO } from '../../types';
+import { AppColors } from '../../constants/Colors'
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 interface SimulationTabScreenProps {
-  data: [ProductModel]
+  navigation: any
 }
 
 export default function SimulationTabScreen(props: SimulationTabScreenProps) {
-  let data = [
-    {
-      id: 1,
-      ref: "ref",
-      image_url: "https://olimpica.vtexassets.com/arquivos/ids/474490/Televisor-LED-FHD-OLIMPO-Smartv-101CM-40--40D3200S.jpg?v=637497819260800000",
-      description: "description",
-      value: 1000,
-      discount_percent: 0.1,
-      special_discount_percent: 0.2,
-      warehouse: "warehouse",
-    },
-    {
-      id: 2,
-      ref: "re2",
-      image_url: "https://www.lg.com/co/images/televisores/md07504651/gallery/Des-01.jpg",
-      description: "description2",
-      value: 2000,
-      discount_percent: 0.2,
-      special_discount_percent: 0.4,
-      warehouse: "warehouse2",
-    },
-    {
-      id: 3,
-      ref: "re2",
-      image_url: "https://www.lg.com/co/images/televisores/md07504651/gallery/Des-01.jpg",
-      description: "description2",
-      value: 2000,
-      discount_percent: 0.2,
-      special_discount_percent: 0.4,
-      warehouse: "warehouse2",
-    }
-  ]
-  const [serverData, setServerData] = useState(data)
-  const [idToDelete, setIdToDelete] = useState(-1)
-  const [IdTotalItem, setIdTotalItem] = useState({})
-  const [TotalToFinance, setTotalToFinance] = useState(0)
 
-  useEffect(() => {
-    const amount = serverData.find(item => item.id === idToDelete)?.value
-    setTotalToFinance(TotalToFinance-(IdTotalItem[idToDelete.toString()]*amount))
-    setServerData(serverData.filter(item => item.id !== idToDelete))
-    delete IdTotalItem[idToDelete.toString()]
-    console.log(IdTotalItem);
-  }, [idToDelete])
-  
-  useEffect(() => {
-    let total = 0
-    for (const [key, amount] of Object.entries(IdTotalItem)) {
-      const subtotal = serverData.find(item => item.id.toString() === key)
-      total += subtotal?.value * amount
-    }
-    setTotalToFinance(total)
-    console.log(TotalToFinance);
-  }, [IdTotalItem])
+  const { state, dispatch } = useContext(CartContext);
+
+  const finance = () => {
+    dispatch({ type: "SIMULATE" });
+    props.navigation.navigate('ResultTab');
+  }
+
+  const [TotalToFinance, setTotalToFinance] = useState(0);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={serverData}
+        data={state.cartItems}
         style={styles.list}
-        renderItem={(item) => <ProductSimulationCell data={item} setIdToDelete={setIdToDelete} setIdTotalItem={setIdTotalItem} IdTotalItem={IdTotalItem} />}
-        extraData={setIdToDelete} />
+        renderItem={(item) => <ProductSimulationCell data={item} />}
+      />
       <View style={{width: '100%'}}>
         <TotalView value={TotalToFinance} totalItems={1}/>
         <View style={{

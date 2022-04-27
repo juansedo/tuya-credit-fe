@@ -1,72 +1,58 @@
-import { StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, {useEffect, useState} from 'react'
-import { Text, View } from '../../components/Themed';
-import {AppColors} from '../../constants/Colors'
+import { StyleSheet, Image, TouchableOpacity, ProgressViewIOSComponent } from 'react-native'
+import React, { useEffect, useContext, useState } from 'react'
+import { Text, View } from '../Themed';
+import { AppColors } from '../../constants/Colors'
 import XIcon from '../../assets/images/svg/XIcon';
-import ProductModel from '../../models/ProductModel';
+import { ProductDTO, ProductItem } from '../../types';
 import Dialog from "react-native-dialog";
+import { CartContext } from '../../utils/cart-context';
 
 interface ProductSimulationCellProps {
-    data: ProductModel,
-    setIdToDelete: React.Dispatch<React.SetStateAction<number>>
-    setIdTotalItem: React.Dispatch<React.SetStateAction<{}>>
-    IdTotalItem: {}
+    data: {
+        item: ProductItem,
+    }
 }
 
+
 export default function ProductSimulationCell(props: ProductSimulationCellProps) {
+
     const [Visible, setVisible] = useState(false)
-    let Image_Http_URL = {uri: props.data.item.image_url};
+    let Image_Http_URL = { uri: props.data.item.product.image_url };
     return (
-        <View style={styles.mainView}>
-            <View style={[styles.customView, styles.row]}> 
+        <View style={styles.mainView} >
+            <View style={[styles.customView, styles.row]}>
                 <Image
                     style={styles.image}
                     source={Image_Http_URL}/>
                 <ProductTitle 
-                    productInfo={props.data.item} 
-                    setIdToDelete={props.setIdToDelete} 
-                    setIdTotalItem={props.setIdTotalItem}
-                    IdTotalItem={props.IdTotalItem}
-                    showAlert={setVisible}
-                    itemId={props.data.item.id}/>
+                    productInfo={props.data.item.product}
+                    showAlerts={setVisible}
+                    totalItems={props.data.item.amount}/>
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => setVisible(true)}
                     style={{
-                        top: 10,
+                        top: 7,
                         width: 20,
                         position: 'absolute',
-                        right: 20,
+                        right: 15,
                     }}>
-                        <XIcon/>
+                    <XIcon />
                 </TouchableOpacity>
                 {
-                    Visible && <AlertDelete id={props.data.item.id} setIdToDelete={props.setIdToDelete} showAlert={setVisible} visible={Visible}/>
+                    Visible && <AlertDelete id={props.data.item.product.id} showAlert={setVisible} visible={Visible} />
                 }
             </View>
-        </View>
+        </View >
     )
 }
 
 function ProductTitle(props: {
-    productInfo: ProductModel,
-    setIdToDelete: React.Dispatch<React.SetStateAction<number>>,
-    setIdTotalItem: React.Dispatch<React.SetStateAction<{}>>
-    showAlert: React.Dispatch<React.SetStateAction<boolean>>,
-    IdTotalItem: {},
-    itemId: number
+    productInfo: ProductDTO,
+    showAlerts: React.Dispatch<React.SetStateAction<boolean>>,
+    totalItems: number
 }) {
-    const [totalItems, setTotalItems] = useState(1)
-
-    useEffect(() => {
-        console.log(props.IdTotalItem);
-        props.setIdTotalItem({
-            ...props.IdTotalItem,
-            [props.itemId] : totalItems
-        })
-    }, [totalItems])
-    
-
+    const [totalItems, setTotalItems] = useState(1);
     return (
         <View style={{
             flex: 1,
@@ -74,34 +60,29 @@ function ProductTitle(props: {
             marginTop: 20,
         }}>
             <View style={styles.row}>
-                <Text style={styles.boldText}>Red:</Text>
-                <Text>{props.productInfo.id}</Text>
+                <Text numberOfLines={1} style={styles.boldText}>{props.productInfo.ref}</Text>
             </View>
-            <Text style={{
-                flexWrap: 'wrap'
-            }}>
+            <Text
+                numberOfLines={1}
+                style={{
+                    flexWrap: 'wrap'
+                }}>
                 {props.productInfo.description}
             </Text>
             <View style={styles.subtotalContainer}>
-                <SubtotalView totalItems={totalItems} value={props.productInfo.value}/>
+                <SubtotalView totalItems={totalItems} value={props.productInfo.value} />
                 <View style={{
-                        flexDirection: 'row-reverse',
-                        marginLeft: 20,
-                    }}>
-                    <SubtotalButtons 
-                        totalItems={totalItems} 
-                        setTotalItems={setTotalItems} 
-                        showAlert={props.showAlert} 
-                        setIdTotalItem={props.setIdTotalItem}
-                        itemId={props.itemId}
-                        />
+                    flexDirection: 'row-reverse',
+                    marginLeft: 20,
+                }}>
+                    <SubtotalButtons totalItems={totalItems} showAlert={props.showAlerts} productId={props.productInfo.id} />
                 </View>
             </View>
         </View>
     )
 }
 
-function SubtotalView(props: {value: number ,totalItems: number}) {
+function SubtotalView(props: { value: number, totalItems: number }) {
     return (
         <View style={styles.subtotalView}>
             <Text style={styles.whiteColor}>
@@ -115,21 +96,19 @@ function SubtotalView(props: {value: number ,totalItems: number}) {
 }
 
 function SubtotalButtons(props: {
-    totalItems: number, 
-    setTotalItems: React.Dispatch<React.SetStateAction<number>>,
+    totalItems: number,
     showAlert: React.Dispatch<React.SetStateAction<boolean>>,
+    productId: number
 }) {
-    
+
+    const { dispatch } = useContext(CartContext);
+
     const sumItem = () => {
-        props.setTotalItems(props.totalItems+1)
+        dispatch({ type: 'INCREASE_AMOUNT', payload: { id: props.productId } });
     }
 
     const lestItem = () => {
-        if (props.totalItems > 1) {
-            props.setTotalItems(props.totalItems-1)
-        } else {
-            props.showAlert(true)
-        }
+        dispatch({ type: 'DECREASE_AMOUNT', payload: { id: props.productId } });
     }
 
     return (
@@ -142,14 +121,14 @@ function SubtotalButtons(props: {
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => lestItem()}
-                    style={[styles.cuantityView, styles.cuantityButtons]}>
+                    style={[styles.cuantityButtons]}>
                     <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>-</Text>
                 </TouchableOpacity>
                 <Text style={styles.totalItemsText}>{props.totalItems}</Text>
                 <TouchableOpacity
                     activeOpacity={0.5}
                     onPress={() => sumItem()}
-                    style={[styles.cuantityView, styles.cuantityButtons]}>
+                    style={[styles.cuantityButtons]}>
                     <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>+</Text>
                 </TouchableOpacity>
             </View>
@@ -157,18 +136,18 @@ function SubtotalButtons(props: {
     )
 }
 
-const AlertDelete = (props: {    
-    setIdToDelete: React.Dispatch<React.SetStateAction<number>>,
+const AlertDelete = (props: {
     showAlert: React.Dispatch<React.SetStateAction<boolean>>,
     id: number,
     visible: boolean
 }) => {
+    const { dispatch } = useContext(CartContext);
     const handleCancel = () => {
         props.showAlert(false);
     };
-    
+
     const handleDelete = () => {
-        props.setIdToDelete(props.id)
+        dispatch({ type: 'DELETE_PRODUCT', payload: { id: props.id } });
         props.showAlert(false);
     };
 
@@ -176,10 +155,10 @@ const AlertDelete = (props: {
         <Dialog.Container visible={props.visible}>
             <Dialog.Title>Eliminar producto</Dialog.Title>
             <Dialog.Description>
-                Estas seguro que quieres eliminar este 
+                ¿Estas seguro que quieres eliminar este producto?
             </Dialog.Description>
-            <Dialog.Button label="Cancel" onPress={handleCancel} />
-            <Dialog.Button label="Delete" onPress={handleDelete} />
+            <Dialog.Button label="Cancelar" onPress={handleCancel} />
+            <Dialog.Button label="Eliminar" onPress={handleDelete} />
         </Dialog.Container>
     );
 }
@@ -187,7 +166,7 @@ const AlertDelete = (props: {
 
 const styles = StyleSheet.create({
     mainView: {
-        flex:  1,
+        flex: 1,
         height: 130,
         width: '100%',
     },
@@ -208,15 +187,19 @@ const styles = StyleSheet.create({
     },
     cuantityButtons: {
         backgroundColor: AppColors.redWineColor,
+        paddingHorizontal: 15,
+        height: 25,
+        lineHeight: 0,
+        margin: 0
     },
     cuantityButtonsTitle: {
-        fontSize: 30,
-        height: 35,
-        alignSelf: 'center',
+        fontSize: 15,
+
+
     },
     cuantityView: {
-        width: '40%',
-        height: 20,
+        width: '50%',
+        height: 25,
         flexDirection: 'row',
         borderWidth: 1,
         borderColor: AppColors.redWineColor,

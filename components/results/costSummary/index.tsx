@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, ToastAndroid } from 'react-native'
 import React from 'react'
-import { AppColors } from '../../../../constants/Colors'
-import { getAnnuityValue, getDecreasingValues } from '../../../../utils/helpers';
+import { AppColors } from '../../../constants/Colors'
+import { getAnnuityValue, getDecreasingValues } from '../../../utils/helpers';
 
 type Props = {
     totalAmount: number,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     feeDetailsContainer: { flexDirection: 'row', justifyContent: 'space-around' },
     creditCard: { width: '30%', backgroundColor: 'red', marginRight: 15, height: 100 },
     summary: { flexDirection: 'row' },
-    feeValue: { fontSize: 20, textAlign: 'right', fontWeight: 'bold' },
+    feeValue: { fontSize: 20, textAlign: 'center', fontWeight: 'bold' },
     topText: { textAlign: 'center', marginBottom: 20 },
     title: { fontSize: 20, fontWeight: 'bold', marginVertical: 10 },
     bold: { fontWeight: 'bold' },
