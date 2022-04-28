@@ -53,4 +53,5 @@ jobs:
       run: |-
         gcloud compute instances update-container "$GCP_INSTANCE" \
           --zone "$GCP_INSTANCE_ZONE" \
+          --container-args "-p 19000:19000 -p 19001:19001 -p 19002:19002 -p 19006:19006" \
           --container-image "gcr.io/$PROJECT_ID/$GCP_INSTANCE-image:$GITHUB_SHA"
