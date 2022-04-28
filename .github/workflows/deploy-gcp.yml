@@ -1,0 +1,46 @@
+name: Build and Deploy to Google Cloud Platform
+
+on:
+  push:
+    branches:
+      - master
+      - refactoring
+    files:
+      - .github/workflows/deploy-gcp.yml
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+  GCP_INSTANCE: tuya-credit-fe
+  GCP_INSTANCE_ZONE: us-west1-b
+
+jobs:
+  job_id:
+    name: Connect to GCP
+    steps:
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v0'
+
+    - name: 'Use gcloud CLI'
+      run: 'gcloud info'
+
+  build-publish-deploy:
+    name: Build, Publish and Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build API
+      run: gcloud builds submit --tag gcr.io/juansedo/tuya-credit-fe api
+    - name: Deploy API
+      run: gcloud run deploy api --image gcr.io/juansedo/tuya-credit-fe --platform managed --region ${{ secrets.GCP_INSTANCE_ZONE }}
+    # - name: Purge GCR images
+    #   run: |-
+    #     gcloud container images list-tags gcr.io/$PROJECT_ID/$GCE_INSTANCE-image \
+    #       --format="get(digest)" --filter="NOT tags=$GITHUB_SHA" | \
+    #       awk -v image_path="gcr.io/$PROJECT_ID/$GCE_INSTANCE-image@" '{print image_path $1}' | \
+    #       xargs -r gcloud container images delete --force-delete-tags --quiet
+
