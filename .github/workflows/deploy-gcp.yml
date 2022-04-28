@@ -14,10 +14,12 @@ env:
   GCP_INSTANCE_ZONE: us-west1-b
 
 jobs:
-  job_id:
-    name: Connect to GCP
+  setup-build-publish-deploy:
+    name: Setup GCP, Build, Publish and Deploy
+    runs-on: ubuntu-latest
     steps:
     - id: 'auth'
+      name: Connect to GCP
       uses: 'google-github-actions/auth@v0'
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
@@ -28,8 +30,6 @@ jobs:
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
 
-  build-publish-deploy:
-    name: Build, Publish and Deploy
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
