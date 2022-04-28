@@ -1,7 +1,6 @@
-import { Alert, TouchableOpacity } from "react-native";
+import { Alert, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { AppColors } from "_constants/Colors";
 import { fee } from "_types";
-
-import { styles } from "../styles";
 
 const Details = (fee: fee) => (
   <TouchableOpacity
@@ -20,8 +19,18 @@ saldo pendiente: ${fee.balance}
       )
     }
   >
-    <Image style={styles.img} source={require("_assets/images/document.png")} />
+    <Image style={styles.img} source={require("../../../assets/images/document.png")} />
   </TouchableOpacity>
 );
+
+const styles = StyleSheet.create({
+  img: {
+    width: 35,
+    height: 35,
+    marginLeft: "auto",
+    marginRight: "auto",
+    tintColor: AppColors.redColor,
+  },
+});
 
 export default Details;
