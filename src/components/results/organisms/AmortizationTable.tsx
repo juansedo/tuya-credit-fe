@@ -1,11 +1,10 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Table, Row } from "react-native-table-component";
+import TableRow from "_components/results/molecules/TableRow";
 import { AppColors } from "_constants/Colors";
 import { getDecreasingFees, getAnnuityFees } from "_utils/helpers";
-
-import TableRow from "../molecules/TableRow";
-import { fee } from "types";
+import { fee } from "_types";
 
 type ResultsAmortizationTableProps = {
   totalAmount: number;

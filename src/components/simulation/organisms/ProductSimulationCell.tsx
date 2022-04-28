@@ -3,9 +3,9 @@ import { Image, TouchableOpacity } from "react-native";
 import { View } from "_components/Themed";
 import { AlertDelete } from "_components/simulation/molecules";
 import XIcon from "_assets/images/svg/XIcon";
+import { ProductItem } from "_types";
 
 import ProductTitle from "./ProductTitle";
-import { ProductItem } from "../../../../types";
 import { styles } from "../styles";
 
 interface ProductSimulationCellProps {

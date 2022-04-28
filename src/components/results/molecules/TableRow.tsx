@@ -1,10 +1,10 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { TableWrapper, Cell } from "react-native-table-component";
+import { AppColors } from "_constants/Colors";
+import { fee } from "_types";
 
 import Details from "./Details";
-import { AppColors } from "_/constants/Colors";
-import { fee } from "types";
 
 interface ResultsTableRowProps {
   fee: fee,

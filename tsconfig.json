@@ -12,9 +12,10 @@
       "_screens/*": ["src/screens/*"],
       "_services/*": ["src/services/*"],
       "_styles/*": ["src/styles/*"],
-      "_utils/*": ["src/utils/*"]
+      "_utils/*": ["src/utils/*"],
+      "_types": ["src/types/index.tsx"]
     }
   },
-  "include": [ "src/**/*" ],
+  "include": [ "src/**/*", "src/utils/hooks" ],
   "exclude": [ "node_modules", "**/*.d.ts" ]
 }

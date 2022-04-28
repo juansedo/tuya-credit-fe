@@ -1,5 +1,6 @@
 import { Alert, TouchableOpacity } from "react-native";
-import { fee } from "types";
+import { fee } from "_types";
+
 import { styles } from "../styles";
 
 const Details = (fee: fee) => (

@@ -1,42 +1,30 @@
-import { StyleSheet, ScrollView } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import AmortizationTable from '../../components/results/amortizationTable';
-import CostSummary from '../../components/results/costSummary';
-import { useContext } from 'react';
-import { CartContext } from '../../utils/cart-context';
+import { useContext } from "react";
+import { ScrollView } from "react-native";
+import AmortizationTable from "_components/results/organisms/AmortizationTable";
+import CostSummary from "_components/results/organisms/CostSummary";
+import { CartContext } from "_utils/cart-context";
 
+import { styles } from "./styles";
 
-export default function ResultTabScreen() {
+const ResultTabScreen = () => {
   const { state } = useContext(CartContext);
-  let total = 0
-  state.simulationItems.forEach(item => {
-    total += item.amount * item.product.value
+  let total = 0;
+  state.simulationItems.forEach((item: any) => {
+    total += item.amount * item.product.value;
   });
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
       <CostSummary totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={"Visa"} />
-      <AmortizationTable totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={'Visa'} />
+      <AmortizationTable
+        totalAmount={total}
+        feesNumber={12}
+        handlingFee={9000}
+        interestRate={0.02055}
+        cardType={"Visa"}
+      />
     </ScrollView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  contentContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+export default ResultTabScreen;

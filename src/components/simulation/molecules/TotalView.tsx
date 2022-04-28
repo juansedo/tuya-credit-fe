@@ -1,4 +1,5 @@
 import { Text, View } from "_components/Themed";
+
 import { styles } from "../styles";
 
 const TotalView = (props: {value: number ,totalItems: number}) => {

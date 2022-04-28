@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Text, View } from "_components/Themed";
 import { SubtotalButtons } from "_components/simulation/molecules";
 import { SubtotalView } from "_components/simulation/molecules";
+import { ProductDTO } from "_types";
 
-import { ProductDTO } from "../../../../types";
 import { styles } from "../styles";
 
 interface ProductTitleProps {

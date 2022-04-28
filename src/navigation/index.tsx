@@ -1,28 +1,23 @@
-/**
- * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
+import * as React from 'react';
+import { ColorSchemeName, Pressable, Image } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { ColorSchemeName, Pressable, Image } from 'react-native';
-
-import Colors, { AppColors } from '../constants/Colors';
-import useColorScheme from '../../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
-import SearchScreen from '../screens/Search/SearchScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import HomeTabScreen from '../screens/Home/HomeTabScreen';
-import SimulationTabScreen from '../screens/Simulation/SimulationTabScreen';
-import ResultTabScreen from '../screens/Result/ResultTabScreen'
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
-import LinkingConfiguration from './LinkingConfiguration';
-import HomeIcon from '../assets/images/svg/HomeIcon';
-import SimulationIcon from '../assets/images/svg/SimulationIcon';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Colors, { AppColors } from '_constants/Colors';
+import useColorScheme from '_utils/hooks/useColorScheme';
+import ModalScreen from '_screens/ModalScreen';
+import SearchScreen from '_screens/Search/SearchScreen';
+import NotFoundScreen from '_screens/NotFoundScreen';
+import HomeTabScreen from '_screens/Home/HomeTabScreen';
+import SimulationTabScreen from '_screens/Simulation/SimulationTabScreen';
+import ResultTabScreen from '_screens/Result/ResultTabScreen'
+import HomeIcon from '_assets/images/svg/HomeIcon';
+import SimulationIcon from '_assets/images/svg/SimulationIcon';
+import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '_types';
+
+import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -117,7 +112,7 @@ function BottomTabNavigator() {
           ),
         }}
       />
-      
+
       <BottomTab.Screen
         name="ResultTab"
         component={ResultTabScreen}

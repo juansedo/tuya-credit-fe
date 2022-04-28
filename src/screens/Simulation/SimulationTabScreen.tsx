@@ -1,10 +1,10 @@
-import { FlatList, TouchableOpacity } from "react-native";
-import { View, Text } from "../../components/Themed";
-import ProductSimulationCell from "../../components/simulation/organisms/ProductSimulationCell";
 import React, { useState, useContext } from "react";
-import { CartContext } from "../../utils/cart-context";
+import { FlatList, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { View, Text } from "_components/Themed";
+import ProductSimulationCell from "_components/simulation/organisms/ProductSimulationCell";
+import { CartContext } from "_utils/cart-context";
 import { styles } from "_screens/simulation/styles";
 import { TotalView } from "_components/simulation/molecules";
 

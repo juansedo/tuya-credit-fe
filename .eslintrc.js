@@ -15,6 +15,7 @@ module.exports = {
 					_services: './src/services',
 					_styles: './src/styles',
 					_utils: './src/utils',
+					_types: './src/types/index.tsx',
 				},
 			},
 		},

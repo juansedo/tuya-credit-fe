@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { TouchableOpacity } from "react-native";
 import { CartContext } from "_utils/cart-context";
 import { Text, View } from "_components/Themed";
+import { ProductDTO } from "_types";
 
-import { ProductDTO } from "types";
 import { styles } from "../styles";
 
 interface SearchProductTitleProps {

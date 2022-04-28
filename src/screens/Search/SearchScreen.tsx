@@ -1,7 +1,8 @@
-import { StyleSheet, FlatList, Button, TextInput, Text } from "react-native";
-import { View } from "../../components/Themed";
-import ProductSearchCell from "../../components/search/organisms/ProductSearchCell";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
+import { FlatList, TextInput } from "react-native";
+import { View } from "_components/Themed";
+import ProductSearchCell from "_components/search/organisms/ProductSearchCell";
+
 import { styles } from "./styles";
 
 interface SearchScreenProps {

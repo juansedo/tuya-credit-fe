@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React, { createContext, useState, useReducer } from 'react'
-import { ProductItem, ProductDTO } from '../../types';
+import { ProductItem, ProductDTO } from '_types';
 
 let data = [
     {

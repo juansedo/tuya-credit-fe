@@ -1,4 +1,4 @@
-import { fee } from "../../types";
+import { fee } from "_types";
 
 export const currencyFormat = (num: Number) => {
     return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
