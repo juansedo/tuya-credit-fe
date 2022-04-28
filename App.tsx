@@ -3,10 +3,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
-import CartProvider from './utils/cart-context';
+import Navigation from './src/navigation';
+import CartProvider from './src/utils/cart-context';
 
-export default function App() {
+const App = () => {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
 
@@ -23,3 +23,5 @@ export default function App() {
     );
   }
 }
+
+export default App;
