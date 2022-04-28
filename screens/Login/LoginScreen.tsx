@@ -6,7 +6,7 @@ import { AppColors } from '../../constants/Colors'
 
 
 interface LoginScreenProps {
-
+  navigation: any
 }
 
 export default function LoginScreen(props: LoginScreenProps) {
@@ -20,11 +20,11 @@ export default function LoginScreen(props: LoginScreenProps) {
         </View>
         <View style={styles.inputs}>
           <TextInput style={styles.input} placeholder="correo"></TextInput>
-          <TextInput style={styles.input} placeholder="contraseña"></TextInput>
+          <TextInput style={styles.input} secureTextEntry={true} placeholder="contraseña"></TextInput>
         </View>
         <View style={styles.submit}>
           <Text style={[styles.text, styles.forgotPassword]}>¿olvidaste tu contraseña?</Text>
-          <Button title={'Aceptar'} color={AppColors.redColor} onPress={() => console.log('')} />
+          <Button title={'Aceptar'} color={AppColors.redColor} onPress={() => props.navigation.navigate('Root')} />
         </View>
       </View>
     </View>
