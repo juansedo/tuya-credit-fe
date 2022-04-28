@@ -1,0 +1,14 @@
+FROM node:16-alpine
+
+ENV NODE_ENV=production
+
+WORKDIR /app
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install
+RUN yarn global add expo-cli@5.4.3
+
+COPY . .
+
+EXPOSE 19000 19001 19002 19006
+CMD ["yarn", "start"]
