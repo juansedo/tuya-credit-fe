@@ -39,6 +39,11 @@ export default function ScannerScreen(props) {
         alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     };
 
+    const handleCloseModal = () => {
+        setModalVisible(false);
+        setScanned(false);
+    }
+
     if (hasPermission === null) {
         return <Text>Requesting for camera permission</Text>;
     }
@@ -70,7 +75,7 @@ export default function ScannerScreen(props) {
                                 />
                                 <Button
                                     title="Cancelar"
-                                    onPress={() => setModalVisible(false)}
+                                    onPress={handleCloseModal}
                                     color={AppColors.redColor}
                                     style={styles.button}
                                 />
