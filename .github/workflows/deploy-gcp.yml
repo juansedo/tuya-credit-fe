@@ -13,7 +13,6 @@ env:
   GCP_INSTANCE: tuya-credit-fe
   GCP_INSTANCE_ZONE: us-west1-b
 
-
 jobs:
   deploy:
     name: Deploy Cloud Workflow
@@ -21,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@main
       with:
         project_id: ${{ secrets.GCP_PROJECT_ }}
         service_account_key: ${{ secrets.GCP_SA_KEY }}
@@ -33,4 +32,4 @@ jobs:
         --source deploy-gcp.workflows.yaml \
         --project ${{ secrets.GCP_PROJECT }} \
         --labels "commit-sha=${{ github.sha }}" \
-        --service-account my-wf-service-account@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com
+        --service-account ${{ env.GCP_INSTANCE }}@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com
