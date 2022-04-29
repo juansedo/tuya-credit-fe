@@ -1,4 +1,4 @@
-name: Build and Deploy to Google Cloud Platform
+name: Publish on Expo Go
 
 on:
   push:
@@ -17,10 +17,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Install dependencies
+      run: yarn
+
     - name: Expo Login
       run: |
-        npm run login -- -u ${{ secrets.EXPO_USER }} -p ${{ secrets.EXPO_PASS }}
+        yarn login -- -u ${{ secrets.EXPO_USER }} -p ${{ secrets.EXPO_PASS }}
 
     - name: Expo Publish
       run: |
-        npm run publish
+        yarn publish
