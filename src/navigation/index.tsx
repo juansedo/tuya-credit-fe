@@ -87,7 +87,7 @@ function BottomTabNavigator() {
         name="HomeTab"
         component={HomeTabScreen}
         options={({ navigation }: RootTabScreenProps<'HomeTab'>) => ({
-          title: 'Home',
+          title: 'Inicio',
           tabBarIcon: ({ color }) => <HomeIcon />,
           headerStyle: {
             backgroundColor: AppColors.redColor
