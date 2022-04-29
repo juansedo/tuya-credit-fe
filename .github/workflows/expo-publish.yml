@@ -19,7 +19,7 @@ jobs:
 
     - name: Expo Login
       run: |
-        npm run login -- -u {{ secrets.EXPO_USER }} -p {{ secrets.EXPO_PASS }}
+        npm run login -- -u ${{ secrets.EXPO_USER }} -p ${{ secrets.EXPO_PASS }}
 
     - name: Expo Publish
       run: |
