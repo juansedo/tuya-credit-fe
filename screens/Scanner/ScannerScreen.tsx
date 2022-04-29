@@ -8,7 +8,7 @@ import { CartContext } from '../../utils/cart-context';
 export default function ScannerScreen(props) {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
-    const [modalVisible, setModalVisible] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
     const [product, setProduct] = useState({
         "id": "fgjf3434HADH1352djhfjfXBDGHT",
         "ref": "PR100SD",
@@ -36,7 +36,7 @@ export default function ScannerScreen(props) {
 
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        setModalVisible(true);
     };
 
     const handleCloseModal = () => {
