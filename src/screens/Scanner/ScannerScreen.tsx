@@ -24,6 +24,7 @@ const ScannerScreen = ({ props }) => {
   const { dispatch } = useContext(CartContext);
 
   const addItem = () => {
+    setModalVisible(false);
     dispatch({ type: "ADD_PRODUCT", payload: { product: product } });
     props.navigation.navigate("SimulationTab");
   };
