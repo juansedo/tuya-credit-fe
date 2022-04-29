@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "scheme": "myapp",
+    "privacy": "unlisted",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./src/assets/images/splash.png",

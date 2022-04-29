@@ -7,7 +7,7 @@ COPY package.json ./
 COPY yarn.lock ./
 RUN yarn install
 RUN yarn global add expo-cli@5.4.3
-RUN yarn global add typescript@~4.3.5
+RUN yarn add --dev typescript@~4.3.5
 
 COPY . .
 
