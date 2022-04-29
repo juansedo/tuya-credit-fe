@@ -28,7 +28,7 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
         data={state.cartItems}
         style={styles.list}
         renderItem={(item) => <ProductSimulationCell data={item} />}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => index.toString()}
       />
       <View style={{ width: "100%" }}>
         <TotalView value={TotalToFinance} totalItems={1} />

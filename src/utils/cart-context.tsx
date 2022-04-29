@@ -52,11 +52,11 @@ const reducer = (state, action) => {
         case "DELETE_PRODUCT":
             return { ...state, cartItems: state.cartItems.filter((item: ProductItem) => item.product.id !== action.payload.id) }
         case "INCREASE_AMOUNT":
-            let productToIncrease = state.cartItems.find((item: ProductItem) => item.product.id === action.payload.id)
+            const productToIncrease = state.cartItems.find((item: ProductItem) => item.product.id === action.payload.id)
             productToIncrease.amount += 1;
             return { ...state }
         case "DECREASE_AMOUNT":
-            let productToDecrease = state.cartItems.find((item: ProductItem) => item.product.id === action.payload.id)
+            const productToDecrease = state.cartItems.find((item: ProductItem) => item.product.id === action.payload.id)
             if (productToDecrease.amount > 1) {
                 productToDecrease.amount -= 1;
             }
