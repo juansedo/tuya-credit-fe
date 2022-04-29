@@ -1,0 +1,29 @@
+name: Publish on Expo Go
+
+on:
+  push:
+    branches:
+      - master
+      - refactoring
+    files:
+      - .github/workflows/expo-publish.yml
+
+jobs:
+  login-publish:
+    name: Expo App Login and Publish
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: yarn
+
+    - name: Expo Login
+      run: |
+        yarn expo:login -- -u ${{ secrets.EXPO_USER }} -p ${{ secrets.EXPO_PASS }}
+
+    - name: Expo Publish
+      run: |
+        yarn expo:publish
