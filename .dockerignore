@@ -1,0 +1,9 @@
+.git
+.env*
+.editorconfig
+.babelrc
+.eslintrc.js
+.gitignore
+.prettierignore
+Dockerfile
+*.md
