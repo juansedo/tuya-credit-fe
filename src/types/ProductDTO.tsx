@@ -1,10 +1,10 @@
 export type ProductDTO = {
-  id: number,
+  id: string,
   ref: string,
   image_url: string,
   description: string,
-  value: number,
-  discount_percent: number,
-  special_discount_percent: number,
+  value: string,
+  discount_percent: string,
+  special_discount_percent: string,
   warehouse: string,
 };

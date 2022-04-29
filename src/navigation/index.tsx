@@ -9,6 +9,8 @@ import Colors, { AppColors } from '_constants/Colors';
 import useColorScheme from '_utils/hooks/useColorScheme';
 import ModalScreen from '_screens/ModalScreen';
 import SearchScreen from '_screens/Search/SearchScreen';
+import ScannerScreen from '_screens/Scanner/ScannerScreen';
+import LoginScreen from '_screens/Login/LoginScreen';
 import NotFoundScreen from '_screens/NotFoundScreen';
 import HomeTabScreen from '_screens/Home/HomeTabScreen';
 import SimulationTabScreen from '_screens/Simulation/SimulationTabScreen';
@@ -37,13 +39,24 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='Login'>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
       <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen options={{
+        title: 'Lectura de QR',
+        headerStyle: {
+          backgroundColor: AppColors.redColor,
+        },
+        headerTintColor: "#fff"
+      }} name="Scanner" component={ScannerScreen} />
+      <Stack.Screen options={{
+        headerShown: false,
+      }}
+        name="Login" component={LoginScreen} />
     </Stack.Navigator>
   );
 }
@@ -82,7 +95,7 @@ function BottomTabNavigator() {
           headerTintColor: '#fff',
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => navigation.navigate('Scanner')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
