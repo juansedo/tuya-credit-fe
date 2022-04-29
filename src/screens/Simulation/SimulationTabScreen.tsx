@@ -7,6 +7,7 @@ import ProductSimulationCell from "_components/simulation/organisms/ProductSimul
 import { CartContext } from "_utils/cart-context";
 import { styles } from "_screens/simulation/styles";
 import { TotalView } from "_components/simulation/molecules";
+import { currencyFormat } from "_utils/helpers";
 
 interface SimulationTabScreenProps {
   navigation: any;
@@ -22,6 +23,12 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
     props.navigation.navigate("ResultTab");
   };
 
+  const totalPrice = state.cartItems.reduce((last, product) => {
+    const lastItemPrice = parseInt(last.amount) * parseInt(last.product.value)
+    const productPrice = parseInt(product.amount) * parseInt(product.product.value)
+    return lastItemPrice + productPrice
+  })
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -31,7 +38,7 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
         keyExtractor={(item, index) => index.toString()}
       />
       <View style={{ width: "100%" }}>
-        <TotalView value={TotalToFinance} totalItems={1} />
+        <TotalView value={currencyFormat(totalPrice)} />
         <View
           style={{
             flexDirection: "row",
