@@ -23,11 +23,10 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
     props.navigation.navigate("ResultTab");
   };
 
-  const totalPrice = state.cartItems.reduce((last, product) => {
-    const lastItemPrice = parseInt(last.amount) * parseInt(last.product.value)
+  const totalPrice = state.cartItems.reduce((total, product) => {
     const productPrice = parseInt(product.amount) * parseInt(product.product.value)
-    return lastItemPrice + productPrice
-  })
+    return total + productPrice
+  }, 0)
 
   return (
     <View style={styles.container}>
