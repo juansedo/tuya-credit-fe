@@ -5,7 +5,7 @@ import { AppColors } from "_constants/Colors";
 import { ProductCard } from "_components/scanner/molecules";
 import { CartContext } from "_utils/cart-context";
 
-const ScannerScreen = () => {
+const ScannerScreen = ({ props }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -24,6 +24,7 @@ const ScannerScreen = () => {
   const { dispatch } = useContext(CartContext);
 
   const addItem = () => {
+    setModalVisible(false);
     dispatch({ type: "ADD_PRODUCT", payload: { product: product } });
     props.navigation.navigate("SimulationTab");
   };

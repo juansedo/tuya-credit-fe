@@ -24,7 +24,7 @@ export default function LoginScreen(props: LoginScreenProps) {
         </View>
         <View style={styles.submit}>
           <Text style={[styles.text, styles.forgotPassword]}>¿olvidaste tu contraseña?</Text>
-          <Button title={'Aceptar'} color={AppColors.redColor} onPress={() => props.navigation.navigate('Root')} />
+          <Button title={'Aceptar'} color={AppColors.redWineColor} onPress={() => props.navigation.navigate('Root')} />
         </View>
       </View>
     </View>

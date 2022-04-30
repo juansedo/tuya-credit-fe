@@ -8,7 +8,7 @@ import { styles } from "../styles";
 const SubtotalButtons = (props: {
   totalItems: number;
   showAlert: React.Dispatch<React.SetStateAction<boolean>>;
-  productId: number;
+  productId: string;
 }) => {
   const { dispatch } = useContext(CartContext);
 

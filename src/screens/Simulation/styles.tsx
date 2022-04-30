@@ -66,4 +66,46 @@ export const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
+  centeredView: {
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    alignSelf: "center",
+    top: 0,
+    bottom: 0,
+    margin: 'auto',
+    backgroundColor: 'rgba(0, 0, 0, 0)'
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: AppColors.redColor,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    backgroundColor: AppColors.redColor,
+  },
+  optionButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    width: 150,
+    margin: 10,
+    backgroundColor: AppColors.redWineColor,
+  },
+  closeButton: {
+    width: 100,
+    backgroundColor: AppColors.redWineColor,
+    padding: 10,
+    alignItems: "center",
+    marginBottom: 10,
+  }
 });

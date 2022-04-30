@@ -13,7 +13,8 @@ interface ProductTitleProps {
 }
 
 const ProductTitle = (props: ProductTitleProps) => {
-  const [totalItems, setTotalItems] = useState(1);
+  const { totalItems } = props;
+
   return (
     <View
       style={{
