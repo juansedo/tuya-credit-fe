@@ -3520,6 +3520,11 @@ expo-modules-core@0.6.5:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-optimize@^0.2.15:
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/expo-optimize/-/expo-optimize-0.2.15.tgz#e8b49413cfde387eeceae302857d723884046487"
+  integrity sha512-QiXBNQiREE6qPbp5JV0Ih5GefFt/DUWkjY0h4iOPsbgNwVxAT33Xnvt0nf6AY1guT2d1YSmRsa+ej/l38ZXazA==
+
 expo-splash-screen@~0.14.0:
   version "0.14.2"
   resolved "https://registry.npmjs.org/expo-splash-screen/-/expo-splash-screen-0.14.2.tgz"
