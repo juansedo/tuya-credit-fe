@@ -5,7 +5,7 @@ import { AppColors } from "_constants/Colors";
 import { ProductCard } from "_components/scanner/molecules";
 import { CartContext } from "_utils/cart-context";
 
-const ScannerScreen = ({ props }) => {
+const ScannerScreen = (props) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
