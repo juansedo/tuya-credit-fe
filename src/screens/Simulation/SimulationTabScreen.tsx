@@ -5,7 +5,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { View, Text } from "_components/Themed";
 import ProductSimulationCell from "_components/simulation/organisms/ProductSimulationCell";
 import { CartContext } from "_utils/cart-context";
-import { styles } from "_screens/simulation/styles";
+import { styles } from "_screens/Simulation/styles";
 import { TotalView } from "_components/simulation/molecules";
 import { currencyFormat } from "_utils/helpers";
 
