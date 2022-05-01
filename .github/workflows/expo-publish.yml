@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - refactoring
+      - release/*
     files:
       - .github/workflows/expo-publish.yml
 
@@ -19,7 +19,7 @@ jobs:
 
     - name: Install dependencies
       run: yarn
-      
+
     - name: Install Expo CLI
       run: yarn global add expo-cli@5.4.3
 
