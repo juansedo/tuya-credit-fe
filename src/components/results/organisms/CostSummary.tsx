@@ -24,11 +24,11 @@ const CostSummary = (props: ResultsCostSummaryProps) => {
       <View>
         <Text style={[styles.redText, styles.feeValue]}>
           {" "}
-          <Text style={styles.small}>Max. </Text> {feeValues[0]}
+          <Text style={styles.small}>Min. </Text> {feeValues[0]}
         </Text>
         <Text style={[styles.redText, styles.feeValue]}>
           {" "}
-          <Text style={styles.small}>Min. </Text>
+          <Text style={styles.small}>Max. </Text>
           {feeValues[1]}
         </Text>
       </View>

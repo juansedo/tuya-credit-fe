@@ -180,6 +180,7 @@ const SimulationTabScreen = (props: SearchScreenProps) => {
         data={products}
         style={styles.list}
         renderItem={(item) => <ProductSearchCell data={item} navigation={props.navigation} />}
+        keyExtractor={(item, index) => index.toString()}
       />
     </View>
   );
