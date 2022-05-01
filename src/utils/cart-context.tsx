@@ -44,19 +44,19 @@ const initialState: { cartItems: Array<ProductItem>, simulationItems: Array<Prod
 const reducer = (state, action) => {
     switch (action.type) {
         case "ADD_PRODUCT":
-            console.log(state.cartItems.some(item => item.product.id === action.payload.product.id))
             if (!state.cartItems.some(item => item.product.id === action.payload.product.id)) {
+                console.log({ ...state, cartItems: [...state.cartItems, { product: action.payload.product, amount: 1 }] })
                 return { ...state, cartItems: [...state.cartItems, { product: action.payload.product, amount: 1 }] }
             }
             return { ...state }
         case "DELETE_PRODUCT":
             return { ...state, cartItems: state.cartItems.filter((item: ProductItem) => item.product.id !== action.payload.id) }
         case "INCREASE_AMOUNT":
-            let productToIncrease = state.cartItems.find((item: ProductItem) => item.product.id === action.payload.id)
+            const productToIncrease = state.cartItems.find((item: ProductItem) => item.product.id === action.payload.id)
             productToIncrease.amount += 1;
             return { ...state }
         case "DECREASE_AMOUNT":
-            let productToDecrease = state.cartItems.find((item: ProductItem) => item.product.id === action.payload.id)
+            const productToDecrease = state.cartItems.find((item: ProductItem) => item.product.id === action.payload.id)
             if (productToDecrease.amount > 1) {
                 productToDecrease.amount -= 1;
             }

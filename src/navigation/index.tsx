@@ -87,7 +87,7 @@ function BottomTabNavigator() {
         name="HomeTab"
         component={HomeTabScreen}
         options={({ navigation }: RootTabScreenProps<'HomeTab'>) => ({
-          title: 'Home',
+          title: 'Inicio',
           tabBarIcon: ({ color }) => <HomeIcon />,
           headerStyle: {
             backgroundColor: AppColors.redColor
@@ -95,7 +95,7 @@ function BottomTabNavigator() {
           headerTintColor: '#fff',
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Scanner')}
+              onPress={() => navigation.navigate('Modal')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>

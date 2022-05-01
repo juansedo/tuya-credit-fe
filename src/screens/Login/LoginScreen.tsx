@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Button, Text, TextInput } from 'react-native';
+import { StyleSheet, Image, Button, Text, TextInput, Touchable, TouchableOpacity } from 'react-native';
 import { View } from '../../components/Themed';
 import React, { useState, useEffect, useContext } from 'react'
 import { CartContext } from '../../utils/cart-context';
@@ -24,7 +24,9 @@ export default function LoginScreen(props: LoginScreenProps) {
         </View>
         <View style={styles.submit}>
           <Text style={[styles.text, styles.forgotPassword]}>¿olvidaste tu contraseña?</Text>
-          <Button title={'Aceptar'} color={AppColors.redColor} onPress={() => props.navigation.navigate('Root')} />
+          <TouchableOpacity style={styles.submitButton} onPress={() => props.navigation.navigate('Root')}>
+            <Text style={styles.submitText}>Aceptar</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -79,11 +81,20 @@ const styles = StyleSheet.create({
   },
   submit: {
     backgroundColor: AppColors.redColor,
-    width: '90%',
+    width: '70%',
     alignSelf: 'center',
   },
   forgotPassword: {
     marginBottom: 10,
+    fontWeight: 'bold',
+  },
+  submitButton: {
+    backgroundColor: AppColors.redWineColor,
+    padding: 10,
+  },
+  submitText: {
+    color: '#fff',
+    textAlign: 'center',
     fontWeight: 'bold',
   }
 
