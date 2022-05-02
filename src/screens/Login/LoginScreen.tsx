@@ -1,8 +1,8 @@
-import { StyleSheet, Image, Button, Text, TextInput, Touchable, TouchableOpacity } from 'react-native';
-import { View } from '../../components/Themed';
 import React, { useState, useEffect, useContext } from 'react'
-import { CartContext } from '../../utils/cart-context';
-import { AppColors } from '../../constants/Colors'
+import { StyleSheet, Image, Button, Text, TextInput, Touchable, TouchableOpacity } from 'react-native';
+import { View } from '_components/Themed';
+import { CartContext } from '_utils/cart-context';
+import { AppColors } from '_constants/Colors'
 
 
 interface LoginScreenProps {
