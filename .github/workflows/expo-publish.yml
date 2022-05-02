@@ -19,6 +19,9 @@ jobs:
 
     - name: Install dependencies
       run: yarn
+      
+    - name: Install Expo CLI
+      run: yarn global add expo-cli@5.4.3
 
     - name: Install Expo CLI
       run: yarn global add expo-cli@5.4.3
