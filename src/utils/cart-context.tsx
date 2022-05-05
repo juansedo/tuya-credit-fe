@@ -27,7 +27,7 @@ let data = [
     }
 ]
 
-const initialState: { cartItems: Array<ProductItem>, simulationItems: Array<ProductItem> } = {
+const initialState: { cartItems: Array<ProductItem>, simulationItems: Array<ProductItem>, interestRate: number, fees: number } = {
     cartItems: [
         {
             product: data[0],
@@ -38,7 +38,9 @@ const initialState: { cartItems: Array<ProductItem>, simulationItems: Array<Prod
             amount: 2
         }
     ],
-    simulationItems: []
+    simulationItems: [],
+    interestRate: 0.0225,
+    fees: 12,
 }
 
 const reducer = (state, action) => {
@@ -63,6 +65,10 @@ const reducer = (state, action) => {
             return { ...state }
         case "SIMULATE":
             return { ...state, simulationItems: state.cartItems }
+        case "SET_FEES":
+            return { ...state, fees: action.payload.fees }
+        case "SET_INTEREST_RATE":
+            return { ...state, interestRate: action.payload.interestRate }
         default:
             return state
     }

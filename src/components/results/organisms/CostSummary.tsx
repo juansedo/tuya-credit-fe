@@ -1,6 +1,7 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, Text, TextInput } from "react-native";
 import { getAnnuityValue, getDecreasingValues } from "_utils/helpers";
+import { CartContext } from "_utils/cart-context";
 
 import { styles } from "../styles";
 
@@ -14,6 +15,17 @@ type ResultsCostSummaryProps = {
 
 const CostSummary = (props: ResultsCostSummaryProps) => {
   const { totalAmount, feesNumber, handlingFee, interestRate, cardType } = props;
+  const [feesNumberValue, setFeesNumberValue] = useState(feesNumber);
+  const [interestRateValue, setInterestRateValue] = useState(interestRate);
+  const { dispatch } = useContext(CartContext);
+
+  const updateFeesNumber = () => {
+    dispatch({ type: "SET_FEES", payload: { fees: feesNumberValue } });
+  }
+
+  const updateInterestRate = () => {
+    dispatch({ type: "SET_INTEREST_RATE", payload: { interestRate: interestRateValue } });
+  }
 
   let feesData: JSX.Element;
   let feesDataText: string;
@@ -49,13 +61,25 @@ const CostSummary = (props: ResultsCostSummaryProps) => {
         <View style={[styles.fees, styles.inputContainer]}>
           <Text style={styles.inputText}>Cuotas </Text>
           <View style={styles.inputValueContainer}>
-            <Text style={[styles.redText, styles.inputValueText]}>{feesNumber}</Text>
+            <TextInput
+              style={[styles.redText, styles.inputValueText]}
+              keyboardType='numeric'
+              value={feesNumberValue.toString()}
+              onChangeText={value => setFeesNumberValue(value)}
+              onEndEditing={() => updateFeesNumber()}
+            />
           </View>
         </View>
         <View style={[styles.interest, styles.inputContainer]}>
           <Text style={styles.inputText}>Interés Mensual </Text>
           <View style={styles.inputValueContainer}>
-            <Text style={[styles.orangeText, styles.inputValueText]}>{interestRate}</Text>
+            <TextInput
+              style={[styles.redText, styles.inputValueText]}
+              keyboardType='numeric'
+              value={interestRateValue.toString()}
+              onChangeText={value => setInterestRateValue(value)}
+              onEndEditing={() => updateInterestRate()}
+            />
           </View>
         </View>
       </View>
