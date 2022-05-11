@@ -8,21 +8,27 @@ import { styles } from "./styles";
 
 const ResultTabScreen = () => {
   const { state } = useContext(CartContext);
-  let total = 0;
-  state.simulationItems.forEach((item: any) => {
-    total += item.amount * item.product.value;
-  });
+  const totalPrice = state.cartItems.reduce((total, product) => {
+    const productPrice = parseInt(product.amount) * parseInt(product.product.value)
+    return total + productPrice
+  }, 0)
 
   let cardType = "mastercard";
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
-      <CostSummary totalAmount={total} feesNumber={12} handlingFee={9000} interestRate={0.02055} cardType={cardType} />
-      <AmortizationTable
-        totalAmount={total}
-        feesNumber={12}
+      <CostSummary
+        totalAmount={totalPrice}
+        feesNumber={state.fees}
         handlingFee={9000}
-        interestRate={0.02055}
+        interestRate={state.interestRate}
+        cardType={cardType}
+      />
+      <AmortizationTable
+        totalAmount={totalPrice}
+        feesNumber={state.fees}
+        handlingFee={9000}
+        interestRate={state.interestRate}
         cardType={cardType}
       />
     </ScrollView>
