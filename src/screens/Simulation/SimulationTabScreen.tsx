@@ -105,7 +105,7 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
         </View>
       </View>
       <SearchModal navigation={props.navigation} modalVisible={modalSearchVisible} setModalVisible={setModalSearchVisible} />
-      <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} />
+      <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} cards={creditCards}/>
     </View>
   );
 };
