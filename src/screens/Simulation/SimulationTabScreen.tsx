@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { FlatList, Modal, TouchableOpacity, Button } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { View, Text } from "_components/Themed";
@@ -8,6 +8,7 @@ import { CartContext } from "_utils/cart-context";
 import { styles } from "_screens/Simulation/styles";
 import { TotalView } from "_components/simulation/molecules";
 import { currencyFormat } from "_utils/helpers";
+import {ModalFinance, SearchModal} from './SimulationModals'
 
 interface SimulationTabScreenProps {
   navigation: any;
@@ -16,11 +17,13 @@ interface SimulationTabScreenProps {
 const SimulationTabScreen = (props: SimulationTabScreenProps) => {
   const { state, dispatch } = useContext(CartContext);
   const [TotalToFinance, setTotalToFinance] = useState(0);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalSearchVisible, setModalSearchVisible] = useState(false);
+  const [modalFinanceVisible, setFinanceModalVisible] = useState(false);
 
   const finance = () => {
-    dispatch({ type: "SIMULATE" });
-    props.navigation.navigate("ResultTab");
+    setFinanceModalVisible(true)
+    //dispatch({ type: "SIMULATE" });
+    //props.navigation.navigate("ResultTab");
   };
 
   const totalPrice = state.cartItems.reduce((total, product) => {
@@ -51,7 +54,7 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
             <Text style={styles.financeText}>Fináncialo!</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setModalVisible(true)}
+            onPress={() => setModalSearchVisible(true)}
             style={styles.searchButton}
           >
             <View
@@ -68,35 +71,8 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.centeredView}>
-        <Modal animationType="slide" transparent={true} visible={modalVisible}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.optionButton} onPress={() => {
-                  setModalVisible(false)
-                  props.navigation.navigate("Search")
-                }} >
-                  <FontAwesome name="search" size={80} color="white" />
-                  <Text style={styles.whiteColor}>Busqueda</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.optionButton} onPress={() => {
-                  setModalVisible(false)
-                  props.navigation.navigate("Scanner")
-                }}>
-                  <AntDesign name="qrcode" size={80} color="white" />
-                  <Text style={styles.whiteColor}>Busqueda QR </Text>
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)} >
-                <Text style={styles.whiteColor}>
-                  Cerrar
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      </View>
+      <SearchModal navigation={props.navigation} modalVisible={modalSearchVisible} setModalVisible={setModalSearchVisible} />
+      <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} />
     </View>
   );
 };
