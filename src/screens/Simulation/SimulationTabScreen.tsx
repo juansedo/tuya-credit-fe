@@ -10,6 +10,39 @@ import { TotalView } from "_components/simulation/molecules";
 import { currencyFormat } from "_utils/helpers";
 import {ModalFinance, SearchModal} from './SimulationModals'
 
+const creditCards = [
+  {
+    type: "PRIVADA",
+    lastDigits: "2291",
+    fee: "21500.00",
+    feeMode: "MONTHLY IN USE",
+    capacity: "8600000.00",
+    available: "5160000.00",
+    interestRate: "0.1600",
+    userKey: "QRST"
+  },
+  {
+    type: "CREDICOMPRAS",
+    lastDigits: "7263",
+    fee: "12500.00",
+    feeMode: "MONTHLY",
+    capacity: "16200000.00",
+    available: "14580000.00",
+    interestRate: "0.9300",
+    userKey: "QRST"
+  },
+  {
+    type: "PRIVADA",
+    lastDigits: "2993",
+    fee: "21500.00",
+    feeMode: "MONTHLY",
+    capacity: "17600000.00",
+    available: "10560000.00",
+    interestRate: "1.9700",
+    userKey: "QRST"
+  },
+]
+
 interface SimulationTabScreenProps {
   navigation: any;
 }

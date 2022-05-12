@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { Modal, View, TouchableOpacity, Text } from 'react-native'
+import { Picker } from '@react-native-picker/picker';
 import { styles } from "_screens/Simulation/styles";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -11,6 +12,17 @@ interface ModalInterface {
 }
 
 const ModalFinance = (props: ModalInterface) => {
+    const [selectedValue, setSelectedValue] = useState(1)
+    const pickerRef = useRef();
+
+    const open = () => {
+        pickerRef.current.focus();
+    }
+
+    const close = () => {
+        pickerRef.current.blur();
+    }
+
     return (
         <View style={styles.centeredView}>
             <Modal animationType="slide" transparent={true} visible={props.modalVisible}>
@@ -32,11 +44,27 @@ const ModalFinance = (props: ModalInterface) => {
                                 <Text style={styles.whiteColor}>Busqueda QR </Text>
                             </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={styles.closeButton} onPress={() => props.setModalVisible(false)} >
-                            <Text style={styles.whiteColor}>
-                                Cerrar
-                            </Text>
-                        </TouchableOpacity>
+                        <View style={{
+                            alignItems: 'center'
+                        }}>
+                            <Text style={styles.whiteColor}>Cuotas</Text>
+                            <Picker 
+                                selectedValue={selectedValue} 
+                                onValueChange={(itemValue, _itemIndex) =>
+                                    setSelectedValue(itemValue)
+                                }
+                                style={{width: 200, height: 150}} 
+                                itemStyle={{height: 150}} >
+                                {Array(96).fill(1).map((_, i) =>
+                                    <Picker.Item label={`${i+1}`} value={i+1} color='white'/>
+                                )}
+                            </Picker>
+                            <TouchableOpacity style={styles.closeButton} onPress={() => props.setModalVisible(false)} >
+                        <Text style={styles.whiteColor}>
+                            Aceptar
+                        </Text>
+                    </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </Modal>
