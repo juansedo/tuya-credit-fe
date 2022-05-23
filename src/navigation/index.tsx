@@ -18,6 +18,7 @@ import ResultTabScreen from '_screens/Result/ResultTabScreen'
 import HomeIcon from '_assets/images/svg/HomeIcon';
 import SimulationIcon from '_assets/images/svg/SimulationIcon';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '_types';
+import { AuthContext } from '_utils/auth-context';
 
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -38,25 +39,44 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+
+  const { isLoggedIn, state, isLoading, refresh } = React.useContext(AuthContext);
+
+  React.useEffect(() => {
+    refresh();
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
-    <Stack.Navigator initialRouteName='Login'>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
-      <Stack.Screen name="Search" component={SearchScreen} />
-      <Stack.Screen options={{
-        title: 'Lectura de QR',
-        headerStyle: {
-          backgroundColor: AppColors.redColor,
-        },
-        headerTintColor: "#fff"
-      }} name="Scanner" component={ScannerScreen} />
-      <Stack.Screen options={{
-        headerShown: false,
-      }}
-        name="Login" component={LoginScreen} />
+    <Stack.Navigator>
+      {isLoggedIn ? (
+        <>
+          <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+          <Stack.Group screenOptions={{ presentation: 'modal' }}>
+            <Stack.Screen name="Modal" component={ModalScreen} />
+          </Stack.Group>
+          <Stack.Screen name="Search" component={SearchScreen} />
+          <Stack.Screen options={{
+            title: 'Lectura de QR',
+            headerStyle: {
+              backgroundColor: AppColors.redColor,
+            },
+            headerTintColor: "#fff"
+          }} name="Scanner" component={ScannerScreen} />
+        </>
+      ) : (
+        <Stack.Screen options={{
+          headerShown: false,
+          animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+
+        }}
+          name="Login" component={LoginScreen}
+        />
+      )}
     </Stack.Navigator>
   );
 }

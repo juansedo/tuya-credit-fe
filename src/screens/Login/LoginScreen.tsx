@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { View } from '_components/Themed';
 import { AppColors } from '_constants/Colors';
-
+import { AuthContext } from '_utils/auth-context';
 interface LoginScreenProps {
   navigation: any
 }
@@ -12,30 +12,12 @@ export default function LoginScreen(props: LoginScreenProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { signIn } = useContext(AuthContext);
 
   const handleOnPress = async () => {
-    try {
-      const response = await fetch('http://34.135.136.87/auth/login', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-      const responseJson = await response.json();
-      if (!('access_token' in responseJson)) {
-        throw new Error('Invalid credentials');
-      }
-      setError('');
-      await SecureStore.setItemAsync('access_token', responseJson.access_token);
-      props.navigation.navigate('Root');
-    }
-    catch (error) {
-      setError(error.message);
+    const error = await signIn(email, password)
+    if (error) {
+      setError(error)
     }
   }
 
