@@ -12,6 +12,7 @@ interface ModalInterface {
     modalVisible: boolean;
     setModalVisible: (visible: boolean) => void;
     cards?: Array<card>
+    valueToFinance?: number;
 }
 
 interface PickerFinanceInterface {
@@ -87,7 +88,8 @@ const CardView = (props: CardViewInterface) => {
 const ModalFinance = (props: ModalInterface) => {
     const [selectedValue, setSelectedValue] = useState(1)
     const [selectedCard, setSelectedCard] = useState("")
-
+    const valueToFinance = props.valueToFinance
+    
     return (
         <View style={styles.centeredView}>
             <Modal animationType="slide" transparent={true} visible={props.modalVisible}>

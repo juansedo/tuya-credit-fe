@@ -8,7 +8,7 @@ import { CartContext } from "_utils/cart-context";
 import { styles } from "_screens/Simulation/styles";
 import { TotalView } from "_components/simulation/molecules";
 import { currencyFormat } from "_utils/helpers";
-import {ModalFinance, SearchModal} from './SimulationModals'
+import { ModalFinance, SearchModal } from './SimulationModals'
 import { card } from "_types"
 
 const creditCards = [
@@ -105,8 +105,8 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
           </TouchableOpacity>
         </View>
       </View>
-      <SearchModal navigation={props.navigation} modalVisible={modalSearchVisible} setModalVisible={setModalSearchVisible} />
-      <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} cards={creditCards}/>
+      <SearchModal navigation={props.navigation} modalVisible={modalSearchVisible} setModalVisible={setModalSearchVisible} valueToFinance={totalPrice} />
+      <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} cards={creditCards} />
     </View>
   );
 };
