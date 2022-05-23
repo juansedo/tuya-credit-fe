@@ -9,6 +9,7 @@ import { styles } from "_screens/Simulation/styles";
 import { TotalView } from "_components/simulation/molecules";
 import { currencyFormat } from "_utils/helpers";
 import {ModalFinance, SearchModal} from './SimulationModals'
+import { card } from "_types"
 
 const creditCards = [
   {
@@ -49,7 +50,7 @@ interface SimulationTabScreenProps {
 
 const SimulationTabScreen = (props: SimulationTabScreenProps) => {
   const { state, dispatch } = useContext(CartContext);
-  const [TotalToFinance, setTotalToFinance] = useState(0);
+
   const [modalSearchVisible, setModalSearchVisible] = useState(false);
   const [modalFinanceVisible, setFinanceModalVisible] = useState(false);
 

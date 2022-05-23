@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Modal, View, TouchableOpacity, Text, Image } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import { styles } from "_screens/Simulation/styles";
@@ -66,7 +66,6 @@ const CardView = (props: CardViewInterface) => {
             props.setSelectedCard(props.cardInformation.lastDigits)
         }} >
             <Image 
-                style={styles.cardImage}
                 source={require('_assets/images/yellow.png')}/>
             <View style={{
                 paddingLeft: 10,
@@ -88,16 +87,6 @@ const CardView = (props: CardViewInterface) => {
 const ModalFinance = (props: ModalInterface) => {
     const [selectedValue, setSelectedValue] = useState(1)
     const [selectedCard, setSelectedCard] = useState("")
-
-    const pickerRef = useRef();
-
-    const open = () => {
-        pickerRef.current.focus();
-    }
-
-    const close = () => {
-        pickerRef.current.blur();
-    }
 
     return (
         <View style={styles.centeredView}>
