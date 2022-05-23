@@ -121,7 +121,7 @@ function BottomTabNavigator() {
                 opacity: pressed ? 0.5 : 1,
               })}>
               <FontAwesome
-                name="info-circle"
+                name="sign-out"
                 size={25}
                 color='#fff'
                 style={{ marginRight: 15 }}
