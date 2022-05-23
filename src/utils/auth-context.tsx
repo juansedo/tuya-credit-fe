@@ -63,7 +63,10 @@ export default function AuthProvider({ children }) {
                 return error.message;
             }
         },
-        signOut: () => dispatch({ type: 'SIGN_OUT' }),
+        signOut: async () => {
+            await SecureStore.deleteItemAsync('access_token');
+            dispatch({ type: 'SIGN_OUT' });
+        },
         refresh: async () => {
             try {
                 const token = await SecureStore.getItemAsync('access_token');

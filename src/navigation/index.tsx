@@ -89,6 +89,7 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
+  const { signOut } = React.useContext(AuthContext);
 
   return (
     <BottomTab.Navigator
@@ -115,7 +116,7 @@ function BottomTabNavigator() {
           headerTintColor: '#fff',
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={signOut}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
