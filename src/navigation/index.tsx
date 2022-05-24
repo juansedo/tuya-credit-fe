@@ -94,40 +94,51 @@ function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="HomeTab"
-      screenOptions={{
-        headerTitle: '',
+      screenOptions={({ route }) => ({
+        // tabBar
         tabBarActiveTintColor: '#fff',
         tabBarInactiveTintColor: '#fff',
+        tabBarInactiveBackgroundColor: AppColors.redColor,
         tabBarStyle: {
           backgroundColor: AppColors.redWineColor,
         },
-        tabBarInactiveBackgroundColor: AppColors.redColor
-      }}
-    >
+        tabBarIcon: ({ color, size }) => {
+          const icons = {
+            HomeTab: <HomeIcon />,
+            SimulationTab: <SimulationIcon />,
+            ResultTab: <Image style={{ height: 25, width: 20 }} source={require('../assets/images/resultIcon.png')} />,
+          };
+
+          return icons[route.name];
+        },
+
+        // header
+        headerTitle: '',
+        headerStyle: {
+          backgroundColor: AppColors.redColor
+        },
+        headerTintColor: '#fff',
+        headerRight: () => (
+          <Pressable
+            onPress={signOut}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1,
+            })}>
+            <FontAwesome
+              name="sign-out"
+              size={25}
+              color='#fff'
+              style={{ marginRight: 15 }}
+            />
+          </Pressable>
+        ),
+      })}>
+
       <BottomTab.Screen
         name="HomeTab"
         component={HomeTabScreen}
         options={({ navigation }: RootTabScreenProps<'HomeTab'>) => ({
           title: 'Inicio',
-          tabBarIcon: ({ color }) => <HomeIcon />,
-          headerStyle: {
-            backgroundColor: AppColors.redColor
-          },
-          headerTintColor: '#fff',
-          headerRight: () => (
-            <Pressable
-              onPress={signOut}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="sign-out"
-                size={25}
-                color='#fff'
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
         })}
       />
       <BottomTab.Screen
@@ -135,11 +146,6 @@ function BottomTabNavigator() {
         component={SimulationTabScreen}
         options={{
           title: 'Simulación',
-          tabBarIcon: ({ color }) => <SimulationIcon />,
-          headerStyle: {
-            backgroundColor: AppColors.redColor
-          },
-          headerTintColor: '#fff',
         }}
       />
       <BottomTab.Screen
@@ -147,11 +153,6 @@ function BottomTabNavigator() {
         component={ResultTabScreen}
         options={{
           title: 'Resultado',
-          tabBarIcon: ({ color }) => <Image style={{ height: 25, width: 20 }} source={require('../assets/images/resultIcon.png')} />,
-          headerStyle: {
-            backgroundColor: AppColors.redColor
-          },
-          headerTintColor: '#fff',
         }}
       />
     </BottomTab.Navigator>
