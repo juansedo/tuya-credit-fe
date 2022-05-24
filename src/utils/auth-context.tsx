@@ -17,7 +17,7 @@ const reducer = (prevState, action) => {
             return {
                 ...prevState,
                 isSignout: false,
-                userToken: action.token,
+                userToken: action.accessToken,
                 refreshToken: action.refreshToken,
             };
         case 'SIGN_OUT':
