@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FlatList, TextInput } from "react-native";
 import { View } from "_components/Themed";
 import ProductSearchCell from "_components/search/organisms/ProductSearchCell";
@@ -7,6 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 import { styles } from "./styles";
 import { ProductDTO } from "_types";
 import { useAsync } from "_utils/hooks/useAsync";
+import { AuthContext } from "_utils/auth-context";
 
 interface SearchScreenProps {
   navigation: any;
@@ -14,20 +15,13 @@ interface SearchScreenProps {
 
 const SimulationTabScreen = (props: SearchScreenProps) => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
+  const { axiosAuth } = useContext(AuthContext);
+
 
   const fetchProducts = async () => {
     try {
-      let token = (await SecureStore.getItemAsync('access_token')) || '';
-      let response = await fetch('http://34.135.136.87/products', {
-        method: 'GET',
-        headers: {
-          Accept: '*/*',
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token,
-        },
-      });
-      let responseJson = await response.json();
-      return responseJson.data as Promise<ProductDTO[]>;
+      let response = await axiosAuth.get("http://34.135.136.87/products");
+      return response.data.data as Promise<ProductDTO[]>;
     }
     catch (error) {
       console.log(error);
@@ -71,7 +65,7 @@ const SimulationTabScreen = (props: SearchScreenProps) => {
       <FlatList
         data={products}
         style={styles.list}
-        renderItem={({item}) => <ProductSearchCell data={item} navigation={props.navigation} />}
+        renderItem={({ item }) => <ProductSearchCell data={item} navigation={props.navigation} />}
         keyExtractor={(item, index) => index.toString()}
       />
     </View>

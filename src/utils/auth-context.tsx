@@ -46,11 +46,22 @@ export default function AuthProvider({ children }) {
 
     const refresh = async () => {
         if (state.refreshToken) {
-            const refreshToken = state.refreshToken;
-            const response = await axios.post('http://34.135.136.87/auth/refresh', { refreshToken });
-            const { accessToken, refreshToken: newRefreshToken } = response.data;
-            await SecureStore.setItemAsync('refreshToken', newRefreshToken);
-            dispatch({ type: 'RESTORE_TOKEN', accessToken, refreshToken: newRefreshToken });
+            try {
+                const refreshToken = state.refreshToken;
+                const response = await axios.post('http://34.135.136.87/auth/refresh', [], {
+                    headers: {
+                        'Authorization': `Bearer ${refreshToken}`,
+                    },
+                });
+                const { access_token, refresh_token } = response.data;
+                await SecureStore.setItemAsync('refreshToken', refresh_token);
+                dispatch({ type: 'RESTORE_TOKEN', accessToken: access_token, refreshToken: refresh_token });
+                return access_token;
+            }
+            catch (error) {
+                console.log(error)
+            }
+
         }
     }
 
@@ -76,7 +87,7 @@ export default function AuthProvider({ children }) {
                 if (err.response.status === 401 && !originalConfig._retry) {
                     originalConfig._retry = true;
                     try {
-                        const token = 'temp_dummy_token';
+                        const token = await refresh();
                         originalConfig.headers["Authorization"] = "Bearer " + token;
                         return axiosAuth(originalConfig);
                     } catch (_error) {
@@ -131,6 +142,7 @@ export default function AuthProvider({ children }) {
                 if (!!accessToken && !!refreshToken) {
                     dispatch({ type: 'RESTORE_TOKEN', accessToken, refreshToken });
                 }
+                refresh();
             }
             catch (error) { }
         },
