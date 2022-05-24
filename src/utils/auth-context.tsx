@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { useReducer, createContext } from 'react';
+import axios from 'axios';
 
 export const AuthContext = createContext({});
 
@@ -41,6 +42,51 @@ export default function AuthProvider({ children }) {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    const axiosAuth = axios.create();
+
+    const refresh = async () => {
+        if (state.refreshToken) {
+            const refreshToken = state.refreshToken;
+            const response = await axios.post('http://34.135.136.87/auth/refresh', { refreshToken });
+            const { accessToken, refreshToken: newRefreshToken } = response.data;
+            await SecureStore.setItemAsync('refreshToken', newRefreshToken);
+            dispatch({ type: 'RESTORE_TOKEN', accessToken, refreshToken: newRefreshToken });
+        }
+    }
+
+    axiosAuth.interceptors.request.use(
+        async (config) => {
+            if (state.userToken) {
+                config.headers["Authorization"] = "Bearer " + state.userToken; // for Node.js Express back-end
+            }
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        }
+    );
+
+    axiosAuth.interceptors.response.use(
+        (res) => {
+            return res;
+        },
+        async (err) => {
+            const originalConfig = err.config;
+            if (err.response) {
+                if (err.response.status === 401 && !originalConfig._retry) {
+                    originalConfig._retry = true;
+                    try {
+                        const token = 'temp_dummy_token';
+                        originalConfig.headers["Authorization"] = "Bearer " + token;
+                        return axiosAuth(originalConfig);
+                    } catch (_error) {
+                        return Promise.reject(_error);
+                    }
+                }
+            }
+            return Promise.reject(err);
+        }
+    );
 
     const authContext = {
         signIn: async (email: string, password: string) => {
@@ -60,6 +106,7 @@ export default function AuthProvider({ children }) {
                 if (!('access_token' in responseJson)) {
                     throw new Error('Invalid credentials');
                 }
+                console.log(responseJson);
                 await SecureStore.setItemAsync('access_token', responseJson.access_token);
                 await SecureStore.setItemAsync('refresh_token', responseJson.refresh_token);
                 dispatch({
@@ -79,16 +126,17 @@ export default function AuthProvider({ children }) {
         },
         refresh: async () => {
             try {
-                const access_token = await SecureStore.getItemAsync('access_token');
-                const refresh_token = await SecureStore.getItemAsync('refresh_token');
-                if (access_token && refresh_token) {
-                    dispatch({ type: 'RESTORE_TOKEN', access_token, refresh_token });
+                const accessToken = await SecureStore.getItemAsync('access_token');
+                const refreshToken = await SecureStore.getItemAsync('refresh_token');
+                if (!!accessToken && !!refreshToken) {
+                    dispatch({ type: 'RESTORE_TOKEN', accessToken, refreshToken });
                 }
             }
             catch (error) { }
         },
         state: state,
         isLoggedIn: !!state.userToken,
+        axiosAuth: axiosAuth,
     }
 
     return (
