@@ -1,15 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, Image, Button, Text, TextInput, Touchable, TouchableOpacity } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { StyleSheet, Image, Text, TextInput, TouchableOpacity } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 import { View } from '_components/Themed';
-import { CartContext } from '_utils/cart-context';
-import { AppColors } from '_constants/Colors'
-
-
+import { AppColors } from '_constants/Colors';
+import { AuthContext } from '_utils/auth-context';
 interface LoginScreenProps {
   navigation: any
 }
 
 export default function LoginScreen(props: LoginScreenProps) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { signIn } = useContext(AuthContext);
+
+  const handleOnPress = async () => {
+    const error = await signIn(email, password)
+    if (error) {
+      setError(error)
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -19,12 +29,17 @@ export default function LoginScreen(props: LoginScreenProps) {
           <Text style={[styles.text, styles.titleText]}>Inicio de sesión</Text>
         </View>
         <View style={styles.inputs}>
-          <TextInput style={styles.input} placeholder="correo"></TextInput>
-          <TextInput style={styles.input} secureTextEntry={true} placeholder="contraseña"></TextInput>
+          <TextInput style={styles.input} onChangeText={setEmail} placeholder="Correo"></TextInput>
+          <TextInput style={styles.input} onChangeText={setPassword} secureTextEntry={true} placeholder="Contraseña"></TextInput>
+        </View>
+        <View style={styles.inputs}>
+          <Text style={[styles.text, styles.forgotPassword]}>{error}</Text>
         </View>
         <View style={styles.submit}>
-          <Text style={[styles.text, styles.forgotPassword]}>¿olvidaste tu contraseña?</Text>
-          <TouchableOpacity style={styles.submitButton} onPress={() => props.navigation.navigate('Root')}>
+          <Text style={[styles.text, styles.forgotPassword]}>
+            ¿olvidaste tu contraseña?
+          </Text>
+          <TouchableOpacity style={styles.submitButton} onPress={handleOnPress}>
             <Text style={styles.submitText}>Aceptar</Text>
           </TouchableOpacity>
         </View>
@@ -32,6 +47,7 @@ export default function LoginScreen(props: LoginScreenProps) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -97,5 +113,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   }
-
 });
