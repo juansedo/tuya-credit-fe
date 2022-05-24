@@ -8,12 +8,11 @@ import { styles } from "../styles";
 
 interface SearchProductTitleProps {
   productInfo: ProductDTO;
-  totalItems: number;
   navigation: any;
 };
 
 const ProductTitle = (props: SearchProductTitleProps) => {
-  const { productInfo, totalItems } = props;
+  const { productInfo } = props;
   const { dispatch } = useContext(CartContext);
 
   const addItem = () => {
