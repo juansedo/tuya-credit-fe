@@ -30,7 +30,7 @@ const ProductTitle = (props: SearchProductTitleProps) => {
     >
       <View style={styles.row}>
         <Text style={styles.boldText} numberOfLines={1}>
-          {props.productInfo.ref}
+          {props.productInfo.name}
         </Text>
       </View>
       <Text

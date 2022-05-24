@@ -8,6 +8,7 @@ let data = [
     {
         description: "Omnis quam id ut ab.",
         imageUrl: "http://loremflickr.com/640/480",
+        id: -1,
         name: "Unbranded Granite Bike",
         originalPrice: "187207.00",
         otherMethodPrice: "187207.00",
@@ -18,6 +19,7 @@ let data = [
         creditCardPrice: "168486.30",
         description: "Omnis quam id ut ab.",
         imageUrl: "http://loremflickr.com/640/480",
+        id: -2,
         name: "Unbranded Granite Gloves",
         originalPrice: "187207.00",
         otherMethodPrice: "187207.00",
