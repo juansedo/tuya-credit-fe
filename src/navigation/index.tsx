@@ -90,6 +90,8 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
   const { signOut } = React.useContext(AuthContext);
+  const logo = require('../assets/images/credituya-white.png');
+  const results = require('../assets/images/resultIcon.png');
 
   return (
     <BottomTab.Navigator
@@ -106,7 +108,7 @@ function BottomTabNavigator() {
           const icons = {
             HomeTab: <HomeIcon />,
             SimulationTab: <SimulationIcon />,
-            ResultTab: <Image style={{ height: 25, width: 20 }} source={require('../assets/images/resultIcon.png')} />,
+            ResultTab: <Image style={{ height: 25, width: 20 }} source={results} />,
           };
 
           return icons[route.name];
@@ -115,9 +117,16 @@ function BottomTabNavigator() {
         // header
         headerTitle: '',
         headerStyle: {
-          backgroundColor: AppColors.redColor
+          backgroundColor: AppColors.redColor,
         },
         headerTintColor: '#fff',
+        headerLeft: () => (
+          <Image style={{ height: 100, width: 100, resizeMode: 'contain' }} source={logo} />
+        ),
+        headerLeftContainerStyle: {
+          paddingLeft: 15,
+          paddingBottom: 10,
+        },
         headerRight: () => (
           <Pressable
             onPress={signOut}
@@ -132,6 +141,10 @@ function BottomTabNavigator() {
             />
           </Pressable>
         ),
+        headerRightContainerStyle: {
+          paddingRight: 5,
+          paddingBottom: 10,
+        },
       })}>
 
       <BottomTab.Screen

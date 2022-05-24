@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: 'bold',
+    fontFamily: "Poppins-SemiBold",
   },
   separator: {
     marginVertical: 30,
