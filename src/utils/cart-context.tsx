@@ -6,24 +6,23 @@ export const CartContext = createContext({});
 
 let data = [
     {
-        id: 1,
-        ref: "TV LG 55 pulgadas",
-        image_url: "https://olimpica.vtexassets.com/arquivos/ids/474490/Televisor-LED-FHD-OLIMPO-Smartv-101CM-40--40D3200S.jpg?v=637497819260800000",
-        description: "Televisor de 55 pulgadas marca LG",
-        value: 1200000,
-        discount_percent: 0.1,
-        special_discount_percent: 0.2,
-        warehouse: "warehouse",
+        description: "Omnis quam id ut ab.",
+        imageUrl: "http://loremflickr.com/640/480",
+        name: "Unbranded Granite Bike",
+        originalPrice: "187207.00",
+        otherMethodPrice: "187207.00",
+        provider: "Grupo Éxito",
+        ref: "xrfrtcolu8",
     },
     {
-        id: 2,
-        ref: "LG OLED 40 pulgadas 4k",
-        image_url: "https://www.lg.com/co/images/televisores/md07504651/gallery/Des-01.jpg",
-        description: "Televisor de 40 pulgadas marca LG",
-        value: 1100000,
-        discount_percent: 0.2,
-        special_discount_percent: 0.4,
-        warehouse: "warehouse2",
+        creditCardPrice: "168486.30",
+        description: "Omnis quam id ut ab.",
+        imageUrl: "http://loremflickr.com/640/480",
+        name: "Unbranded Granite Gloves",
+        originalPrice: "187207.00",
+        otherMethodPrice: "187207.00",
+        provider: "Grupo Éxito",
+        ref: "xrfrtcolu8",
     }
 ]
 

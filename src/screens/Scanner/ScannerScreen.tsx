@@ -4,22 +4,15 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { AppColors } from "_constants/Colors";
 import { ProductCard } from "_components/scanner/molecules";
 import { CartContext } from "_utils/cart-context";
+import { AuthContext } from "_utils/auth-context";
+import { executeNativeBackPress } from "react-native-screens";
 
 const ScannerScreen = (props) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [product, setProduct] = useState({
-    id: "fgjf3434HADH1352djhfjfXBDGHT",
-    ref: "PR100SD",
-    image_url:
-      "https://cdn.coordiutil.com/imagen-olla_electrica_blackdecker_digital_de_6_litros_pr100sd-2114169-0-0-0-100.jpg",
-    description: "Olla A Presión Digital Multico BLACK & DECKER",
-    value: "599900",
-    discount_percent: "0.53",
-    special_discount_percent: "0.53",
-    warehouse: "Exito",
-  });
+  const [product, setProduct] = useState({});
+  const { axiosAuth } = useContext(AuthContext);
 
   const { dispatch } = useContext(CartContext);
 
@@ -36,9 +29,17 @@ const ScannerScreen = (props) => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    setModalVisible(true);
+  const handleBarCodeScanned = async ({ type, data }) => {
+    try {
+      const productInfo = await axiosAuth.get(data);
+      setProduct(productInfo.data.data);
+      setScanned(true);
+      setModalVisible(true);
+    }
+    catch (e) {
+
+    }
+
   };
 
   const handleCloseModal = () => {

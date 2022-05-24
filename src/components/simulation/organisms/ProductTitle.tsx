@@ -25,7 +25,7 @@ const ProductTitle = (props: ProductTitleProps) => {
     >
       <View style={styles.row}>
         <Text numberOfLines={1} style={styles.boldText}>
-          {props.productInfo.ref}
+          {props.productInfo.name}
         </Text>
       </View>
       <Text
@@ -37,7 +37,7 @@ const ProductTitle = (props: ProductTitleProps) => {
         {props.productInfo.description}
       </Text>
       <View style={styles.subtotalContainer}>
-        <SubtotalView totalItems={totalItems} value={props.productInfo.value} />
+        <SubtotalView totalItems={totalItems} value={props.productInfo.creditCardPrice ?? props.productInfo.originalPrice} />
         <View
           style={{
             flexDirection: "row-reverse",

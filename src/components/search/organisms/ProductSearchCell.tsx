@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Image } from "react-native";
-import { View } from "_components/Themed";
+import { Text, View } from "_components/Themed";
 import { ProductDTO } from "_types";
 
 import ProductTitle from "./ProductTitle";

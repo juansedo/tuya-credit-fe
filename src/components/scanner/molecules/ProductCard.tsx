@@ -10,12 +10,12 @@ type ScannerProductCardProps = {
 
 const ProductCard = (props: ScannerProductCardProps) => {
   let { product } = props;
-  let imgSource = { uri: product.image_url };
+  let imgSource = { uri: product.imageUrl };
   return (
     <View style={styles.container}>
       <Image style={styles.image} source={imgSource} />
       <Text numberOfLines={1} style={styles.productName}>
-        {product.ref}
+        {product.name}
       </Text>
       <Text numberOfLines={1} style={styles.productDescription}>
         {product.description}
