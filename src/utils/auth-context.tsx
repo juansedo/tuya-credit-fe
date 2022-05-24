@@ -9,7 +9,8 @@ const reducer = (prevState, action) => {
         case 'RESTORE_TOKEN':
             return {
                 ...prevState,
-                userToken: action.token,
+                userToken: action.accessToken,
+                refreshToken: action.refreshToken,
                 isLoading: false,
             };
         case 'SIGN_IN':
@@ -17,12 +18,14 @@ const reducer = (prevState, action) => {
                 ...prevState,
                 isSignout: false,
                 userToken: action.token,
+                refreshToken: action.refreshToken,
             };
         case 'SIGN_OUT':
             return {
                 ...prevState,
                 isSignout: true,
                 userToken: null,
+                refreshToken: null,
             };
     }
 };
@@ -31,6 +34,7 @@ const initialState = {
     isLoading: true,
     isSignout: false,
     userToken: null,
+    refreshToken: null,
 };
 
 export default function AuthProvider({ children }) {
@@ -57,7 +61,12 @@ export default function AuthProvider({ children }) {
                     throw new Error('Invalid credentials');
                 }
                 await SecureStore.setItemAsync('access_token', responseJson.access_token);
-                dispatch({ type: 'SIGN_IN', token: responseJson.access_token });
+                await SecureStore.setItemAsync('refresh_token', responseJson.refresh_token);
+                dispatch({
+                    type: 'SIGN_IN',
+                    accessToken: responseJson.access_token,
+                    refreshToken: responseJson.refresh_token
+                });
             }
             catch (error) {
                 return error.message;
@@ -65,13 +74,15 @@ export default function AuthProvider({ children }) {
         },
         signOut: async () => {
             await SecureStore.deleteItemAsync('access_token');
+            await SecureStore.deleteItemAsync('refresh_token');
             dispatch({ type: 'SIGN_OUT' });
         },
         refresh: async () => {
             try {
-                const token = await SecureStore.getItemAsync('access_token');
-                if (token) {
-                    dispatch({ type: 'RESTORE_TOKEN', token });
+                const access_token = await SecureStore.getItemAsync('access_token');
+                const refresh_token = await SecureStore.getItemAsync('refresh_token');
+                if (access_token && refresh_token) {
+                    dispatch({ type: 'RESTORE_TOKEN', access_token, refresh_token });
                 }
             }
             catch (error) { }
