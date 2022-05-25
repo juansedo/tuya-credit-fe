@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import { Text, View } from '_components/Themed';
 import { RootTabScreenProps } from '_types';
 

@@ -101,6 +101,21 @@ export const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: AppColors.redWineColor,
   },
+  cardButton: {
+    alignItems: "center",
+    flexDirection: 'row',
+    width: 320,
+    margin: 10,
+    paddingVertical: 7,
+  },
+  infoCardStyle: {
+    alignItems: "center",
+    flexDirection: 'row',
+  },
+  titleText: {
+    fontSize: 20,
+    paddingVertical: 10,
+  },
   closeButton: {
     width: 100,
     backgroundColor: AppColors.redWineColor,
