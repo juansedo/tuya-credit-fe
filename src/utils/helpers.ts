@@ -1,5 +1,17 @@
 import { fee } from "_types";
 
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+  return [
+    padTo2Digits(date.getDate()),
+    padTo2Digits(date.getMonth() + 1),
+    date.getFullYear(),
+  ].join('/');
+}
+
 export const currencyFormat = (num: Number) => {
   return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };
@@ -11,7 +23,7 @@ export const getAnnuityFees = (feesNumber: number, interestRate: number, totalAm
 
   const buyMonth: Date = new Date();
   const buyFee: fee = {
-    date: buyMonth.toDateString(),
+    date: formatDate(buyMonth),
     value: currencyFormat(0),
     amortizationValue: currencyFormat(0),
     balance: currencyFormat(totalAmount),
@@ -24,14 +36,14 @@ export const getAnnuityFees = (feesNumber: number, interestRate: number, totalAm
   for (let i = 1; i <= feesNumber; i++) {
     buyMonth.setMonth(buyMonth.getMonth() + 1);
     fees.push({
-      date: buyMonth.toDateString(),
+      date: formatDate(buyMonth),
       value: currencyFormat(annuity),
       amortizationValue: currencyFormat(annuity),
       interestValue: currencyFormat(0),
       balance: currencyFormat(
         annuity *
-          ((Math.pow(1 + interestRate, feesNumber - i) - 1) /
-            (Math.pow(1 + interestRate, feesNumber - i) * interestRate))
+        ((Math.pow(1 + interestRate, feesNumber - i) - 1) /
+          (Math.pow(1 + interestRate, feesNumber - i) * interestRate))
       ),
       number: i,
       handlingFeeValue: currencyFormat(handlingFee),
@@ -51,7 +63,7 @@ export const getDecreasingFees = (
   const buyMonth: Date = new Date();
 
   const buyFee: fee = {
-    date: buyMonth.toDateString(),
+    date: formatDate(buyMonth),
     value: currencyFormat(0),
     amortizationValue: currencyFormat(0),
     balance: currencyFormat(totalAmount),
@@ -62,7 +74,7 @@ export const getDecreasingFees = (
   buyMonth.setMonth(buyMonth.getMonth() + 1);
 
   const firstMonth: fee = {
-    date: buyMonth.toDateString(),
+    date: formatDate(buyMonth),
     value: currencyFormat(amortizationFee),
     amortizationValue: currencyFormat(amortizationFee),
     interestValue: currencyFormat(0),
@@ -78,7 +90,7 @@ export const getDecreasingFees = (
   const secondMonthValue =
     amortizationFee + totalAmount * interestRate + (totalAmount - amortizationFee) * interestRate;
   const secondMonth: fee = {
-    date: buyMonth.toDateString(),
+    date: formatDate(buyMonth),
     value: currencyFormat(secondMonthValue),
     amortizationValue: currencyFormat(amortizationFee),
     interestValue: currencyFormat(secondMonthValue - amortizationFee),
@@ -93,7 +105,7 @@ export const getDecreasingFees = (
     buyMonth.setMonth(buyMonth.getMonth() + 1);
     let feeValue = amortizationFee + (totalAmount - amortizationFee * (i - 1)) * interestRate;
     fees.push({
-      date: buyMonth.toDateString(),
+      date: formatDate(buyMonth),
       value: currencyFormat(feeValue),
       amortizationValue: currencyFormat(amortizationFee),
       interestValue: currencyFormat(feeValue - amortizationFee),
