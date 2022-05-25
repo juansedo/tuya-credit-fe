@@ -1,23 +1,27 @@
+import { useContext } from 'react';
 import { TouchableOpacity, Image } from 'react-native';
 import { Text, View } from '_components/Themed';
 import { RootTabScreenProps } from '_types';
+import { AuthContext } from '_utils/auth-context';
 
 import { styles } from './styles';
 
 const HomeTabScreen = ({ navigation }: RootTabScreenProps<'HomeTab'>) => {
+  const { state } = useContext(AuthContext)
+
   return (
     <View style={styles.container}>
       <View style={styles.center}>
-        <Text style={[styles.title, {paddingTop: 20}]}>¡Bienvenido, </Text>
-        <Text style={styles.title}>Juan!</Text>
+        <Text style={[styles.title, { paddingTop: 20 }]}>¡Bienvenido, </Text>
+        <Text style={styles.title}>{state.name}!</Text>
         <Text style={{
-            paddingVertical: 40,
-            paddingHorizontal: 20,
-          }}>
+          paddingVertical: 40,
+          paddingHorizontal: 20,
+        }}>
           <Text>
             Este es tu simulador de pagos con tarjetas de crédito. Prueba a
           </Text>
-          <Text style={{fontWeight: "bold"}}> Simular una compra</Text>
+          <Text style={{ fontWeight: "bold" }}> Simular una compra</Text>
           <Text> para que analices los costos.</Text>
         </Text>
         <View style={{
@@ -28,14 +32,14 @@ const HomeTabScreen = ({ navigation }: RootTabScreenProps<'HomeTab'>) => {
             activeOpacity={0.5}
             onPress={() => navigation.navigate('SimulationTab')}
             style={styles.buttonContainer}>
-            <Image source={require('../../assets/images/hand.png')}/>
+            <Image source={require('../../assets/images/hand.png')} />
             <Text style={styles.fontRed}>Simula tu compra</Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => navigation.navigate('ResultTab')}
             style={styles.buttonContainer}>
-            <Image source={require('../../assets/images/result-red.png')}/>
+            <Image source={require('../../assets/images/result-red.png')} />
             <Text style={styles.fontRed}>Última simulación</Text>
           </TouchableOpacity>
         </View>
@@ -44,11 +48,11 @@ const HomeTabScreen = ({ navigation }: RootTabScreenProps<'HomeTab'>) => {
           marginTop: 50,
         }}>
           <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <Text style={{paddingRight: 8}}>Las cuentas son</Text>
-            <Image source={require('../../assets/images/tuyas-logo.png')} style={{height: 40, width: 60}}/>
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+            <Text style={{ paddingRight: 8 }}>Las cuentas son</Text>
+            <Image source={require('../../assets/images/tuyas-logo.png')} style={{ height: 40, width: 60 }} />
           </View>
         </View>
       </View>

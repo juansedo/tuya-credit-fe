@@ -12,6 +12,7 @@ const reducer = (prevState, action) => {
                 ...prevState,
                 userToken: action.accessToken,
                 refreshToken: action.refreshToken,
+                name: action.name,
                 isLoading: false,
             };
         case 'SIGN_IN':
@@ -20,6 +21,7 @@ const reducer = (prevState, action) => {
                 isSignout: false,
                 userToken: action.accessToken,
                 refreshToken: action.refreshToken,
+                name: action.name,
             };
         case 'SIGN_OUT':
             return {
@@ -27,6 +29,7 @@ const reducer = (prevState, action) => {
                 isSignout: true,
                 userToken: null,
                 refreshToken: null,
+                name: null,
             };
     }
 };
@@ -36,6 +39,7 @@ const initialState = {
     isSignout: false,
     userToken: null,
     refreshToken: null,
+    name: null
 };
 
 export default function AuthProvider({ children }) {
@@ -48,6 +52,7 @@ export default function AuthProvider({ children }) {
         try {
 
             const stored_refresh_token = await SecureStore.getItemAsync('refresh_token');
+            const user_name = await SecureStore.getItemAsync('user_name');
             if (stored_refresh_token) {
                 try {
                     const response = await axios.post('http://34.135.136.87/auth/refresh', [], {
@@ -58,7 +63,7 @@ export default function AuthProvider({ children }) {
                     const { access_token, refresh_token } = response.data;
                     await SecureStore.setItemAsync('refresh_token', refresh_token);
                     await SecureStore.setItemAsync('access_token', access_token);
-                    dispatch({ type: 'RESTORE_TOKEN', accessToken: access_token, refreshToken: refresh_token });
+                    dispatch({ type: 'RESTORE_TOKEN', accessToken: access_token, refreshToken: refresh_token, name: user_name });
                     return access_token;
                 }
                 catch (error) {
@@ -124,14 +129,19 @@ export default function AuthProvider({ children }) {
                 if (!('access_token' in responseJson)) {
                     throw new Error('Invalid credentials');
                 }
-                console.log(responseJson);
                 await SecureStore.setItemAsync('access_token', responseJson.access_token);
                 await SecureStore.setItemAsync('refresh_token', responseJson.refresh_token);
+                console.log('yes')
+                const userInfo = await axiosAuth.get('http://34.135.136.87/users/me').catch(error => { console.log(error) });
+                console.log(userInfo.data.data)
+                await SecureStore.setItemAsync('user_name', userInfo.data.data.name);
                 dispatch({
                     type: 'SIGN_IN',
                     accessToken: responseJson.access_token,
-                    refreshToken: responseJson.refresh_token
+                    refreshToken: responseJson.refresh_token,
+                    name: userInfo.data.data.name,
                 });
+
             }
             catch (error) {
                 return error.message;
