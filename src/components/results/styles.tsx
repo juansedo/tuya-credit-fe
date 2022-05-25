@@ -52,7 +52,6 @@ export const styles = StyleSheet.create({
   },
   creditCard: {
     width: "30%",
-    backgroundColor: "red",
     marginRight: 15,
     height: 100,
   },

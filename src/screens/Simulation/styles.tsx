@@ -105,7 +105,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: 'row',
     width: 320,
-    margin: 10,
+    marginHorizontal: 2,
     paddingVertical: 7,
   },
   infoCardStyle: {

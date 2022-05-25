@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FlatList, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -10,6 +10,8 @@ import { TotalView } from "_components/simulation/molecules";
 import { currencyFormat } from "_utils/helpers";
 import { ModalFinance, SearchModal } from './SimulationModals'
 import { card } from "_types"
+import { useAsync } from "_utils/hooks/useAsync";
+import { AuthContext } from "_utils/auth-context";
 
 const creditCards = [
   {
@@ -53,6 +55,21 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
 
   const [modalSearchVisible, setModalSearchVisible] = useState(false);
   const [modalFinanceVisible, setFinanceModalVisible] = useState(false);
+  const [creditCards, setCreditCards] = useState([]);
+  const { axiosAuth } = useContext(AuthContext);
+
+  const fetchCreditCards = async () => {
+    try {
+      let response = await axiosAuth.get("http://34.135.136.87/users/cards");
+      return response.data.data;
+    }
+    catch (error) {
+      console.log(error);
+      return [];
+    }
+  };
+
+  useAsync(fetchCreditCards, setCreditCards);
 
   const finance = () => {
     setFinanceModalVisible(true)

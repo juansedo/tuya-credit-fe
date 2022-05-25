@@ -45,23 +45,30 @@ export default function AuthProvider({ children }) {
     const axiosAuth = axios.create();
 
     const refresh = async () => {
-        if (state.refreshToken) {
-            try {
-                const refreshToken = state.refreshToken;
-                const response = await axios.post('http://34.135.136.87/auth/refresh', [], {
-                    headers: {
-                        'Authorization': `Bearer ${refreshToken}`,
-                    },
-                });
-                const { access_token, refresh_token } = response.data;
-                await SecureStore.setItemAsync('refreshToken', refresh_token);
-                dispatch({ type: 'RESTORE_TOKEN', accessToken: access_token, refreshToken: refresh_token });
-                return access_token;
-            }
-            catch (error) {
-                console.log(error)
+        try {
+
+            const stored_refresh_token = await SecureStore.getItemAsync('refresh_token');
+            if (stored_refresh_token) {
+                try {
+                    const response = await axios.post('http://34.135.136.87/auth/refresh', [], {
+                        headers: {
+                            'Authorization': `Bearer ${stored_refresh_token}`,
+                        },
+                    });
+                    const { access_token, refresh_token } = response.data;
+                    await SecureStore.setItemAsync('refresh_token', refresh_token);
+                    await SecureStore.setItemAsync('access_token', access_token);
+                    dispatch({ type: 'RESTORE_TOKEN', accessToken: access_token, refreshToken: refresh_token });
+                    return access_token;
+                }
+                catch (error) {
+                    dispatch({ type: 'SIGN_OUT' });
+                }
             }
 
+        }
+        catch (error) {
+            dispatch({ type: 'SIGN_OUT' });
         }
     }
 
@@ -135,17 +142,7 @@ export default function AuthProvider({ children }) {
             await SecureStore.deleteItemAsync('refresh_token');
             dispatch({ type: 'SIGN_OUT' });
         },
-        refresh: async () => {
-            try {
-                const accessToken = await SecureStore.getItemAsync('access_token');
-                const refreshToken = await SecureStore.getItemAsync('refresh_token');
-                if (!!accessToken && !!refreshToken) {
-                    dispatch({ type: 'RESTORE_TOKEN', accessToken, refreshToken });
-                }
-                refresh();
-            }
-            catch (error) { }
-        },
+        refresh: refresh,
         state: state,
         isLoggedIn: !!state.userToken,
         axiosAuth: axiosAuth,
