@@ -16,7 +16,7 @@ interface ProductSimulationCellProps {
 
 const ProductSimulationCell = (props: ProductSimulationCellProps) => {
   const [Visible, setVisible] = useState(false);
-  let Image_Http_URL = { uri: props.data.item.product.image_url };
+  let Image_Http_URL = { uri: props.data.item.product.imageUrl };
   return (
     <View style={styles.mainView}>
       <View style={[styles.customView, styles.row]}>

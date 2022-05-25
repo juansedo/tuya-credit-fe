@@ -61,7 +61,7 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
   };
 
   const totalPrice = state.cartItems.reduce((total, product) => {
-    const productPrice = parseInt(product.amount) * parseInt(product.product.value)
+    const productPrice = parseInt(product.amount) * parseInt(product.product.creditCardPrice ?? product.product.originalPrice);
     return total + productPrice
   }, 0)
 

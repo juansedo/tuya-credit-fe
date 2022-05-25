@@ -1,10 +1,10 @@
 export type ProductDTO = {
-  ref: string,
-  name: string,
-  imageUrl: string,
-  description: string,
-  originalPrice: string,
   creditCardPrice: string,
+  description: string,
+  imageUrl: string,
+  name: string,
+  originalPrice: string,
   otherMethodPrice: string,
-  provider: string
+  provider: string,
+  ref: string,
 };

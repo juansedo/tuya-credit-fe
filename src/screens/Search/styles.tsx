@@ -19,14 +19,22 @@ export const styles = StyleSheet.create({
     width: "100%",
   },
   SearchBar: {
-    borderColor: "#000000",
+    borderColor: "black",
+    borderWidth: 1,
     width: "80%",
   },
   SearchBarContainer: {
-    width: "80%",
-    borderColor: "black",
-    marginTop: 10,
-    borderWidth: 2,
+    width: "100%",
     alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  discountButton: {
+    width: "20%",
+    padding: 1,
+    alignSelf: "center",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
