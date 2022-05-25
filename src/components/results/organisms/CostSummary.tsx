@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { View, Text, TextInput } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { View, Text, TextInput, Image } from "react-native";
 import { getAnnuityValue, getDecreasingValues } from "_utils/helpers";
 import { CartContext } from "_utils/cart-context";
 
@@ -14,10 +14,18 @@ type ResultsCostSummaryProps = {
 };
 
 const CostSummary = (props: ResultsCostSummaryProps) => {
-  const { totalAmount, feesNumber, handlingFee, interestRate, cardType } = props;
+  let { totalAmount, cardType } = props;
+  const { state, dispatch } = useContext(CartContext);
+  const feesNumber = state.fees;
+  const handlingFee = state.creditCard.fee ?? 0;
+  const interestRate = state.interestRate ?? (parseFloat(state.creditCard.interestRate) / 100).toFixed(3);
   const [feesNumberValue, setFeesNumberValue] = useState(feesNumber);
   const [interestRateValue, setInterestRateValue] = useState(interestRate);
-  const { dispatch } = useContext(CartContext);
+
+  useEffect(() => {
+    setFeesNumberValue(feesNumber);
+    setInterestRateValue(interestRate);
+  }, [feesNumber, interestRate]);
 
   const updateFeesNumber = () => {
     dispatch({ type: "SET_FEES", payload: { fees: feesNumberValue } });
@@ -85,7 +93,8 @@ const CostSummary = (props: ResultsCostSummaryProps) => {
       </View>
       <Text style={styles.topText}>¡Edita las cuotas o el interés si lo deseas probar!</Text>
       <View style={styles.summary}>
-        <View style={styles.creditCard}></View>
+        <Image style={styles.creditCard} source={require('_assets/images/yellow.png')} />
+
         <View>
           <Text style={styles.redText}>Paga {feesNumber} cuotas mensuales de...</Text>
           {feesData}

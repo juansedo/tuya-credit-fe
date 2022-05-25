@@ -28,7 +28,7 @@ let data = [
     }
 ]
 
-const initialState: { cartItems: Array<ProductItem>, simulationItems: Array<ProductItem>, interestRate: number, fees: number } = {
+const initialState: { cartItems: Array<ProductItem>, simulationItems: Array<ProductItem>, interestRate: number | null, fees: number, creditCard: {} } = {
     cartItems: [
         {
             product: data[0],
@@ -40,8 +40,9 @@ const initialState: { cartItems: Array<ProductItem>, simulationItems: Array<Prod
         }
     ],
     simulationItems: [],
-    interestRate: 0.0225,
+    interestRate: 0,
     fees: 12,
+    creditCard: {}
 }
 
 const reducer = (state, action) => {
@@ -67,9 +68,11 @@ const reducer = (state, action) => {
         case "SIMULATE":
             return { ...state, simulationItems: state.cartItems }
         case "SET_FEES":
-            return { ...state, fees: action.payload.fees }
+            return { ...state, fees: parseInt(action.payload.fees) }
         case "SET_INTEREST_RATE":
             return { ...state, interestRate: action.payload.interestRate }
+        case "SET_CREDIT_CARD":
+            return { ...state, creditCard: action.payload.creditCard, interestRate: null }
         default:
             return state
     }

@@ -19,16 +19,13 @@ const ResultTabScreen = () => {
     <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
       <CostSummary
         totalAmount={totalPrice}
-        feesNumber={state.fees}
-        handlingFee={9000}
-        interestRate={state.interestRate}
         cardType={cardType}
       />
       <AmortizationTable
         totalAmount={totalPrice}
         feesNumber={state.fees}
         handlingFee={9000}
-        interestRate={state.interestRate}
+        interestRate={state.interestRate ?? (parseFloat(state.creditCard.interestRate) / 100).toFixed(3)}
         cardType={cardType}
       />
     </ScrollView>

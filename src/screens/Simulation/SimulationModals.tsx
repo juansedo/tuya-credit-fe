@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Modal, View, TouchableOpacity, Text, Image } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import { styles } from "_screens/Simulation/styles";
@@ -6,6 +6,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { card } from "_types"
 import { AppColors } from '_constants/Colors';
+import { CartContext } from '_utils/cart-context';
 
 interface ModalInterface {
     navigation: any;
@@ -22,6 +23,7 @@ interface PickerFinanceInterface {
 }
 
 const PickerFinance = (props: PickerFinanceInterface) => {
+
     return (
         <View style={{
             alignItems: 'center'
@@ -34,53 +36,48 @@ const PickerFinance = (props: PickerFinanceInterface) => {
                 onValueChange={(itemValue, _itemIndex) =>
                     props.setSelectedValue(itemValue)
                 }
-                style={{ width: 200, height: 150 }}
-                itemStyle={{ height: 150 }} >
+                style={{ width: 90, backgroundColor: 'white', marginBottom: 10 }}
+                itemStyle={{ height: 50 }} >
                 {Array(96).fill(1).map((_, i) =>
-                    <Picker.Item label={`${i + 1}`} value={i + 1} color='white' />
+                    <Picker.Item label={`${i + 1}`} value={i + 1} color='black' />
                 )}
             </Picker>
-            <TouchableOpacity style={styles.closeButton} onPress={() => props.setModalVisible(false)} >
-                <Text style={styles.whiteColor}>
-                    Aceptar
-                </Text>
-            </TouchableOpacity>
         </View>
     )
 }
 
 interface CardViewInterface {
-    setSelectedCard: (visible:  string) => void;
-    selectedCard: string;
+    setSelectedCard: (visible: string) => void;
+    selectedCard: object;
     cardInformation: card;
 }
 
 const CardView = (props: CardViewInterface) => {
-    const isCardSelected = props.selectedCard == props.cardInformation.lastDigits
+    const isCardSelected = props.selectedCard?.lastDigits == props.cardInformation.lastDigits
     return (
-        <TouchableOpacity 
+        <TouchableOpacity
             style={[
-                styles.cardButton, {
+                styles.cardButton, {
                     backgroundColor: isCardSelected ? AppColors.redWineColor : 'white'
                 }
             ]} onPress={() => {
-            props.setSelectedCard(props.cardInformation.lastDigits)
-        }} >
-            <Image 
-                source={require('_assets/images/yellow.png')}/>
+                props.setSelectedCard(props.cardInformation)
+            }} >
+            <Image
+                source={require('_assets/images/yellow.png')} />
             <View style={{
                 paddingLeft: 10,
             }}>
-                <Text style={[styles.boldText, styles.titleText, {color: isCardSelected ? "white": "black"}]}>{props.cardInformation.type.charAt(0) + props.cardInformation.type.slice(1).toLowerCase()}</Text>
+                <Text style={[styles.boldText, styles.titleText, { color: isCardSelected ? "white" : "black" }]}>{props.cardInformation.type.charAt(0) + props.cardInformation.type.slice(1).toLowerCase()}</Text>
                 <View style={styles.infoCardStyle}>
-                    <Text style={[styles.boldText, {color: isCardSelected ? "white": "black"}]}>Interés mensual: </Text>
-                    <Text style={{color: isCardSelected ? "white": "black"}}>{props.cardInformation.interestRate}</Text>
+                    <Text style={[styles.boldText, { color: isCardSelected ? "white" : "black" }]}>Interés mensual: </Text>
+                    <Text style={{ color: isCardSelected ? "white" : "black" }}>{props.cardInformation.interestRate}</Text>
                 </View>
                 <View style={styles.infoCardStyle}>
-                    <Text style={[styles.boldText, {color: isCardSelected ? "white": "black"}]}>Cupo disponible: </Text>
-                    <Text style={{color: isCardSelected ? "white": "black"}} >${props.cardInformation.available}</Text>
+                    <Text style={[styles.boldText, { color: isCardSelected ? "white" : "black" }]}>Cupo disponible: </Text>
+                    <Text style={{ color: isCardSelected ? "white" : "black" }} >${props.cardInformation.available}</Text>
                 </View>
-            </View>    
+            </View>
         </TouchableOpacity>
     )
 }
@@ -88,29 +85,47 @@ const CardView = (props: CardViewInterface) => {
 const ModalFinance = (props: ModalInterface) => {
     const [selectedValue, setSelectedValue] = useState(1)
     const [selectedCard, setSelectedCard] = useState("")
-    const valueToFinance = props.valueToFinance
-    
+    const { dispatch } = useContext(CartContext)
+
+    const handleFinance = () => {
+        props.setModalVisible(false)
+        console.log(selectedValue)
+        console.log(selectedCard)
+        dispatch({ type: 'SET_CREDIT_CARD', payload: { creditCard: selectedCard } })
+        dispatch({ type: 'SET_FEES', payload: { fees: selectedValue } })
+        dispatch({ type: 'SIMULATE' })
+        props.navigation.navigate("ResultTab")
+    }
+
     return (
         <View style={styles.centeredView}>
             <Modal animationType="slide" transparent={true} visible={props.modalVisible}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={[styles.whiteColor, styles.boldText, {paddingTop: 10}]}>
+                        <TouchableOpacity style={{ position: 'absolute', right: 5, top: 3 }} onPress={() => props.setModalVisible(false)} >
+                            <FontAwesome name="close" size={30} color="white" />
+                        </TouchableOpacity>
+                        <Text style={[styles.whiteColor, styles.boldText, { paddingVertical: 10 }]}>
                             Escoje una tarjeta
                         </Text>
                         <View style={{}}>
                             {
                                 props.cards?.map((card, key) => {
                                     return (
-                                        <CardView selectedCard={selectedCard} setSelectedCard={setSelectedCard} cardInformation={card}/>
+                                        <CardView selectedCard={selectedCard} setSelectedCard={setSelectedCard} cardInformation={card} />
                                     )
                                 })
                             }
                         </View>
-                        <PickerFinance 
-                            setModalVisible={props.setModalVisible} 
-                            selectedValue={selectedValue} 
-                            setSelectedValue={setSelectedValue}/>
+                        <PickerFinance
+                            setModalVisible={props.setModalVisible}
+                            selectedValue={selectedValue}
+                            setSelectedValue={setSelectedValue} />
+                        <TouchableOpacity style={styles.closeButton} onPress={handleFinance}>
+                            <Text style={styles.whiteColor}>
+                                Aceptar
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
