@@ -28,7 +28,18 @@ const CostSummary = (props: ResultsCostSummaryProps) => {
   }, [feesNumber, interestRate]);
 
   const updateFeesNumber = () => {
-    dispatch({ type: "SET_FEES", payload: { fees: feesNumberValue } });
+    if (!isNaN(parseInt(feesNumberValue))) {
+      if (parseInt(feesNumberValue) > 92) {
+        setFeesNumberValue("92");
+        dispatch({ type: "SET_FEES", payload: { fees: "92" } });
+      }
+      else {
+        dispatch({ type: "SET_FEES", payload: { fees: feesNumberValue } });
+      }
+    }
+    else {
+      setFeesNumberValue(state.fees);
+    }
   }
 
   const updateInterestRate = () => {
