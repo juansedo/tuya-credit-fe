@@ -35,10 +35,6 @@ const AmortizationTable = (props: ResultsAmortizationTableProps) => {
         <View style={styles.totalContainer}>
           <Text style={styles.text}>El total que pagas por tu compra es de </Text>
           <Text style={[styles.text, styles.total, styles.bold]}>{total}</Text>
-          <Text style={styles.text}>
-            {" "}
-            <Text style={styles.bold}>No ahorras nada</Text> pero con cuotas todo es mas fácil de pagar
-          </Text>
         </View>
         <Table borderStyle={{ borderWidth: 0, borderColor: "#c8e1ff" }}>
           <Row

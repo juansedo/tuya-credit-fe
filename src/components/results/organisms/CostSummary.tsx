@@ -24,7 +24,7 @@ const CostSummary = (props: ResultsCostSummaryProps) => {
 
   useEffect(() => {
     setFeesNumberValue(feesNumber);
-    setInterestRateValue(interestRate);
+    setInterestRateValue(interestRate ?? 0);
   }, [feesNumber, interestRate]);
 
   const updateFeesNumber = () => {
@@ -64,7 +64,7 @@ const CostSummary = (props: ResultsCostSummaryProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Con tu tarjeta MasterCard...</Text>
+      <Text style={styles.title}>Con tu tarjeta {state.creditCard.type ?? ''}...</Text>
       <View style={styles.inputDataContainer}>
         <View style={[styles.fees, styles.inputContainer]}>
           <Text style={styles.inputText}>Cuotas </Text>
