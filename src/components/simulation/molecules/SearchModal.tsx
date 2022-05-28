@@ -32,7 +32,7 @@ const SearchModal = (props: SearchModalProps) => {
                   onPress={onPressSearchByQR}
                 >
                   <AntDesign name="qrcode" size={90} color="white" />
-                  <Text style={[styles.fontSizeLarge, styles.colorWhite, { marginTop: 30 }]}>Búsqueda QR</Text>
+                  <Text style={[styles.fontSizeLarge, styles.colorWhite, { marginTop: 30 }]}>Leer QR</Text>
                 </TouchableOpacity>
               </View>
             </View>

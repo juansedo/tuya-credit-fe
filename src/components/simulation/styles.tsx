@@ -15,6 +15,9 @@ export const styles = StyleSheet.create({
   fontSizeLarge: {
     fontSize: 16,
   },
+  textAlignCenter: {
+    textAlign: "center",
+  },
   mainContainer: {
     flexGrow: 2,
   },
@@ -146,4 +149,47 @@ export const styles = StyleSheet.create({
     width: 170,
     backgroundColor: AppColors.redWineColor,
   },
+
+  cardOptionsContainer: {
+    backgroundColor: AppColors.redWineColor,
+    paddingHorizontal: 12,
+  },
+  cardOptionsTitle: {
+    textAlign: "center",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+  },
+  cardsContainer: {
+    paddingVertical: 5,
+    backgroundColor: '#FFFFFF',
+  },
+  cardOptionsAcceptButton: {
+    backgroundColor: AppColors.redColor,
+    marginVertical: 10,
+    paddingVertical: 10,
+  },
+  cardContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  selectedCard: {
+    backgroundColor: AppColors.redWineColor,
+    color: '#FFFFFF',
+  },
+
+  cardTitle: {
+    fontSize: 20,
+    fontFamily: "Poppins-SemiBold",
+    textTransform: "capitalize",
+  },
+  cardTextContainer: {
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    width: 260,
+  },
+  cardImageContainer: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  cardImage: {},
 });

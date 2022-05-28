@@ -5,8 +5,7 @@ import ProductSimulationCell from "_components/simulation/organisms/ProductSimul
 import { CartContext } from "_utils/cart-context";
 import { styles } from "_screens/Simulation/styles";
 import { SimulationBar, TotalView } from "_components/simulation/molecules";
-import { ModalFinance } from './SimulationModals'
-import { SearchModal } from "_components/simulation/molecules";
+import { SearchModal, FinanceModal } from "_components/simulation/molecules";
 import { ProductItem } from "_types"
 import { useAsync } from "_utils/hooks/useAsync";
 import { AuthContext } from "_utils/auth-context";
@@ -101,8 +100,21 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
         }}
         onClose={() => setModalSearchVisible(false)}
       />
-      {/* <SearchModal navigation={props.navigation} modalVisible={modalSearchVisible} setModalVisible={setModalSearchVisible} valueToFinance={totalPrice} /> */}
-      <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} cards={creditCards} />
+      <FinanceModal
+        open={modalFinanceVisible}
+        cards={creditCards}
+        onAccept={() => {
+          setFinanceModalVisible(false);
+          //console.log(selectedValue);
+          //console.log(selectedCard);
+          //dispatch({ type: "SET_CREDIT_CARD", payload: { creditCard: selectedCard } });
+          //dispatch({ type: "SET_FEES", payload: { fees: selectedValue } });
+          //dispatch({ type: "SIMULATE" });
+          props.navigation.navigate("ResultTab");
+        }}
+        onClose={() => setFinanceModalVisible(false)}
+      />
+      {/* <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} cards={creditCards} /> */}
     </View>
   );
 };
