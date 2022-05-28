@@ -1,12 +1,26 @@
 import { Text, View } from "_components/Themed";
+import { ProductItem } from "_types";
 
 import { styles } from "../styles";
 
-const SubtotalView = (props: { value: number; totalItems: number }) => {
+interface SubtotalViewProps {
+  item: ProductItem;
+}
+
+const SubtotalView = (props: SubtotalViewProps) => {
+  const { item: { product, amount } } = props;
+  const price = Number(product.creditCardPrice ?? product.originalPrice) * amount;
+  let pesosCOP = Intl.NumberFormat("co-CO", {
+    style: "currency",
+    currency: "COP",
+  });
+
   return (
     <View style={styles.subtotalView}>
-      <Text style={styles.whiteColor}>Subtotal: </Text>
-      <Text style={[styles.boldText, styles.whiteColor]}>{(props.value * props.totalItems).toFixed(2)} COP</Text>
+      <Text style={[styles.colorWhite]}>Subtotal: </Text>
+      <Text style={[styles.fontSizeLarge, styles.colorWhite, styles.bold]}>
+        {pesosCOP.format(price)}
+      </Text>
     </View>
   );
 };

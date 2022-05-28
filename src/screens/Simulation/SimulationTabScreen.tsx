@@ -9,7 +9,7 @@ import { styles } from "_screens/Simulation/styles";
 import { TotalView } from "_components/simulation/molecules";
 import { currencyFormat } from "_utils/helpers";
 import { ModalFinance, SearchModal } from './SimulationModals'
-import { card } from "_types"
+import { ProductItem } from "_types"
 import { useAsync } from "_utils/hooks/useAsync";
 import { AuthContext } from "_utils/auth-context";
 
@@ -72,13 +72,11 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
   useAsync(fetchCreditCards, setCreditCards);
 
   const finance = () => {
-    setFinanceModalVisible(true)
-    //dispatch({ type: "SIMULATE" });
-    //props.navigation.navigate("ResultTab");
+    setFinanceModalVisible(true);
   };
 
-  const totalPrice = state.cartItems.reduce((total, product) => {
-    const productPrice = parseInt(product.amount) * parseInt(product.product.creditCardPrice ?? product.product.originalPrice);
+  const totalPrice = state.cartItems.reduce((total: number, product: ProductItem) => {
+    const productPrice = product.amount * parseInt(product.product.creditCardPrice ?? product.product.originalPrice);
     return total + productPrice
   }, 0)
 
@@ -87,7 +85,7 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
       <FlatList
         data={state.cartItems}
         style={styles.list}
-        renderItem={(item) => <ProductSimulationCell data={item} />}
+        renderItem={({item}) => <ProductSimulationCell item={item} />}
         keyExtractor={(item, index) => index.toString()}
       />
       <View style={{ width: "100%" }}>

@@ -1,4 +1,5 @@
 export type ProductDTO = {
+  id: string,
   creditCardPrice: string,
   description: string,
   imageUrl: string,
