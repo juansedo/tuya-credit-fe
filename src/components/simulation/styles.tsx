@@ -79,4 +79,44 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 10,
   },
+  totalContainer: {
+    alignSelf: "flex-end",
+  },
+  totalView: {
+    marginHorizontal: 10,
+    paddingLeft: 20,
+    width: 300,
+    height: 40,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: AppColors.redWineColor,
+    alignItems: "center",
+    borderRadius: 4,
+  },
+
+  financeButton: {
+    padding: 5,
+    backgroundColor: AppColors.redColor,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  financeText: {
+    fontFamily: "Poppins-SemiBold",
+    fontSize: 20,
+    color: "white",
+    textAlign: "center",
+  },
+  searchButton: {
+    backgroundColor: AppColors.redWineColor,
+    width: 100,
+    padding: 5,
+  },
+  searchText: {
+    fontFamily: "Poppins-SemiBold",
+    fontSize: 14,
+    color: "white",
+    textAlign: "center",
+  },
 });

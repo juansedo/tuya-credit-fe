@@ -1,12 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
-import { FlatList, TouchableOpacity } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { View, Text } from "_components/Themed";
+import React, { useState, useContext } from "react";
+import { FlatList } from "react-native";
+import { View } from "_components/Themed";
 import ProductSimulationCell from "_components/simulation/organisms/ProductSimulationCell";
 import { CartContext } from "_utils/cart-context";
 import { styles } from "_screens/Simulation/styles";
-import { TotalView } from "_components/simulation/molecules";
+import { SimulationBar, TotalView } from "_components/simulation/molecules";
 import { currencyFormat } from "_utils/helpers";
 import { ModalFinance, SearchModal } from './SimulationModals'
 import { ProductItem } from "_types"
@@ -71,10 +69,6 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
 
   useAsync(fetchCreditCards, setCreditCards);
 
-  const finance = () => {
-    setFinanceModalVisible(true);
-  };
-
   const totalPrice = state.cartItems.reduce((total: number, product: ProductItem) => {
     const productPrice = product.amount * parseInt(product.product.creditCardPrice ?? product.product.originalPrice);
     return total + productPrice
@@ -88,37 +82,12 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
         renderItem={({item}) => <ProductSimulationCell item={item} />}
         keyExtractor={(item, index) => index.toString()}
       />
-      <View style={{ width: "100%" }}>
-        <TotalView value={currencyFormat(totalPrice)} />
-        <View
-          style={{
-            flexDirection: "row",
-            paddingVertical: 10,
-          }}
-        >
-          <TouchableOpacity
-            onPress={finance}
-            style={styles.financeButton}
-          >
-            <Text style={styles.financeText}>Fináncialo!</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setModalSearchVisible(true)}
-            style={styles.searchButton}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                backgroundColor: "transparent",
-                justifyContent: "center",
-              }}
-            >
-              <FontAwesome name="search" size={24} color="white" />
-              <AntDesign name="qrcode" size={24} color="white" />
-            </View>
-            <Text style={styles.searchText}>Buscar</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={{ paddingTop: 10, shadowColor: "rgb(0, 0, 0)", shadowOpacity: 0.1, width: "100%" }}>
+        <TotalView total={totalPrice} />
+        <SimulationBar
+          onPressFinance={() => setFinanceModalVisible(true)}
+          onPressSearch={() => setModalSearchVisible(true)}
+        />
       </View>
       <SearchModal navigation={props.navigation} modalVisible={modalSearchVisible} setModalVisible={setModalSearchVisible} valueToFinance={totalPrice} />
       <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} cards={creditCards} />
