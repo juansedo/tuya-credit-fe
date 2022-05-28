@@ -3,14 +3,13 @@ import { CreditCardDTO } from "_types";
 import { styles } from "../styles";
 
 interface CardItemProps {
-  key: number;
   card: CreditCardDTO;
   isSelected: boolean;
   onClick: () => void;
 }
 
 const CardItem = (props: CardItemProps) => {
-  const { key, card, isSelected, onClick } = props;
+  const { card, isSelected, onClick } = props;
   const interestRate = Number(card.interestRate).toFixed(2);
   const pesosCOP = Intl.NumberFormat("co-CO", {
     style: "currency",
@@ -25,7 +24,7 @@ const CardItem = (props: CardItemProps) => {
       ]}
       onPress={onClick}
     >
-      <View key={key} style={styles.cardImageContainer}>
+      <View style={styles.cardImageContainer}>
         <Image style={styles.cardImage} source={require("_assets/images/yellow.png")} />
       </View>
       <View style={styles.cardTextContainer}>

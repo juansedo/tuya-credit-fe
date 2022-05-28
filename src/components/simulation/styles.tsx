@@ -165,7 +165,7 @@ export const styles = StyleSheet.create({
   },
   cardOptionsAcceptButton: {
     backgroundColor: AppColors.redColor,
-    marginVertical: 10,
+    marginVertical: 20,
     paddingVertical: 10,
   },
   cardContainer: {

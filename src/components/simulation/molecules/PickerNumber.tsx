@@ -4,30 +4,24 @@ import { Picker } from "@react-native-picker/picker";
 import { styles } from "../styles";
 
 interface PickerNumberProps {
-  selectedValue: number;
-  setSelectedValue: (visible: number) => void;
-  setModalVisible: (visible: boolean) => void;
+  value: number;
+  onChange: (value: number) => void;
 }
 
 const PickerNumber = (props: PickerNumberProps) => {
+  const { value, onChange } = props;
+
   return (
-    <View
-      style={{
-        alignItems: "center",
-      }}
-    >
-      <Text style={[styles.colorWhite, styles.bold]}>Cuotas</Text>
+    <View style={{ alignItems: "center" }}>
       <Picker
-        selectedValue={props.selectedValue}
-        onValueChange={(itemValue, _itemIndex) => props.setSelectedValue(itemValue)}
-        style={{ width: 90, backgroundColor: "white", marginBottom: 10 }}
-        itemStyle={{ height: 50 }}
+        selectedValue={value}
+        onValueChange={onChange}
+        style={{ width: 150 }}
+        itemStyle={{ height: 150, fontFamily: "Poppins-SemiBold" }}
       >
-        {Array(96)
-          .fill(1)
-          .map((_, i) => (
-            <Picker.Item label={`${i + 1}`} value={i + 1} color="black" />
-          ))}
+        {Array(92).fill(1).map((_, i) => (
+          <Picker.Item key={i} label={`${i + 1}`} value={i + 1} color="black" />
+        ))}
       </Picker>
     </View>
   );

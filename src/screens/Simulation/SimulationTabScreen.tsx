@@ -105,11 +105,6 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
         cards={creditCards}
         onAccept={() => {
           setFinanceModalVisible(false);
-          //console.log(selectedValue);
-          //console.log(selectedCard);
-          //dispatch({ type: "SET_CREDIT_CARD", payload: { creditCard: selectedCard } });
-          //dispatch({ type: "SET_FEES", payload: { fees: selectedValue } });
-          //dispatch({ type: "SIMULATE" });
           props.navigation.navigate("ResultTab");
         }}
         onClose={() => setFinanceModalVisible(false)}
