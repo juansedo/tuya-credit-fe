@@ -5,8 +5,8 @@ import ProductSimulationCell from "_components/simulation/organisms/ProductSimul
 import { CartContext } from "_utils/cart-context";
 import { styles } from "_screens/Simulation/styles";
 import { SimulationBar, TotalView } from "_components/simulation/molecules";
-import { currencyFormat } from "_utils/helpers";
-import { ModalFinance, SearchModal } from './SimulationModals'
+import { ModalFinance } from './SimulationModals'
+import { SearchModal } from "_components/simulation/molecules";
 import { ProductItem } from "_types"
 import { useAsync } from "_utils/hooks/useAsync";
 import { AuthContext } from "_utils/auth-context";
@@ -89,7 +89,19 @@ const SimulationTabScreen = (props: SimulationTabScreenProps) => {
           onPressSearch={() => setModalSearchVisible(true)}
         />
       </View>
-      <SearchModal navigation={props.navigation} modalVisible={modalSearchVisible} setModalVisible={setModalSearchVisible} valueToFinance={totalPrice} />
+      <SearchModal
+        open={modalSearchVisible}
+        onPressSearchByText={() => {
+          setModalSearchVisible(false);
+          props.navigation.navigate("Search");
+        }}
+        onPressSearchByQR={() => {
+          setModalSearchVisible(false);
+          props.navigation.navigate("Scanner");
+        }}
+        onClose={() => setModalSearchVisible(false)}
+      />
+      {/* <SearchModal navigation={props.navigation} modalVisible={modalSearchVisible} setModalVisible={setModalSearchVisible} valueToFinance={totalPrice} /> */}
       <ModalFinance navigation={props.navigation} modalVisible={modalFinanceVisible} setModalVisible={setFinanceModalVisible} cards={creditCards} />
     </View>
   );

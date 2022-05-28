@@ -119,4 +119,31 @@ export const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
+
+  modalWrapper: {
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    alignSelf: "center",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  searchOptionsContainer: {
+    padding: 0,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    backgroundColor: AppColors.redColor,
+  },
+  optionButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 60,
+    paddingHorizontal: 30,
+    width: 170,
+    backgroundColor: AppColors.redWineColor,
+  },
 });
