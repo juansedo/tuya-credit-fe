@@ -2,6 +2,22 @@ import { StyleSheet } from "react-native";
 import { AppColors } from "../../constants/Colors";
 
 export const styles = StyleSheet.create({
+  colorWhite: {
+    color: "#fff",
+    fontFamily: "Poppins-Regular",
+  },
+  bold: {
+    fontFamily: "Poppins-SemiBold",
+  },
+  fontSizeSmall: {
+    fontSize: 12,
+  },
+  fontSizeLarge: {
+    fontSize: 16,
+  },
+  mainContainer: {
+    flexGrow: 2,
+  },
   mainView: {
     display: "flex",
     flexDirection: "row",
@@ -10,9 +26,6 @@ export const styles = StyleSheet.create({
     minHeight: 120,
     paddingVertical: 10,
     paddingHorizontal: 15,
-  },
-  mainContainer: {
-    flexGrow: 2,
   },
   imageContainer: {
     maxHeight: 130,
@@ -26,44 +39,28 @@ export const styles = StyleSheet.create({
   titleContainer: {
     width: 225,
   },
-  cuantityButtons: {
+  quantityButtons: {
     backgroundColor: AppColors.redWineColor,
-    paddingHorizontal: 15,
-    height: 25,
-    lineHeight: 0,
-    margin: 0,
+    paddingHorizontal: 28,
   },
-  cuantityButtonsTitle: {
-    fontSize: 15,
+  quantityContainer: {
+    width: "80%",
+    alignSelf: "flex-end",
   },
-  cuantityView: {
-    width: "50%",
+  quantityView: {
+    width: "100%",
     height: 25,
+    display: "flex",
     flexDirection: "row",
-    borderWidth: 1,
     borderColor: AppColors.redWineColor,
-    justifyContent: "center",
+    borderWidth: 1,
     borderRadius: 5,
   },
   totalItemsText: {
-    width: 50,
     textAlign: "center",
     color: AppColors.redWineColor,
-    fontWeight: "bold",
-    textAlignVertical: "center",
-  },
-  colorWhite: {
-    color: "#fff",
-    fontFamily: "Poppins-Regular",
-  },
-  bold: {
-    fontFamily: "Poppins-SemiBold",
-  },
-  fontSizeSmall: {
-    fontSize: 12,
-  },
-  fontSizeLarge: {
     fontSize: 16,
+    fontFamily: "Poppins-Bold",
   },
   subtotalContainer: {
     height: "100%",

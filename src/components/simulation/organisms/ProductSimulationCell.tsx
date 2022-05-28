@@ -5,7 +5,6 @@ import { AlertDelete, ProductHeader, SubtotalButtons, SubtotalView } from "_comp
 import XIcon from "_assets/images/svg/XIcon";
 import { ProductItem } from "_types";
 
-import ProductTitle from "./ProductTitle";
 import { styles } from "../styles";
 
 interface ProductSimulationCellProps {
@@ -26,14 +25,7 @@ const ProductSimulationCell = (props: ProductSimulationCellProps) => {
         <ProductHeader product={product} />
         <View style={styles.subtotalContainer}>
           <SubtotalView item={props.item} />
-          <View
-            style={{
-              flexDirection: "row-reverse",
-              marginLeft: 20,
-            }}
-          >
-            <SubtotalButtons totalItems={amount} showAlert={setVisible} productId={product.id} />
-          </View>
+          <SubtotalButtons totalItems={amount} showAlert={setVisible} productId={product.id} />
         </View>
         <TouchableOpacity
           activeOpacity={0.5}
