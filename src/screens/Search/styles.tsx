@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { AppColors } from "_constants/Colors";
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,9 +20,14 @@ export const styles = StyleSheet.create({
     width: "100%",
   },
   SearchBar: {
-    borderColor: "black",
-    borderWidth: 1,
-    width: "80%",
+    paddingHorizontal: 10,
+    borderColor: AppColors.redColor,
+    borderWidth: 2,
+    backgroundColor: '#fff',
+    width: '80%',
+    height: 45,
+    fontSize: 16,
+    fontFamily: 'Poppins-Regular',
   },
   SearchBarContainer: {
     width: "100%",
@@ -33,8 +39,17 @@ export const styles = StyleSheet.create({
     width: "20%",
     padding: 1,
     alignSelf: "center",
-    height: 40,
+    height: 45,
     justifyContent: "center",
     alignItems: "center",
+  },
+  discountButtonActive: {
+    backgroundColor: AppColors.redColor,
+  },
+  discountButtonText: {
+    color: AppColors.redColor,
+  },
+  discountButtonTextActive: {
+    color: "white",
   },
 });

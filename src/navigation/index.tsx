@@ -59,7 +59,17 @@ function RootNavigator() {
           <Stack.Group screenOptions={{ presentation: 'modal' }}>
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
-          <Stack.Screen name="Search" component={SearchScreen} />
+          <Stack.Screen
+            name="Search"
+            component={SearchScreen}
+            options={{
+              title: 'Búsqueda de productos',
+              headerTintColor: '#fff',
+              headerStyle: {
+                backgroundColor: AppColors.redColor,
+              },
+            }}
+          />
           <Stack.Screen options={{
             title: 'Lectura de QR',
             headerStyle: {
