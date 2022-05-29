@@ -21,20 +21,14 @@ const SubtotalButtons = (props: {
   };
 
   return (
-    <View style={styles.cuantityView}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <TouchableOpacity activeOpacity={0.5} onPress={() => lestItem()} style={[styles.cuantityButtons]}>
-          <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>-</Text>
+    <View style={styles.quantityContainer}>
+      <View style={styles.quantityView}>
+        <TouchableOpacity activeOpacity={0.5} onPress={() => lestItem()} style={[styles.quantityButtons]}>
+          <Text style={[{ flexGrow: 1}, styles.colorWhite]}>-</Text>
         </TouchableOpacity>
-        <Text style={styles.totalItemsText}>{props.totalItems}</Text>
-        <TouchableOpacity activeOpacity={0.5} onPress={() => sumItem()} style={[styles.cuantityButtons]}>
-          <Text style={[styles.cuantityButtonsTitle, styles.whiteColor]}>+</Text>
+        <Text style={[{ flexGrow: 1}, styles.totalItemsText]}>{props.totalItems}</Text>
+        <TouchableOpacity activeOpacity={0.5} onPress={() => sumItem()} style={[styles.quantityButtons]}>
+          <Text style={[{ flexGrow: 1}, styles.colorWhite]}>+</Text>
         </TouchableOpacity>
       </View>
     </View>

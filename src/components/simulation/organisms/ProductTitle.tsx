@@ -23,30 +23,7 @@ const ProductTitle = (props: ProductTitleProps) => {
         marginTop: 20,
       }}
     >
-      <View style={styles.row}>
-        <Text numberOfLines={1} style={styles.boldText}>
-          {props.productInfo.name}
-        </Text>
-      </View>
-      <Text
-        numberOfLines={1}
-        style={{
-          flexWrap: "wrap",
-        }}
-      >
-        {props.productInfo.description}
-      </Text>
-      <View style={styles.subtotalContainer}>
-        <SubtotalView totalItems={totalItems} value={props.productInfo.creditCardPrice ?? props.productInfo.originalPrice} />
-        <View
-          style={{
-            flexDirection: "row-reverse",
-            marginLeft: 20,
-          }}
-        >
-          <SubtotalButtons totalItems={totalItems} showAlert={props.showAlerts} productId={props.productInfo.id} />
-        </View>
-      </View>
+
     </View>
   );
 }

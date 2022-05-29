@@ -1,9 +1,7 @@
 import React, { useContext, useState } from "react";
-import { FlatList, TextInput, TouchableOpacity, Text } from "react-native";
+import { FlatList, TextInput, TouchableOpacity, Text, Image } from "react-native";
 import { View } from "_components/Themed";
 import ProductSearchCell from "_components/search/organisms/ProductSearchCell";
-import * as SecureStore from 'expo-secure-store';
-import { FontAwesome } from '@expo/vector-icons';
 
 import { styles } from "./styles";
 import { ProductDTO } from "_types";
@@ -20,6 +18,8 @@ const SimulationTabScreen = (props: SearchScreenProps) => {
   const [filteredProducts, setFilteredProducts] = useState<ProductDTO[]>([]);
   const [creditFilter, setCreditFilter] = useState(false);
 
+  const tuyaLogo = require("../../assets/images/tuya-red-logo.png");
+  const tuyaWhiteLogo = require("../../assets/images/tuya-white-logo.png");
 
   const fetchProducts = async () => {
     try {
@@ -61,9 +61,26 @@ const SimulationTabScreen = (props: SearchScreenProps) => {
         }}
       >
         <View style={styles.SearchBarContainer}>
-          <TextInput style={styles.SearchBar} onChangeText={(text) => handleInputChange(text)} />
-          <TouchableOpacity style={styles.discountButton}>
-            <Text style={{ color: 'red' }}>Descuento con tuya</Text>
+          <TextInput style={styles.SearchBar} placeholder="Buscar producto" onChangeText={(text) => handleInputChange(text)} />
+          <TouchableOpacity
+            style={[
+              styles.discountButton,
+              ...(creditFilter ? [styles.discountButtonActive] : []),
+              {display: "flex", flexDirection: "column"},
+            ]}
+            onPress={() => setCreditFilter(!creditFilter)}
+          >
+            <Text style={[
+              styles.discountButtonText,
+              ...(creditFilter ? [styles.discountButtonTextActive] : []),
+            ]}>
+              Descuentos
+            </Text>
+            {
+              creditFilter ?
+                <Image style={{ width: 28, height: 20 }} source={tuyaWhiteLogo} />
+              : <Image style={{ width: 28, height: 20 }} source={tuyaLogo} />
+            }
           </TouchableOpacity>
         </View>
       </View>
