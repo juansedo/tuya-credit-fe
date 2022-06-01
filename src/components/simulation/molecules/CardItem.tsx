@@ -1,6 +1,8 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { CreditCardDTO } from "_types";
 import { styles } from "../styles";
+import 'intl';
+import 'intl/locale-data/jsonp/es-CO';
 
 interface CardItemProps {
   card: CreditCardDTO;
@@ -11,7 +13,7 @@ interface CardItemProps {
 const CardItem = (props: CardItemProps) => {
   const { card, isSelected, onClick } = props;
   const interestRate = Number(card.interestRate).toFixed(2);
-  const pesosCOP = Intl.NumberFormat("co-CO", {
+  const pesosCOP = Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
   });

@@ -20,14 +20,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tuya.credituya"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.tuya.credituya"
+      "package": "com.tuya.credituya",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"

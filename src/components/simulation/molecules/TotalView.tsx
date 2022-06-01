@@ -1,6 +1,8 @@
 import { Text, View } from "_components/Themed";
 
 import { styles } from "../styles";
+import 'intl';
+import 'intl/locale-data/jsonp/es-CO';
 
 interface TotalViewProps {
   total: number;
@@ -8,7 +10,7 @@ interface TotalViewProps {
 
 const TotalView = (props: TotalViewProps) => {
   const { total } = props;
-  let pesosCOP = Intl.NumberFormat("co-CO", {
+  let pesosCOP = Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
   });
